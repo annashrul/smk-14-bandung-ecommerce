@@ -144,6 +144,7 @@
 							<div class="main-menu f-right d-none d-lg-block">
 								<nav>
 									<ul id="navigation">
+
 										<li class="d-block d-lg-none"><a href="<?=base_url()?>">Home</a></li>
 										<li><a href="javascript:void(0)">Baby Shop</a>
 											<ul class="submenu">
@@ -175,9 +176,7 @@
 											</ul>
 										</li>
 										<?php } ?>
-										<li class="d-block d-xl-none">
-											<input type="text" class="form-control" name="Search" placeholder="Search products">
-										</li>
+
 									</ul>
 								</nav>
 							</div>
@@ -186,7 +185,7 @@
 							<ul class="header-right f-right d-none d-lg-block d-flex justify-content-between">
 								<li class="d-none d-xl-block">
 									<div class="form-box f-right">
-										<input type="text" name="Search" id="cari" placeholder="Search products">
+										<input type="text" name="Search" class="cari" placeholder="Search products">
 										<div class="search-icon">
 											<i class="fas fa-search special-tag"></i>
 										</div>
@@ -222,7 +221,7 @@
 </header>
 <!-- Modal -->
 <script>
-	$("#cari").autocomplete({
+	$(".cari").autocomplete({
 		minChars: 3,
 		serviceUrl: '<?=base_url().'ajax/get_produk'?>',
 		type: 'post',

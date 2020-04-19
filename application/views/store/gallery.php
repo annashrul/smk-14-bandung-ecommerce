@@ -40,7 +40,6 @@
 	}
 </style>
 <main class="gallery">
-
 	<ul class="gallery__list">
 		<?php foreach($model as $row):?>
 		<li style="cursor: pointer;" onclick="return window.location.href='<?=base_url().'store/list_produk/model/'.$row['id_model']?>'">

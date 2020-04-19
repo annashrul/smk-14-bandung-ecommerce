@@ -38,7 +38,7 @@ class Store extends CI_Controller
 		$data['bestSeller'] = $this->m_crud->join_data(
 			"bestsellers bs", "bs.*,pr.*,dp.*,gp.*",
 			array("produk pr","det_produk dp","gambar_produk gp"),
-			array("bs.produk=pr.id_produk","bs.produk=dp.produk","pr.id_produk=gp.produk"),null,"pr.id_produk DESC");
+			array("bs.produk=pr.id_produk","bs.produk=dp.produk","pr.id_produk=gp.produk"),null,"pr.id_produk DESC","pr.id_produk");
 //		var_dump($data['bestSeller']);die();
 		$data['latestProduct'] = $this->m_crud->join_data(
 			"produk pr","pr.*,gp.*,dp.*",

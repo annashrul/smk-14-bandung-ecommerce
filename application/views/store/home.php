@@ -251,7 +251,7 @@
 					<!--Nav Button  -->
 					<nav>
 						<div class="nav nav-tabs" id="nav-tab" role="tablist">
-							<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">See All</a>
+							<a href="<?=base_url().'store/article/all'?>" class="nav-item nav-link active">See All</a>
 						</div>
 					</nav>
 					<!--End Nav Button  -->
@@ -378,21 +378,12 @@
 		var mySwiperBestSeller = new Swiper ('.swiper-best-seller', {
 			direction: 'horizontal',
 			loop: true,
-
 			pagination: {
 				el: '.swiper-pagination',
 				clickable: true,
 			},
 			grabCursor: true,
 			centeredSlides: true,
-			coverflowEffect: {
-				rotate: 50,
-				stretch: 0,
-				depth: 100,
-				modifier: 1,
-				slideShadows : true,
-			},
-			lazyLoadingInPrevNext: true,
 			navigation: {
 				nextEl: '.swiper-button-next',
 				prevEl: '.swiper-button-prev',
@@ -402,39 +393,18 @@
 					slidesPerView: 1,
 					spaceBetween: 10,
 					centeredSlides: true,
-					coverflowEffect: {
-						rotate: 50,
-						stretch: 0,
-						depth: 100,
-						modifier: 1,
-						slideShadows : true,
-					},
 				},
 				// when window width is <= 480px
 				480: {
 					slidesPerView: 2,
 					spaceBetween: 20,
 					centeredSlides: true,
-					coverflowEffect: {
-						rotate: 50,
-						stretch: 0,
-						depth: 100,
-						modifier: 1,
-						slideShadows : true,
-					},
 				},
 
 				640: {
 					slidesPerView: 2,
 					spaceBetween: 20,
 					centeredSlides: true,
-					coverflowEffect: {
-						rotate: 50,
-						stretch: 0,
-						depth: 100,
-						modifier: 1,
-						slideShadows : true,
-					},
 				},
 				768: {
 					slidesPerView: 3,
