@@ -138,7 +138,7 @@ class Ajax extends CI_Controller
 			'hash'=>password_hash($new_password, PASSWORD_BCRYPT, $options),
 			'ol_code' => $ol_code
 		);
-
+//		var_dump($data_member);die();
 		if (isset($_POST['jk'])) {
 			$data_member['jenis_kelamin'] = $_POST['jk'];
 		}
@@ -156,7 +156,8 @@ class Ajax extends CI_Controller
 			} else {
 				echo 'false';
 			}
-		} else if ($action == 'cek_telepon') {
+		}
+		else if ($action == 'cek_telepon') {
 			$where = "telepon='".$_POST['telp']."'";
 			$cek_telepon = $this->m_crud->get_data("member", "telepon", $where);
 			if ($cek_telepon == null) {
@@ -164,7 +165,8 @@ class Ajax extends CI_Controller
 			} else {
 				echo 'false';
 			}
-		}else if($action == 'simpan'){
+		}
+		else if($action == 'simpan'){
 			$this->m_crud->create_data("member", $data_member);
 			$response['status'] = true;
 			$response['ol_code'] = $ol_code;

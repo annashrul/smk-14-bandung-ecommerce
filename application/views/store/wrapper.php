@@ -126,7 +126,7 @@
 <!-- /GetButton.io widget -->
 <!-- /GetButton.io widget -->
 <header>
-
+<!--	--><?php //var_dump($this->session->all_userdata()); ?>
 	<!-- Header Start -->
 	<div class="header-area">
 

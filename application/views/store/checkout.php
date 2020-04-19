@@ -21,6 +21,11 @@
 										?>
 									</select>
 								</div>
+								<div class="col-md-12 form-group" id="new_address">
+									<?php $field = 'nama_alamat'; ?>
+									<label for="<?=$field?>">Address Name</label>
+									<input type="text" class="form-control" id="<?=$field?>" name="<?=$field?>" />
+								</div>
 								<div class="col-md-6 form-group">
 									<?php $field = 'nama_penerima'; ?>
 									<label for="<?=$field?>">Name</label>
@@ -338,6 +343,7 @@
 					$("#kd_kota").val(res.kota);
 					$("#kd_kec").val(res.kecamatan);
 					$("#kd_prov").val(res.provinsi);
+					$("#new_address").hide();
 					get_ongkir();
 				}
 			});
@@ -366,13 +372,13 @@
 		}
 	});
 	function add_lokasi(res) {
-		console.log(res);
+		console.log(res['kec']);
 		$("#kd_kota").val(res['kota_id']);
 		$("#kd_prov").val(res['provinsi_id']);
 		$("#kd_kec").val(res['kecamatan_id']);
 		$("#kota").val(res['kot']);
-		$("#provinsi").val(res['prov']).attr('readonly', true).rules("remove", "required");
-		$("#kecamatan").val(res['kec']).attr('readonly', true).rules("remove", "required");
+		$("#provinsi").val(res['prov']).attr('readonly', true);
+		$("#kecamatan").val(res['kec']).attr('readonly', true);
 	}
 
 	function get_ongkir() {

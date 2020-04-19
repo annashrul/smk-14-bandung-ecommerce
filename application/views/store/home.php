@@ -145,7 +145,7 @@
 						<div class="swiper-slide">
 							<div class="single-product mb-60">
 								<div class="product-img">
-									<img src="<?=base_url()."assets/fo/assets/img/product/product_list_2.png"?>" alt="">
+									<img src="<?=base_url().$row['gambar'?>" alt="">
 								</div>
 								<div class="product-caption">
 									<div class="product-ratting">
@@ -265,7 +265,7 @@
 			<div class="swiper-wrapper">
 				<?php foreach($model as $key=>$row):$url=$key%2==0?'https://indokids.co.id/assets/images/produk/1.jpeg':'https://indokids.co.id/assets/images/produk/indokids_co_id-1522478700359.jpg'?>
 					<div class="swiper-slide" onclick="return window.location.href='<?=base_url()."store/list_produk/model/".$row["id_model"]?>'" style="padding: 0px;cursor: pointer!important;">
-						<img src="<?=$url?>" style="height: 100%;width: 100%;" alt="">
+						<img src="<?=base_url().$row['gambar']?>" style="height: 100%;width: 100%;" alt="">
 
 					</div>
 				<?php endforeach; ?>
@@ -302,13 +302,12 @@
 			<?php foreach($news as $row):?>
 				<article class="blog_item col-sm-6 col-lg-4" style="cursor: pointer" onclick="return window.location.href='<?=base_url()."store/article?detail=".$row['slug']?>'">
 					<div class="blog_item_img">
-						<img class="card-img rounded-0" src="<?=base_url().'assets/fo/'?>assets/img/blog/single_blog_1.png" alt="">
+						<img class="card-img rounded-0" src="<?=base_url().$row['gambar']?>" alt="">
 						<a href="#" class="blog_item_date">
 							<h3><?=date('d',strtotime($row['tgl_berita']))?></h3>
 							<p><?=date('F',strtotime($row['tgl_berita']))?></p>
 						</a>
 					</div>
-
 					<div class="blog_details">
 						<a class="d-inline-block" href="#">
 							<h2><?=strip_tags($row['judul'])?></h2>
