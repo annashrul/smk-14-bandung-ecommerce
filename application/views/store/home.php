@@ -145,7 +145,7 @@
 						<div class="swiper-slide">
 							<div class="single-product mb-60">
 								<div class="product-img">
-									<img src="<?=base_url().$row['gambar'?>" alt="">
+									<img src="<?=base_url().$row['gambar']?>" alt="">
 								</div>
 								<div class="product-caption">
 									<div class="product-ratting">

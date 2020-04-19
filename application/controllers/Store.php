@@ -12,12 +12,21 @@ class Store extends CI_Controller
 		$this->site = str_replace(' ', '', strtolower($site_data->nama));
 		$this->user = $this->session->userdata('id_member');
 		$this->login = $this->session->userdata('isLogin');
+		$get_setting = $this->m_crud->get_data("setting", "sosmed, cs", "id_setting='1111'");
+		$decode_sosmed = json_decode($get_setting['sosmed'], true);
+		$decode_cs = json_decode($get_setting['cs'], true);
+		$sosmed = array();
+		foreach ($decode_sosmed as $row) {
+			$sosmed[$row['id']] = $row['value'];
+		}
 		$this->data = array(
 			'site' => $site_data,
 			'user' => $this->user,
 			'account' => $this->m_website->member_data($this->user),
 			'access' => $this->m_website->user_access_data($this->user),
 			'status_login' => $this->session->userdata('isLogin'),
+			'sosmed' => $sosmed,
+			'cs' => $decode_cs
 		);
 		$this->output->set_header("Cache-Control: no-store, no-cache, max-age=0, post-check=0, pre-check=0");
 	}

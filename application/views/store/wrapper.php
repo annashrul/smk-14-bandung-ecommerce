@@ -270,7 +270,7 @@
 						<div class="single-footer-caption mb-30">
 							<!-- logo -->
 							<div class="footer-logo">
-								<a href="index.html"><img src="<?=base_url().$this->data['site']->logo?>" style="height: 50px;" alt=""></a>
+								<a href="javascript:void(0)"><img src="<?=base_url().$this->data['site']->logo?>" style="height: 50px;" alt=""></a>
 							</div>
 							<div class="footer-tittle">
 								<div class="footer-pera">
@@ -354,10 +354,10 @@
 					<div class="footer-copy-right f-right">
 						<!-- social -->
 						<div class="footer-social">
-							<a href="#"><i class="fab fa-twitter"></i></a>
-							<a href="#"><i class="fab fa-facebook-f"></i></a>
-							<a href="#"><i class="fab fa-instagram"></i></a>
-							<a href="#"><i class="fab fa-whatsapp"></i></a>
+							<a href="https://www.twitter.com/<?=$sosmed['twitter']?>"><i class="fab fa-twitter"></i></a>
+							<a href="https://www.twitter.com/<?=$sosmed['facebook']?>"><i class="fab fa-facebook-f"></i></a>
+							<a href="https://www.instagram.com/<?=$sosmed['instagram']?>"><i class="fab fa-instagram"></i></a>
+							<a href="https://api.whatsapp.com/send?phone=<?=$sosmed['whatsapp']?>"><i class="fab fa-whatsapp"></i></a>
 						</div>
 					</div>
 				</div>
