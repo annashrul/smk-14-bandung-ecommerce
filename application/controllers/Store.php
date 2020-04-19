@@ -20,6 +20,7 @@ class Store extends CI_Controller
 			$sosmed[$row['id']] = $row['value'];
 		}
 		$this->data = array(
+			'nav_menu' => $this->m_website->navbar_menu(),
 			'site' => $site_data,
 			'user' => $this->user,
 			'account' => $this->m_website->member_data($this->user),
@@ -35,9 +36,10 @@ class Store extends CI_Controller
 		$data['title']='home';
 		$data['slider'] = $this->m_crud->read_data("home_slide", "*");
 		$data['bestSeller'] = $this->m_crud->join_data(
-			"bestsellers bs", "bs.*,pr.*,dp.*",
-			array("produk pr","det_produk dp"),
-			array("bs.produk=pr.id_produk","bs.produk=dp.produk"),null,"pr.id_produk DESC");
+			"bestsellers bs", "bs.*,pr.*,dp.*,gp.*",
+			array("produk pr","det_produk dp","gambar_produk gp"),
+			array("bs.produk=pr.id_produk","bs.produk=dp.produk","pr.id_produk=gp.produk"),null,"pr.id_produk DESC");
+//		var_dump($data['bestSeller']);die();
 		$data['latestProduct'] = $this->m_crud->join_data(
 			"produk pr","pr.*,gp.*,dp.*",
 			array("gambar_produk gp","det_produk dp"),
@@ -53,6 +55,9 @@ class Store extends CI_Controller
 			if($_GET['page']=='tutorial'){$data['tutorial']= $this->m_crud->get_data("setting", "cara_belanja", "id_setting='1111'")['cara_belanja'];}
 			if($_GET['page']=='gallery'){$data['model'] = $this->m_crud->read_data("model", "id_model, nama, CONCAT('".base_url()."', gambar) gambar");}
 			if($_GET['page']=='location'){$data['res_lokasi'] = $this->m_crud->read_data("lokasi", "*");}
+			if($_GET['page']=='resolution'){$data['res_resolusi'] = $this->m_crud->get_data("setting", "pusat_resolusi", "id_setting='1111'")['pusat_resolusi'];}
+			if($_GET['page']=='privacy_policy'){ $data['res_kebijakan'] = $this->m_crud->get_data("setting", "kebijakan", "id_setting='1111'")['kebijakan'];}
+			if($_GET['page']=='career'){$data['res_karir'] = $this->m_crud->get_data("setting", "karir", "id_setting='1111'")['karir'];}
 			$data['content'] 	= 'store/'.$_GET['page'];
 		}else{
 			$data['content'] = 'store/home';
@@ -133,26 +138,7 @@ class Store extends CI_Controller
 				foreach($read_data as $row){
 					$result.='
 					<div class="col-12 col-xs-12 col-md-6">
-					<article class="blog_item">
-						<div class="blog_item_img">
-							<img class="card-img rounded-0" src="'.base_url().'assets/fo/assets/img/blog/single_blog_1.png" alt="">
-							<a href="'.base_url().'store/article?detail='.$row["slug"].'" class="blog_item_date">
-								<h3>'.date('Y',strtotime($row['tgl_berita'])).'</h3>
-								<p>'.date('d',strtotime($row['tgl_berita']))." ".date('F',strtotime($row['tgl_berita'])).'</p>
-							</a>
-						</div>
-	
-						<div class="blog_details">
-							<a href="'.base_url().'store/article?detail='.$row["slug"].'" class="d-inline-block" href="single-blog.html">
-								<h2>'.$row["judul"].'</h2>
-							</a>
-							<p>'.$row["ringkasan"].'</p>
-							<ul class="blog-info-link">
-								<li><a href="#"><i class="fa fa-tag"></i> '.$row['nama'].'</a></li>
-								<li><a href="#"><i class="fa fa-comments"></i> 03 Comments</a></li>
-							</ul>
-						</div>
-					</article>
+						'.$this->m_website->tempNews($row["gambar"],$row["tgl_berita"],$row["slug"],$row["judul"],$row["ringkasan"],$row["nama"]).'
 					</div>
 					';
 				}
@@ -268,7 +254,8 @@ class Store extends CI_Controller
 			$response['merk'] = $this->m_crud->join_data("produk pr", "mr.id_merk, mr.nama", $table_join, $join_on, $where, null, "mr.id_merk");
 			$response['kelompok'] = $this->m_crud->join_data("produk pr", "kl.id_kelompok, kl.nama", $table_join, $join_on, $where, null, "kl.id_kelompok");
 			$pagin=$this->m_website->myPagination('join',5,"produk pr","pr.id_produk",$table_join,$join_on,$where,16,$page);
-			$read_produk = $this->m_crud->join_data("produk pr", "pr.id_produk, pr.nama nama_produk, pr.code, pr.deskripsi, pr.free_return, pr.pre_order, pr.kelompok, dp.hrg_beli, dp.berat, dp.hrg_jual, mr.nama nama_merk, kl.nama nm_kelompok, mr.gambar gambar_merk", $table_join, $join_on, $where, null, "pr.id_produk",  $pagin['perPage'], $pagin['start']);
+			$read_produk = $this->m_crud->join_data(
+				"produk pr", "pr.id_produk, pr.nama nama_produk, pr.code, pr.deskripsi, pr.free_return, pr.pre_order, pr.kelompok, dp.hrg_beli, dp.berat, dp.hrg_jual, mr.nama nama_merk, kl.nama nm_kelompok, mr.gambar gambar_merk", $table_join, $join_on, $where, null, "pr.id_produk",  $pagin['perPage'], $pagin['start']);
 			$result='';
 			if($read_produk!=null){
 				foreach($read_produk as $row){
@@ -292,7 +279,19 @@ class Store extends CI_Controller
 						$promo = 0;
 						$hrg_jual = $row['hrg_jual'];
 					}
-					$result.=$this->m_website->tempProduk($row['gambar'],$row['id_produk'],$row['nama_produk'],$hrg_jual,$hrgcoret,$diskon);
+					/*Get gambar produk*/
+					$read_gambar = $this->m_crud->read_data("gambar_produk", "gambar", "produk='".$row['id_produk']."'");
+					$gambar_produk = array();
+					if ($read_gambar!=null) {
+						foreach ($read_gambar as $row_gambar) {
+							array_push($gambar_produk, base_url().$row_gambar['gambar']);
+						}
+					} else {
+						array_push($gambar_produk, base_url().'assets/images/no_image.png');
+					}
+					$result.='<div class="col-6 col-xs-6 col-lg-3 col-md-6">';
+					$result.=$this->m_website->tempProduk($gambar_produk,$row['id_produk'],$row['nama_produk'],$hrg_jual,$hrgcoret,$diskon);
+					$result.='</div>';
 				}
 			}else{
 				$result.=$this->m_website->noData();

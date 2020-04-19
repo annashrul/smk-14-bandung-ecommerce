@@ -1777,7 +1777,8 @@ class Produk extends CI_Controller
                 'result_table' => $output
             );
             echo json_encode($result);
-        } else if ($action == 'simpan') {
+        }
+        else if ($action == 'simpan') {
             $row = 'gambar';
             $path = '/assets/images/voucher';
             $config['upload_path']          = '.'.$path;
@@ -1819,6 +1820,7 @@ class Produk extends CI_Controller
             }
 
             $data_promo = array(
+            	'kode'=>$this->m_website->kodeVoucher(),
                 'nama' => $_POST['nama'],
                 'deskripsi' => $_POST['deskripsi'],
                 'jenis' => $jenis,

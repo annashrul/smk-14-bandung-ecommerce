@@ -138,7 +138,6 @@ class Ajax extends CI_Controller
 			'hash'=>password_hash($new_password, PASSWORD_BCRYPT, $options),
 			'ol_code' => $ol_code
 		);
-//		var_dump($data_member);die();
 		if (isset($_POST['jk'])) {
 			$data_member['jenis_kelamin'] = $_POST['jk'];
 		}
@@ -149,8 +148,7 @@ class Ajax extends CI_Controller
 
 		if ($action == 'cek_email') {
 			$where = "email='".$_POST['email']."'";
-			$cek_email = $this->m_crud->get_data("member", "email", "email='anashrulyusuf@gmail.com'");
-
+			$cek_email = $this->m_crud->get_data("member", "email", "$where");
 			if ($cek_email == null) {
 				echo 'true';
 			} else {
@@ -183,9 +181,10 @@ class Ajax extends CI_Controller
 				'isLogin' => true,
 			);
 			$this->session->set_userdata($result['res_login']);
+			echo json_encode($response);
 		}
 
-		echo json_encode($response);
+
 	}
 	function random_char($length = 6) {
 		$str = "";
@@ -264,6 +263,50 @@ class Ajax extends CI_Controller
 		}
 
 		echo json_encode(array("suggestions"=>$result));
+	}
+
+	public function get_produk() {
+		$get_product = $this->m_crud->read_data(
+			"produk pr","pr.id_produk,pr.nama value",
+			"pr.nama like '%".$_POST['query']."%'"
+		);
+
+		if ($get_product != null) {
+			$result = $get_product;
+		} else {
+			$result = array(array('lokasi'=>'not_found', 'value'=>'product not found!'));
+		}
+
+		echo json_encode(array("suggestions"=>$result));
+	}
+	public function cek_voucher() {
+		$result = array();
+		$voucher = $_POST['voucher'];
+		$orders = $_POST['orders'];
+		$date = date('Y-m-d H:i:s');
+
+		$get_voucher = $this->m_crud->get_data("voucher", "*", "kode = '".$voucher."' AND status = '1' AND '".$date."' BETWEEN tgl_mulai AND tgl_selesai");
+		if ($get_voucher != null) {
+			$cek_penggunaan = $this->m_crud->count_data("pembayaran", "id_pembayaran", "voucher='".$get_voucher['id_voucher']."' AND member='".$this->user."'");
+
+			if ($cek_penggunaan >= $get_voucher['quota']) {
+				$result['status'] = false;
+				$result['pesan'] = "Voucher melebihi batas penggunaan";
+			} else if ($orders < $get_voucher['min_orders']) {
+				$result['status'] = false;
+				$result['pesan'] = "Jumlah belanja anda minimal Rp. ".number_format($get_voucher['min_orders']);
+			} else {
+				$result['id_voucher'] = $get_voucher['id_voucher'];
+				$result['jumlah_voucher'] = $get_voucher['value'];
+				$result['v_voucher'] = 'Rp '.number_format($get_voucher['value']);
+				$result['status'] = true;
+			}
+		} else {
+			$result['status'] = false;
+			$result['pesan'] = "Voucher tidak tersedia";
+		}
+
+		echo json_encode($result);
 	}
 
 

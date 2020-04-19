@@ -151,6 +151,14 @@
 								</div>
 							</div>
 						</div>
+						<div class="col-lg-12">
+							<div class="row">
+								<div class="col-md-12 form-group">
+									<label for="<?=$field?>">Voucher Code</label>
+									<input placeholder='Enter Your Voucher Code' class="form-control" name="voucher" id="voucher" onchange="cek_voucher()" type="text">
+								</div>
+							</div>
+						</div>
 
 					</div>
 				</div>
@@ -219,7 +227,7 @@
 								<tr>
 									<td>Total amount:<br><span>Including vat</span></td>
 									<td></td><td></td><td></td><td></td>
-									<td><h5 style="text-align:right"><?=number_format($total)?></h5></td>
+									<td><h5 class="v_total" style="text-align:right"><?=number_format($total)?></h5></td>
 									<td></td>
 								</tr>
 								</tfoot>
@@ -238,7 +246,7 @@
 									<div class="col-6 col-xs-6 col-xl-3 col-lg-3 col-md-6">
 										<div class="single-product mb-60">
 											<div class="product-img">
-												<img src="<?=base_url()."assets/fo/assets/img/product/product_list_2.png"?>" alt="">
+												<img src="<?=base_url().$gambar?>" alt="">
 											</div>
 											<div class="product-caption" style="height: 50px;">
 												<h4 style="color: black;font-size: 12px!important;"><?=$row['nama_produk']?></h4>
@@ -250,9 +258,6 @@
 												<li style="text-align: left;font-size: 10px;">Color : <?=$row['warna']?></li>
 												<li style="text-align: left;font-size: 10px;">Total : <?=number_format($row['harga']*$row['qty'])?></li>
 											</ul>
-											<div class="product-ratting" style="margin-top: 10px;">
-												<li class="d-block d-lg-block"> <button style="margin-top: 10px;" type="submit" class="btn header-btn">Remove</button></li>
-											</div>
 										</div>
 									</div>
 								<?php endforeach; ?>
@@ -269,7 +274,7 @@
 								<tr>
 									<td class="v_ongkir">0</td>
 									<td class="v_voucher">0</td>
-									<td><?=number_format($total)?></td>
+									<td class="v_total"><?=number_format($total)?></td>
 								</tr>
 								</tbody>
 							</table>
@@ -277,10 +282,10 @@
 						</div>
 						<div class="row">
 							<div class="col-6 col-xs-6">
-								<li class="d-block d-lg-block"> <a href="<?=base_url()?>" class="btn header-btn">Continue Shopping</a></li>
+								<a href="<?=base_url()?>" class="btn header-btn">Shopping</a>
 							</div>
 							<div class="col-6 col-xs-6">
-								<li class="d-block d-lg-block"> <button type="submit" style="float: right;" class="btn header-btn">Go To Checkout</button></li>
+								<button type="submit" style="float: right;" class="btn header-btn">Checkout</button>
 							</div>
 						</div>
 					</div>
@@ -304,37 +309,62 @@
 <!--================End Checkout Area =================-->
 <script>
 	var array_ongkir = [];
+	function cek_voucher() {
+		var voucher = $("#voucher").val();
+		var orders = $("#total").val();
+
+		$.ajax({
+			url: "<?=base_url().'ajax/cek_voucher'?>",
+			type: "POST",
+			data: {voucher: voucher, orders: orders},
+			dataType: "JSON",
+			success: function (res) {
+				// console.log(res.v_voucher)
+				if (res.status) {
+					$(".v_voucher").text(res.v_voucher);
+					$("#jumlah_voucher").val(res.jumlah_voucher);
+					$("#id_voucher").val(res.id_voucher);
+					hitung_total();
+				} else {
+					$("#voucher").val('');
+					$(".v_voucher").text('Rp 0');
+					$("#jumlah_voucher").val(0);
+					$("#id_voucher").val('-');
+					Swal.fire({
+						title: 'Alert!',
+						text: res.pesan,
+						type: 'error'
+					})
+				}
+
+				hitung_total();
+			}
+		});
+	}
 	function ubah_alamat() {
 		var alamat = $("#ch_alamat_jual").val();
 		if (alamat === 'baru') {
 			$("#form_checkout").validate();
-			$("#nama_penerima").val('').attr('readonly', false).rules("add", {
-				required: true,
-				messages: {required: "Nama penerima tidak boleh kosong"}
-			});
-			$("#telepon").val('').attr('readonly', false).rules("add", {
-				required: true,
-				messages: {required: "Telepon tidak boleh kosong"}
-			});
-			$("#kota").val('').attr('readonly', false).rules("add", {
-				required: true,
-				messages: {required: "Kota tidak boleh kosong"}
-			});
-			$("#alamat").text('').attr('readonly', false).rules("add", {
-				required: true,
-				messages: {required: "Alamat tidak boleh kosong"}
-			});
-			$("#provinsi").val('');
-			$("#kecamatan").val('');
-
+			$("#nama_penerima").rules("remove", "required");
+			$("#nama_penerima").val('').attr('readonly', false);
+			$("#telepon").val('').attr('readonly', false);
+			$("#kota").val('').attr('readonly', false);
+			$("#alamat").text('').attr('readonly', false);
+			$("#provinsi").val('').attr('readonly', true);
+			$("#kecamatan").val('').attr('readonly', true);
 		}
 		else if (alamat !== '') {
+			$("#form_checkout").validate();
+			$("#nama_penerima-error").hide();
+			$("#telepon-error").hide();
+			$("#kota-error").hide();
+			$("#alamat-error").hide();
 			$.ajax({
 				url: "<?=base_url() . 'api/get_alamat/'?>" + alamat,
 				type: "GET",
 				dataType: "JSON",
 				success: function (res) {
-					$("#nama_penerima").val(res.penerima).attr('readonly', true);
+					$("#nama_penerima").val(res.penerima).attr('readonly', true).rules("remove", "required");
 					$("#telepon").val(res.telepon).attr('readonly', true);
 					$("#alamat").text(res.alamat).attr('readonly', true);
 					$("#provinsi").val(res.nama_provinsi).attr('readonly', true);
@@ -385,6 +415,7 @@
 		var kecamatan_ = $("#kd_kec").val();
 		var kurir_ = $("#kurir").val();
 		var berat_ = $("#berat").val();
+
 		console.log("kec="+kecamatan_ + "kurir="+kurir_ + "berat="+berat_);
 		if (kecamatan_ !== '' && kurir_ !== '') {
 			array_ongkir = [];
@@ -398,6 +429,7 @@
 					var layanan = '';
 					var data;
 					if (res.costs.length > 0) {
+						$("#layanan-error").hide();
 						for (var x = 0; x < res.costs.length; x++) {
 							data = {service: res.costs[x].service, cost: res.costs[x].cost};
 							array_ongkir.push(data);
@@ -436,9 +468,10 @@
 		}
 
 		total = ongkir + parseFloat($("#total").val()) - (isNaN(parseFloat(voucher))?0:parseFloat(voucher));
+		console.log("TOTAL AING = "+total);
 		$("#ongkir").val(to_rp(ongkir, '-'));
 		$(".v_ongkir").text('Rp '+to_rp(ongkir, '-'));
-		$("#v_total").text('Rp '+to_rp(total, '-'));
+		$(".v_total").text('Rp '+to_rp(total, '-'));
 	}
 
 	function change_bank() {
@@ -447,6 +480,8 @@
 		$("#atas_nama_tujuan").val($("#atas_nama"+id).val());
 		$("#nomor_rekening_tujuan").val($("#no_rek"+id).val());
 		$("#bank_pengirim").val(id).change();
+		$("#bank_pengirim-error").hide();
+
 	}
 
 	function get_rekening() {
@@ -457,7 +492,10 @@
 			data: {bank: id},
 			dataType: "JSON",
 			success: function (res) {
+
 				if (res.status) {
+					$("#nomor_rekening_pengirim-error").hide();
+					$("#atas_nama_pengirim-error").hide();
 					$("#nama_bank_pengirim").val(res.res_rekening['bank']);
 					$("#nomor_rekening_pengirim").val(res.res_rekening['no_rek']);
 					$("#atas_nama_pengirim").val(res.res_rekening['atas_nama']);
@@ -470,47 +508,138 @@
 		});
 	}
 
-	$("#form_checkout").on('submit',function(e){
-		e.preventDefault();
-		var kota = $("#kota").val();
-		Swal.fire({
-			title: 'Confirm!',
-			html: 'Pastikan data sudah benar.<br><b style="font-weight: bold">Bank '+$("#nama_bank_pengirim").val()+'</b><br> <b style="font-weight: bold">Nomor Rekening : '+$("#nomor_rekening_pengirim").val()+'</b><br> <b style="font-weight: bold">Atas Nama : '+$("#atas_nama_pengirim").val()+'</b>',
-			type: 'warning',
-			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			cancelButtonText: 'Tidak',
-			confirmButtonText: 'Ya'
-		}).then((result) => {
-			if (result.value) {
-				$.ajax({
-					url: "<?=base_url().'api/checkout_bayar'?>",
-					type:"POST",
-					data: $("#form_checkout").serialize(),
-					dataType: "JSON",
-					success: function (res) {
-						console.log(res);
-						if (res.status) {
-							Swal.fire({
-								title: 'Checkout berhasil!',
-								html: 'Segera transfer ke rekening :<br><b style="font-weight: bold">Bank '+res.bank+'</b><br> <b style="font-weight: bold">Nomor Rekening : '+res.norek+'</b><br> <b style="font-weight: bold">Atas Nama : '+res.atasnama+'</b><br> <b style="font-weight: bold">Sejumlah : '+res.total+'</b>',
-								type: 'success'
-							}).then((result) => {
-								if (result.value) {
-									window.location = '<?=base_url().'store/history'?>';
-								}
-							})
-						} else {
-							alert("Data gagal disimpan!");
-						}
+	$('#form_checkout').validate({
+		rules: {
+			nama_alamat:{
+				required: function(element) {
+					if($("#ch_alamat_jual").val()==='baru'){
+						return true;
+					}else{
+						return false;
 					}
-				});
-			}
-		})
+				}
+			},
+			nama_penerima:{required:true},
+			telepon:{required:true},
+			alamat:{required:true},
+			kota:{required:true},
+			kurir: {required: true},
+			layanan: {required: true},
+			bank_tujuan: {required: true},
+			bank_pengirim: {required: true},
+			nomor_rekening_pengirim: {required: true},
+			atas_nama_pengirim: {required: true}
+		},
+		//For custom messages
+		messages: {
+			nama_alamat: {required: "name address cannot be empty!"},
+			nama_penerima: {required: "name cannot be empty!"},
+			telepon: {required: "phone number cannot be empty!"},
+			alamat: {required: "address cannot be empty!"},
+			kota: {required: "city cannot be empty!"},
+			kurir: {required: "courier cannot be empty!"},
+			layanan: {required: "shipping service cannot be empty!"},
+			bank_tujuan: {required: "bank  cannot be empty"},
+			bank_pengirim: {required: "Bank  cannot be empty!"},
+			nomor_rekening_pengirim: {required: "account number cannot be empty!"},
+			atas_nama_pengirim: {required: "account number cannot be empty!"}
+		},
+
+		submitHandler: function (form) {
+			Swal.fire({
+				title: 'Confirm!',
+				html: 'Pastikan data sudah benar.<br><b style="font-weight: bold">Bank '+$("#nama_bank_pengirim").val()+'</b><br> <b style="font-weight: bold">Nomor Rekening : '+$("#nomor_rekening_pengirim").val()+'</b><br> <b style="font-weight: bold">Atas Nama : '+$("#atas_nama_pengirim").val()+'</b>',
+				type: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				cancelButtonText: 'Tidak',
+				confirmButtonText: 'Ya'
+			}).then(function (result) {
+				if (result.value) {
+					$.ajax({
+						url: "<?=base_url().'api/checkout_bayar'?>",
+						type:"POST",
+						data: $("#form_checkout").serialize(),
+						dataType: "JSON",
+						success: function (res) {
+							if (res.status) {
+								Swal.fire({
+									title: 'Checkout berhasil!',
+									html: 'Segera transfer ke rekening :<br><b style="font-weight: bold">Bank '+res.bank+'</b><br> <b style="font-weight: bold">Nomor Rekening : '+res.norek+'</b><br> <b style="font-weight: bold">Atas Nama : '+res.atasnama+'</b><br> <b style="font-weight: bold">Sejumlah : '+res.total+'</b>',
+									type: 'success'
+								}).then(function (result) {
+									window.location = '<?=base_url().'store/history'?>';
+								})
+							} else {
+								alert("Data gagal disimpan!");
+							}
+						}
+					});
+				}
+			})
+		}
+		//var kota = $("#kota").val();
+		//
+		//Swal.fire({
+		//	title: 'Confirm!',
+		//	html: 'Pastikan data sudah benar.<br><b style="font-weight: bold">Bank '+$("#nama_bank_pengirim").val()+'</b><br> <b style="font-weight: bold">Nomor Rekening : '+$("#nomor_rekening_pengirim").val()+'</b><br> <b style="font-weight: bold">Atas Nama : '+$("#atas_nama_pengirim").val()+'</b>',
+		//	type: 'warning',
+		//	showCancelButton: true,
+		//	confirmButtonColor: '#3085d6',
+		//	cancelButtonColor: '#d33',
+		//	cancelButtonText: 'Tidak',
+		//	confirmButtonText: 'Ya'
+		//}).then((result) => {
+		//	if (result.value) {
+		//
+		//		$.ajax({
+		//			url: "<?//=base_url().'api/checkout_bayar'?>//",
+		//			type:"POST",
+		//			data: $("#form_checkout").serialize(),
+		//			dataType: "JSON",
+		//			success: function (res) {
+		//				console.log(res);
+		//				if (res.status) {
+		//					Swal.fire({
+		//						title: 'Checkout berhasil!',
+		//						html: 'Segera transfer ke rekening :<br><b style="font-weight: bold">Bank '+res.bank+'</b><br> <b style="font-weight: bold">Nomor Rekening : '+res.norek+'</b><br> <b style="font-weight: bold">Atas Nama : '+res.atasnama+'</b><br> <b style="font-weight: bold">Sejumlah : '+res.total+'</b>',
+		//						type: 'success'
+		//					}).then((result) => {
+		//						if (result.value) {
+		//							window.location = '<?//=base_url().'store/history'?>//';
+		//						}
+		//					})
+		//				} else {
+		//					alert("Data gagal disimpan!");
+		//				}
+		//			}
+		//		});
+		//	}
+		//})
 
 	})
 
 
+	function to_rp(angka){
+		if(angka != '' || angka != 0){
+			var rev     = parseInt(angka, 10).toString().split('').reverse().join('');
+			var rev2    = '';
+			for(var i = 0; i < rev.length; i++){
+				rev2  += rev[i];
+				if((i + 1) % 3 === 0 && i !== (rev.length - 1)){
+					rev2 += ',';
+				}
+			}
 
+			var dec		= parseFloat(angka, 10).toString().split('.');
+			if(dec[1] > 0){ dec = dec[1]; } else { dec = '00'; }
+
+			//return 'IDR : ' + rev2.split('').reverse().join('') + ',-';
+			return rev2.split('').reverse().join('') + '.' + dec;
+		} else {
+			//return 'IDR : ';
+			return '0';
+		}
+	}
 </script>

@@ -14,17 +14,16 @@
 		<div class="col-md-5" style="border: 1px solid #eeeeee;">
 			<div class="row">
 				<div class="col-md-12" id="lightgallery">
-					<a href="https://indokids.co.id/assets/images/produk/IDK_hoody_yelloww.jpg?width=1000&maxheight=1200&trim.threshold=80">
-						<img src="https://indokids.co.id/assets/images/produk/IDK_hoody_yelloww.jpg?width=1000&maxheight=1200&trim.threshold=80" style="width: 100%;"/>
+					<a href="<?=base_url().$product['gambar']?>">
+						<img src="<?=base_url().$product['gambar']?>" style="width: 100%;"/>
 					</a>
 				</div>
 				<div class="col-md-12" style="margin-top: 10px;">
 					<ul class="row" id="lightgalleryChild">
-
 						<?php $readGambar = $this->m_crud->read_data("gambar_produk","*","produk='".$product['id_produk']."'"); foreach($readGambar as $key=>$row):?>
-						<li class="col-4 col-xs-3 col-sm-4 col-md-3"  data-src="https://indokids.co.id/assets/images/produk/IDK_hoody_yellow_SH010003.jpg?height=200&width=200&trim.threshold=80" data-sub-html="<h4 style='color:black;'><?=$product['nama']?></h4><p style='color:black;'>Rp <?=number_format($product['hrg_jual'])?></p>">
-							<a href="">
-								<img class="img-responsive" src="https://indokids.co.id/assets/images/produk/IDK_hoody_yellow_SH010003.jpg?height=200&width=200&trim.threshold=80" style="width: 100%;height: 100px;">
+						<li class="col-4 col-xs-3 col-sm-4 col-md-3"  data-src="<?=base_url().$row['gambar']?>" data-sub-html="<h4 style='color:black;'><?=$product['nama']?></h4><p style='color:black;'>Rp <?=number_format($product['hrg_jual'])?></p>">
+							<a href="javascript:void(0)">
+								<img class="img-responsive" src="<?=base_url().$row['gambar']?>" style="width: 100%;height: 100px;">
 							</a>
 						</li>
 						<?php endforeach; ?>
@@ -156,7 +155,7 @@
 							<div class="swiper-slide">
 								<div class="single-product mb-60">
 									<div class="product-img">
-										<img src="<?=base_url()."assets/fo/assets/img/product/product_list_2.png"?>" alt="">
+										<img src="<?=base_url().$row['gambar']?>" alt="">
 									</div>
 									<div class="product-caption">
 										<div class="product-ratting">
@@ -187,12 +186,9 @@
 
 <script>
 	$(document).ready(function(){
-		// get_ukuran();
 		$('#lightgallery').lightGallery();
 		$('#lightgalleryChild').lightGallery();
 		$("#ukuran").on('change',function(){
-			// $(".list").html('<option value="">cilk</option>')
-			// $('.current').html("aing");
 			get_warna();
 		})
 		var mySwiperBestSeller = new Swiper ('.swiper-best-seller', {
@@ -311,6 +307,19 @@
 					if (res.status) {
 						console.log(res);
 						countCart();
+						Swal.fire({
+							title: 'Add to bag success!',
+							type: 'success',
+							showCancelButton: true,
+							confirmButtonColor: '#3085d6',
+							cancelButtonColor: '#d33',
+							confirmButtonText: 'Go to cart',
+							cancelButtonText: 'Continue shoping'
+						}).then(function (result) {
+							if (result.value) {
+								window.location = '<?=base_url().'store/cart'?>';
+							}
+						});
 					} else {
 						alert("Data gagal disimpan!");
 					}

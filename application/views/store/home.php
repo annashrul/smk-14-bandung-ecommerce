@@ -143,27 +143,7 @@
 					<div class="swiper-wrapper">
 						<?php foreach($bestSeller as $row):?>
 						<div class="swiper-slide">
-							<div class="single-product mb-60">
-								<div class="product-img">
-									<img src="<?=base_url().$row['gambar']?>" alt="">
-								</div>
-								<div class="product-caption">
-									<div class="product-ratting">
-										<i class="far fa-star"></i>
-										<i class="far fa-star"></i>
-										<i class="far fa-star"></i>
-										<i class="far fa-star low-star"></i>
-										<i class="far fa-star low-star"></i>
-									</div>
-									<h4><a href="<?=base_url().'store/product?product_id='.$row['id_produk']?>"><?=$row['nama']?></a></h4>
-									<div class="price">
-										<ul>
-											<li><?=$row['hrg_jual']?></li>
-											<li class="discount"><?=$row['hrg_sebelum']?></li>
-										</ul>
-									</div>
-								</div>
-							</div>
+							<?=$this->m_website->tempProduk($row['gambar'],$row['id_produk'],$row['nama'],$row['hrg_jual'],$row['hrg_sebelum'],null)?>
 						</div>
 						<?php endforeach; ?>
 					</div>
@@ -193,26 +173,7 @@
 				<div class="row">
 					<?php foreach ($latestProduct as $row):?>
 						<div class="col-6 col-xs-6 col-xl-3 col-lg-3 col-md-6">
-							<div class="single-product mb-60">
-								<div class="product-img">
-									<img src="<?=base_url().$row['gambar']?>" alt="">
-								</div>
-								<div class="product-caption">
-									<div class="product-ratting">
-										<i class="far fa-star"></i>
-										<i class="far fa-star"></i>
-										<i class="far fa-star"></i>
-										<i class="far fa-star low-star"></i>
-										<i class="far fa-star low-star"></i>
-									</div>
-									<h4><a href="<?=base_url().'store/product?product_id='.$row['id_produk']?>"><?=$row['nama']?></a></h4>
-									<div class="price">
-										<ul>
-											<li><?=number_format($row['hrg_jual'])?></li>
-										</ul>
-									</div>
-								</div>
-							</div>
+							<?=$this->m_website->tempProduk($row['gambar'],$row['id_produk'],$row['nama'],$row['hrg_jual'],null,null)?>
 						</div>
 					<?php endforeach; ?>
 				</div>
@@ -300,21 +261,10 @@
 		<!-- Nav Card -->
 		<div class="row" >
 			<?php foreach($news as $row):?>
-				<article class="blog_item col-sm-6 col-lg-4" style="cursor: pointer" onclick="return window.location.href='<?=base_url()."store/article?detail=".$row['slug']?>'">
-					<div class="blog_item_img">
-						<img class="card-img rounded-0" src="<?=base_url().$row['gambar']?>" alt="">
-						<a href="#" class="blog_item_date">
-							<h3><?=date('d',strtotime($row['tgl_berita']))?></h3>
-							<p><?=date('F',strtotime($row['tgl_berita']))?></p>
-						</a>
-					</div>
-					<div class="blog_details">
-						<a class="d-inline-block" href="#">
-							<h2><?=strip_tags($row['judul'])?></h2>
-						</a>
-						<p><?=strip_tags($row['ringkasan'])?></p>
-					</div>
-				</article>
+				<div class="col-sm-6 col-lg-4">
+					<?=$this->m_website->tempNews($row["gambar"],$row["tgl_berita"],$row["slug"],$row["judul"],$row["ringkasan"],$row["nama"])?>
+				</div>
+
 			<?php endforeach; ?>
 		</div>
 		<!-- End Nav Card -->

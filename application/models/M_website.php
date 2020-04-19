@@ -508,6 +508,21 @@ class M_website extends CI_Model {
 			return false;
 		}
 	}
+	function kodeVoucher(){
+		$q = $this->db->query("SELECT MAX(RIGHT(kode,4)) AS kd_max FROM voucher WHERE DATE(tgl_mulai)=CURDATE()");
+		$kd = "";
+		if($q->num_rows()>0){
+			foreach($q->result() as $k){
+				$tmp = ((int)$k->kd_max)+1;
+				$kd = sprintf("%04s", $tmp);
+			}
+		}else{
+			$kd = "0001";
+		}
+		date_default_timezone_set('Asia/Jakarta');
+		return $kd;
+	}
+
 
 	public function navbar_menu() {
 		$result_menu = array();
@@ -1513,10 +1528,9 @@ class M_website extends CI_Model {
 					</div>';
 		}
 		return $result = /** @lang text */ '
-		<div class="col-6 col-xs-6 col-lg-3 col-md-6">
-			<div class="single-product mb-60">
+		<div class="single-product mb-60">
 				<div class="product-img">
-					<img src="'.base_url()."assets/fo/assets/img/product/product_list_1.png".'" alt="">
+					<img src="'.base_url().$gambar.'" alt="">
 					'.$tempDiskon.'
 				</div>
 				<div class="product-caption">
@@ -1536,7 +1550,32 @@ class M_website extends CI_Model {
 					</div>
 				</div>
 			</div>
-		</div>
 		';
 	}
+
+	public function tempNews($gambar,$tgl,$slug,$judul,$ringkasan,$nama){
+		return /** @lang text */'
+		<a href="'.base_url().'store/article?detail='.$slug.'">
+			<article class="blog_item">
+				<div class="blog_item_img">
+					<img class="card-img rounded-0" src="'.base_url().$gambar.'" alt="">
+					<a href="'.base_url().'store/article?detail='.$slug.'" class="blog_item_date">
+						<h3>'.date('Y',strtotime($tgl)).'</h3>
+						<p>'.date('d',strtotime($tgl))." ".date('F',strtotime($tgl)).'</p>
+					</a>
+				</div>
+				<div class="blog_details">
+					<a href="'.base_url().'store/article?detail='.$slug.'" class="d-inline-block" href="single-blog.html">
+						<h2>'.$judul.'</h2>
+					</a>
+					<p>'.$ringkasan.'</p>
+					<ul class="blog-info-link">
+						<li><a href="#"><i class="fa fa-tag"></i> '.$nama.'</a></li>
+						<li><a href="#"><i class="fa fa-clock"></i> '.date('Y-m-d',strtotime($tgl)).'</a></li>
+					</ul>
+				</div>
+			</article>
+		</a>';
+	}
+
 }

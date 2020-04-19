@@ -1,48 +1,53 @@
 <style>
-	.swiper-container {
-		width: 100%;
+	main.gallery {
+		padding: 2rem;
+	}
+
+	.gallery > h1 {
+		font-size: 3rem;
+		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+		margin-bottom: 1rem;
+		color: #333333;
+		font-weight: 100;
+	}
+
+	.gallery > .gallery__list {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+		grid-template-rows: repeat(6, 200px);
+		grid-gap: 1rem;
+		grid-auto-flow: dense;
+	}
+
+	.gallery > .gallery__list > li:nth-child(4n) {
+		grid-column: span 2;
+		grid-row: span 2;
+	}
+
+	.gallery > .gallery__list > li:nth-child(8n) {
+		grid-column: span 3;
+		grid-row: span 3;
+	}
+
+	.gallery > .gallery__list > li > figure {
 		height: 100%;
 	}
-	.swiper-slide {
-		text-align: center;
-		font-size: 18px;
-		background: #fff;
-		/* Center slide text vertically */
-		display: -webkit-box;
-		display: -ms-flexbox;
-		display: -webkit-flex;
-		display: flex;
-		-webkit-box-pack: center;
-		-ms-flex-pack: center;
-		-webkit-justify-content: center;
-		justify-content: center;
-		-webkit-box-align: center;
-		-ms-flex-align: center;
-		-webkit-align-items: center;
-		align-items: center;
+
+	.gallery > .gallery__list > li > figure > img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
 	}
 </style>
-<div class="container-fluid">
-	<div class="row">
-		<?php
-		$w=0;$x=0;$z=0;
-		for($w=0;$w<5;$w++){
-			echo ' ';
-			echo '-';
-			echo ' ';
-		}
-		echo '<br/>';
-		for($z=0;$z<$w;$z++){
-			echo '<br/>*';
-		}
-		echo '<br/>';
-		for($x=0;$x<5;$x++){
-			echo ' ';
-			echo '-';
-			echo ' ';
-		}
+<main class="gallery">
 
-		?>
-	</div>
-</div>
-
+	<ul class="gallery__list">
+		<?php foreach($model as $row):?>
+		<li style="cursor: pointer;" onclick="return window.location.href='<?=base_url().'store/list_produk/model/'.$row['id_model']?>'">
+			<figure>
+				<img src="<?=$row['gambar']?>" alt="notfound">
+			</figure>
+		</li>
+		<?php endforeach; ?>
+	</ul>
+</main>

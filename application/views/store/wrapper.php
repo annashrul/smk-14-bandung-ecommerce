@@ -113,7 +113,8 @@
 <script type="text/javascript">
 	(function () {
 		var options = {
-			whatsapp: "+6281223165037", // WhatsApp number
+			whatsapp: "+<?=$sosmed['whatsapp']?>", // WhatsApp number
+			// company_logo_url: "//storage.whatshelp.io/widget/fb/fb9d/fb9d0cb73397d2a1244720058e5383df/17903932_1320400234679798_5162717605185640625_n.jpg", // URL of company logo (png, jpg, gif)
 			call_to_action: "Message us", // Call to action
 			position: "left", // Position may be 'right' or 'left'
 		};
@@ -126,12 +127,9 @@
 <!-- /GetButton.io widget -->
 <!-- /GetButton.io widget -->
 <header>
-<!--	--><?php //var_dump($this->session->all_userdata()); ?>
 	<!-- Header Start -->
 	<div class="header-area">
-
 		<div class="main-header ">
-
 			<div class="header-bottom  header-sticky" style="z-index: 99;">
 				<div class="container-fluid">
 					<div class="row align-items-center">
@@ -149,10 +147,12 @@
 										<li class="d-block d-lg-none"><a href="<?=base_url()?>">Home</a></li>
 										<li><a href="javascript:void(0)">Baby Shop</a>
 											<ul class="submenu">
-												<?php $groups = $this->m_crud->read_data("groups gp", "gp.id_groups,gp.nama"); ?>
-												<?php foreach($groups as $row):?>
-													<li><a href="<?=base_url().'store/list_produk/groups/'.$row['id_groups']?>"><?=$row['nama']?></a></li>
-												<?php endforeach; ?>
+												<?php foreach ($nav_menu as $row) {
+													echo '
+													<li class="item">
+														<a href="'.base_url().'store/list_produk/groups/'.$row['id_groups'].'"><font size="3" face="calibri">'.$row['nama'].'</font></a>
+													</li>
+												';}?>
 											</ul>
 										</li>
 										<li><a href="<?=base_url().'store/promo'?>">Pomo</a></li>
@@ -185,20 +185,21 @@
 						<div class="col-xl-5 col-lg-3 col-md-3 col-sm-3 fix-card">
 							<ul class="header-right f-right d-none d-lg-block d-flex justify-content-between">
 								<li class="d-none d-xl-block">
-									<div class="form-box f-right ">
-										<input type="text" name="Search" placeholder="Search products">
+									<div class="form-box f-right">
+										<input type="text" name="Search" id="cari" placeholder="Search products">
 										<div class="search-icon">
 											<i class="fas fa-search special-tag"></i>
 										</div>
 									</div>
 								</li>
+								<?php if($this->session->userdata('id_member')!=''){ ?>
 								<li>
 									<div class="shopping-card">
 										<p id="countCart">0</p>
 										<a href="<?=base_url().'store/cart'?>"><i class="fas fa-shopping-cart"></i></a>
 									</div>
 								</li>
-								<?php if($this->session->userdata('id_member')!=''){ ?>
+
 									<li class="d-block d-lg-block"> <a href="<?=base_url().'store/logout'?>" class="btn btn-primary" style="font-size: 12px;"><i class="fa fa-power-off"></i></a></li>
 								<?php }else{?>
 									<li class="d-block d-lg-block"> <a href="<?=base_url().'store/auth?page=login'?>" class="btn btn-primary" style="font-size: 12px;"><i class="fa fa-sign-in-alt"></i></a></li>
@@ -220,7 +221,28 @@
 	<!-- Header End -->
 </header>
 <!-- Modal -->
-
+<script>
+	$("#cari").autocomplete({
+		minChars: 3,
+		serviceUrl: '<?=base_url().'ajax/get_produk'?>',
+		type: 'post',
+		dataType: 'json',
+		response: function(event, ui) {
+			if (ui.content.length === 0) {
+				$("#empty-message").text("No results found");
+			} else {
+				$("#empty-message").empty();
+			}
+		},
+		onSelect: function (suggestion) {
+			if (suggestion.lokasi !== 'not_found') {
+				window.location.href='<?=base_url().'store/product?product_id='?>'+suggestion.id_produk;
+			} else {
+				console.log('gagal')
+			}
+		}
+	});
+</script>
 
 <main>
 	<?php $this->load->view($content); ?>
@@ -306,10 +328,12 @@
 						<div class="footer-tittle">
 							<h4>Quick Links</h4>
 							<ul>
-								<li><a href="#">About</a></li>
-								<li><a href="#"> Offers & Discounts</a></li>
-								<li><a href="#"> Get Coupon</a></li>
-								<li><a href="#">  Contact Us</a></li>
+								<li><a href="<?=base_url().'store?page=about'?>">About</a></li>
+								<li><a href="<?=base_url().'store?page=privacy_policy'?>">Privacy & Policy</a></li>
+								<li><a href="<?=base_url().'store?page=resolution'?>">Resolution Center</a></li>
+								<li><a href="<?=base_url().'store?page=career'?>">Career</a></li>
+								<li><a href="<?=base_url().'store?page=tutorial'?>">Tutorial</a></li>
+								<li><a href="<?=base_url().'store/store/article/all'?>">Article</a></li>
 							</ul>
 						</div>
 					</div>
@@ -317,12 +341,14 @@
 				<div class="col-xl-3 col-lg-3 col-md-4 col-sm-7">
 					<div class="single-footer-caption mb-50">
 						<div class="footer-tittle">
-							<h4>New Products</h4>
+							<h4>Baby & Shop</h4>
 							<ul>
-								<li><a href="#">Woman Cloth</a></li>
-								<li><a href="#">Fashion Accessories</a></li>
-								<li><a href="#"> Man Accessories</a></li>
-								<li><a href="#"> Rubber made Toys</a></li>
+								<?php foreach ($nav_menu as $row) {
+								echo '
+									<li class="item">
+										<a href="'.base_url().'store/list_produk/groups/'.$row['id_groups'].'"><font size="3" face="calibri">'.$row['nama'].'</font></a>
+									</li>
+                                ';}?>
 							</ul>
 						</div>
 					</div>
@@ -332,11 +358,10 @@
 						<div class="footer-tittle">
 							<h4>Support</h4>
 							<ul>
-								<li><a href="#">Frequently Asked Questions</a></li>
-								<li><a href="#">Terms & Conditions</a></li>
-								<li><a href="#">Privacy Policy</a></li>
-								<li><a href="#">Privacy Policy</a></li>
-								<li><a href="#">Report a Payment Issue</a></li>
+								<li><a href="#"><?=$cs['open']?></a></li>
+								<li><a href="#"><?=$cs['time_open']?> to <?=$cs['time_close']?></a></li>
+								<li><a href="tel:<?=$cs['tlp']?>"><?=$cs['tlp']?></a></li>
+								<li><a href="mailto:<?=$cs['email']?>"><?=$cs['email']?></a></li>
 							</ul>
 						</div>
 					</div>
