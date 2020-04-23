@@ -7,6 +7,8 @@
     <title><?=$title." | ".$site->nama?></title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<!--	<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">-->
+	<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Fredoka+One&display=swap" rel="stylesheet">
     <!-- Bootstrap 3.3.6 -->
     <link rel="stylesheet" href="<?=base_url().'assets/'?>bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
@@ -77,6 +79,9 @@
     ?>
 
     <style>
+		h1,h2,h3,h4,h5,h6,p,button,td, .info-box span,div{
+			font-family: 'Comfortaa', cursive!Important;
+		}
         @media only screen and (max-width: 500px) {
             .dropdown-position {
                 position: relative

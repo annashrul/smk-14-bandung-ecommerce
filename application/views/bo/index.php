@@ -3,7 +3,7 @@
 
 <?php $this->load->view('bo/header'); ?>
 
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="sidebar-mini   pace-done pace-done skin-black">
 <div class="wrapper">
 
     <?php $this->load->view('bo/navbar'); ?>
