@@ -1046,7 +1046,7 @@ class Api extends CI_Controller {
 			'kurir' => $_POST['kurir']
 		);
 		$req_api = $this->m_website->rajaongkir_cost(json_encode($data));
-		$req_api_local = $this->m_website->local_ongkir();
+		$req_api_local = $this->m_website->local_ongkir($this->m_crud->get_data("setting","harga_cod")['harga_cod']);
 		$decode_local = json_decode($req_api_local,true);
 		$decode = json_decode($req_api, true);
 		$res_rajaongkir = $decode['rajaongkir']['results'][0];

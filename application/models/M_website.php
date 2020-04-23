@@ -637,7 +637,7 @@ class M_website extends CI_Model {
 		}
 	}
 
-	public function local_ongkir(){
+	public function local_ongkir($harga){
 		$result=array();
 		$result['rajaongkir']=array(
 			"query"=>array(
@@ -680,7 +680,7 @@ class M_website extends CI_Model {
 							"description"=>'',
 							"cost"=>array(
 								array(
-									"value"=>1000,
+									"value"=>$harga,
 									"etd"=>"tidak ada estimasi waktu",
 									"note"=>""
 								)
