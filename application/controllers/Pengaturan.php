@@ -34,6 +34,37 @@ class Pengaturan extends CI_Controller
         }
     }
 
+    /*Start pengaturan harga COD*/
+	public function harga_setting($action=null){
+		$data = $this->data;
+		$function = 'harga_setting';
+		$view = $this->control.'/';
+		if($this->session->userdata($this->site . 'admin_menu')!=$function) {
+			$this->session->unset_userdata('search');
+			$this->cart->destroy();
+			$this->session->set_userdata($this->site . 'admin_menu', $function);
+		}
+		$data['main'] = 'Pengaturan';
+		$data['title'] = 'Harga Setting';
+		$data['page'] = $function;
+		$data['content'] = $view.$function;
+
+		if($action=='load_data'){
+			echo json_encode(array('harga_cod'=>$this->m_crud->get_data("setting","harga_cod")['harga_cod']));
+		}
+		elseif ($action=='simpan'){
+			$this->m_crud->update_data(
+				"setting",array("harga_cod"=>$_POST['harga_cod']),"id_setting='1111'"
+			);
+			echo json_encode(array('status'=>true));
+		}
+		else{
+			$this->load->view('bo/index', $data);
+		}
+
+
+	}
+
     /*Start pengaturan situs*/
     public function situs($action=null, $page=1) {
         //$this->access_denied(11);
@@ -402,7 +433,8 @@ class Pengaturan extends CI_Controller
                 'result_text' => $output_text
             );
             echo json_encode($result);
-        } else if ($action == 'simpan') {
+        }
+        else if ($action == 'simpan') {
             $row = 'gambar';
             $config['upload_path']          = './assets/images/site';
             $config['allowed_types']        = 'gif|jpg|jpeg|png';
@@ -470,7 +502,8 @@ class Pengaturan extends CI_Controller
                 $this->db->trans_commit();
                 echo true;
             }
-        } else if ($action == 'edit') {
+        }
+        else if ($action == 'edit') {
             if ($_POST['table'] == 'slider') {
                 $get_data = $this->m_crud->get_data($_POST['table'], "*", "id_slider='" . $_POST['id'] . "'");
             } else if ($_POST['table'] == 'text') {
@@ -495,7 +528,8 @@ class Pengaturan extends CI_Controller
             }
 
             echo json_encode($result);
-        } else if ($action == 'get_produk') {
+        }
+        else if ($action == 'get_produk') {
             $get_produk = $this->m_crud->join_data("produk p", "CONCAT(p.code, ' | ', p.nama) value, p.id_produk, p.nama, p.code, dp.berat, dp.hrg_jual", "det_produk dp", "dp.produk=p.id_produk AND dp.code=p.code", "p.nama like '%".$_POST['query']."%' OR p.code like '%".$_POST['query']."%'");
 
             if ($get_produk != null) {
@@ -505,7 +539,8 @@ class Pengaturan extends CI_Controller
             }
 
             echo json_encode(array("suggestions"=>$result));
-        } else if ($action == 'hapus') {
+        }
+        else if ($action == 'hapus') {
             $delete_data = $this->m_crud->delete_data($_POST['param'], "id_".$_POST['param']." = '".$_POST['id']."'");
 
             if ($delete_data) {

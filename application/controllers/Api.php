@@ -1039,15 +1039,23 @@ class Api extends CI_Controller {
 	}
 
 	public function get_ongkir() {
+
 		$data = array(
 			'tujuan' => $_POST['kecamatan'],
 			'berat' => (int)$_POST['berat']*(int)$_POST['jumlah'],
 			'kurir' => $_POST['kurir']
 		);
 		$req_api = $this->m_website->rajaongkir_cost(json_encode($data));
+		$req_api_local = $this->m_website->local_ongkir();
+		$decode_local = json_decode($req_api_local,true);
 		$decode = json_decode($req_api, true);
-
-		echo json_encode($decode['rajaongkir']['results'][0]);
+		$res_rajaongkir = $decode['rajaongkir']['results'][0];
+		$res_localongkir = $decode_local['rajaongkir']['results'][0];
+		if($_POST['kurir'] != 'COD'){
+			echo json_encode($res_rajaongkir);
+		}else{
+			echo json_encode($res_localongkir);
+		}
 	}
 
 	public function alamat_member() {

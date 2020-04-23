@@ -637,6 +637,62 @@ class M_website extends CI_Model {
 		}
 	}
 
+	public function local_ongkir(){
+		$result=array();
+		$result['rajaongkir']=array(
+			"query"=>array(
+				"origin"=>"",
+				"originType"=>"",
+				"destination"=>"",
+				"destinationType"=>"",
+				"weight"=>0,
+				"courier"=>"COD"
+			),
+			"status"=>array(
+				"code"=> 200,
+				"description"=> "OK"
+			),
+			"origin_details"=>array(
+				"subdistrict_id"=>"2111",
+				"province_id"=>"6",
+				"province"=> "DKI Jakarta",
+				"city_id"=> "153",
+				"city"=>"Jakarta Selatan",
+				"type"=>"Kota",
+				"subdistrict_name"=>"Setia Budi"
+			),
+			"destination_details"=>array(
+				"subdistrict_id"=>"1469",
+				"province_id"=> "9",
+				"province"=> "Jawa Barat",
+				"city_id"=>"107",
+				"city"=>"Cimahi",
+				"type"=>"Kota",
+				"subdistrict_name"=>"Cimahi Selatan"
+			),
+			"results"=>array(
+				array(
+					'code'=>'COD',
+					'name'=>'',
+					'costs'=>array(
+						array(
+							"service"=>'COD',
+							"description"=>'',
+							"cost"=>array(
+								array(
+									"value"=>1000,
+									"etd"=>"tidak ada estimasi waktu",
+									"note"=>""
+								)
+							)
+						)
+					)
+				)
+			)
+		);
+		return json_encode($result);
+	}
+
 	public function rajaongkir_cost($data) {
 		$post = json_decode($data, true);
 		$curl = curl_init();

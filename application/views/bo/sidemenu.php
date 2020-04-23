@@ -20,7 +20,7 @@
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                 </a>
             </li>
-            <?php $side_menu=array('0', 'situs', 'tentang_kami', 'cara_belanja', 'syarat', 'kebijakan', 'resolusi', 'sosial_media', 'video_home', 'video_share', 'karir', 'home_setting', 'home_slide'); ?>
+            <?php $side_menu=array('0', 'situs', 'tentang_kami', 'cara_belanja', 'syarat', 'kebijakan', 'resolusi', 'sosial_media', 'video_home', 'video_share', 'karir', 'home_setting', 'home_slide' ,'harga_setting'); ?>
             <li class="treeview <?=array_search($page, $side_menu)?'active':null?>" <?php (((int)substr($access->access,0,10))==0 && ((int)substr($access->access,111,10))==0)?'style="display:none;"':null?>>
                 <a href="#">
                     <i class="fa fa-gear"></i> <span>Pengaturan</span>
@@ -38,6 +38,7 @@
                     <li class="<?=$page=='home_slide'?'active':null?>" <?php (substr($access->access,111,1)!=1)?'style="display:none;"':null?>><a href="<?=base_url().'pengaturan/home_slide'?>"><i class="fa fa-ellipsis-h"></i> Slide Home</a></li>
                     <li class="<?=$page=='karir'?'active':null?>" <?php (substr($access->access,9,1)!=1)?'style="display:none;"':null?>><a href="<?=base_url().'pengaturan/karir'?>"><i class="fa fa-briefcase"></i> Karir</a></li>
                     <li class="<?=$page=='home_setting'?'active':null?>" <?php (substr($access->access,10,1)!=1)?'style="display:none;"':null?>><a href="<?=base_url().'pengaturan/home_setting'?>"><i class="fa fa-home"></i> Home Setting</a></li>
+                    <li class="<?=$page=='harga_setting'?'active':null?>" <?php (substr($access->access,8,1)!=1)?'style="display:none;"':null?>><a href="<?=base_url().'pengaturan/harga_setting'?>"><i class="fa fa-money"></i> Harga Setting</a></li>
                 </ul>
             </li>
             <?php $side_menu=array('0', 'data_user', 'user_level', 'member', 'bank', 'rekening', 'lokasi', 'berita', 'galeri', 'testimoni', 'kategori_berita', 'kurir'); ?>
