@@ -681,7 +681,7 @@ class M_website extends CI_Model {
 							"cost"=>array(
 								array(
 									"value"=>$harga,
-									"etd"=>"tidak ada estimasi waktu",
+									"etd"=>"Cash On Delivery",
 									"note"=>""
 								)
 							)

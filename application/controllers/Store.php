@@ -281,13 +281,15 @@ class Store extends CI_Controller
 					}
 					/*Get gambar produk*/
 					$read_gambar = $this->m_crud->read_data("gambar_produk", "gambar", "produk='".$row['id_produk']."'");
-					$gambar_produk = array();
+					$gambar_produk ='';
 					if ($read_gambar!=null) {
 						foreach ($read_gambar as $row_gambar) {
-							array_push($gambar_produk, base_url().$row_gambar['gambar']);
+							$gambar_produk=$row_gambar['gambar'];
+//							array_push($gambar_produk, base_url().$row_gambar['gambar']);
 						}
 					} else {
-						array_push($gambar_produk, base_url().'assets/images/no_image.png');
+						$gambar_produk=base_url().'assets/images/no_image.png';
+//						array_push($gambar_produk, base_url().'assets/images/no_image.png');
 					}
 					$result.='<div class="col-6 col-xs-6 col-lg-3 col-md-6">';
 					$result.=$this->m_website->tempProduk($gambar_produk,$row['id_produk'],$row['nama_produk'],$hrg_jual,$hrgcoret,$diskon);
