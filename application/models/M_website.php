@@ -39,6 +39,7 @@ class M_website extends CI_Model {
             'headings' => array("en" => $data_notif['head']),
             'contents' => array("en" => $data_notif['content']),
 			'included_segments' => array('All'),
+			'url'=>base_url().'site/'
         );
         // if(isset($data_notif['include_player_ids']) && $data_notif['include_player_ids']!=null){
         //     $fields['include_player_ids'] = $data_notif['include_player_ids'];

@@ -16,6 +16,8 @@ class Api extends CI_Controller {
 	}
 
 	public function monitoring() {
+		var_dump($this->m_website->create_notif(array('head'=>"Pesanan baru masuk",'content'=>'Invoice ')));
+		die();
 		$last_month = date('Y-m', strtotime('-50 month', strtotime(date('Y-m'))));
 		$this_month = date('Y-m');
 		$last_month2 = date('Y-m-d', strtotime('-1 month', strtotime(date('Y-m-d'))));
