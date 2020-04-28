@@ -64,8 +64,13 @@ class Api extends CI_Controller {
 	}
 	
 	public function laporan_monitoring(){
-		$limit=1;
-		$read_data = $this->m_crud->join_data("orders o", "o.id_orders, o.tgl_orders, IF(o.status=1,IF(pb.status>=2,'Sudah dibayar.','Menunggu Pembayaran.'), IF(o.status=2,IF(p.no_resi='' OR p.no_resi=null,'Belum dikirim.','Sudah dikirim.'),IF(o.status=3,'Dalam Pengiriman Kurir.',IF(o.status=4,'Selesai.','Batal.')))) as status, m.nama, CONCAT(p.kurir,', ', p.service) kurir, CONCAT('Rp ',FORMAT(p.biaya,0)) ongkir, p.no_resi, CONCAT('Rp ',FORMAT(SUM(dto.qty*(dto.hrg_jual+dto.hrg_varian)),0)) sub_total, SUM(dto.qty*dto.diskon) diskon, pb.jumlah_voucher, pb.voucher", array("det_orders dto", "pengiriman p", "member m", "det_pembayaran dp", "pembayaran pb"), array("dto.orders=o.id_orders", "p.orders=o.id_orders", "m.id_member=o.member", "dp.orders=o.id_orders", "pb.id_pembayaran=dp.pembayaran"), null, "o.tgl_orders DESC", "o.id_orders", $limit);
+		$limit=isset($_GET['limit'])?$_GET['limit']:5;
+		// number_format($row['sub_total']-$row['diskon']+$row['biaya']-$row['jumlah_voucher']) 
+		$read_data = $this->m_crud->join_data("orders o", "o.id_orders, o.tgl_orders, 
+		IF(o.status=1,IF(pb.status>=2,'Sudah dibayar.','Menunggu Pembayaran.'), IF(o.status=2,IF(p.no_resi='' OR p.no_resi=null,'Belum dikirim.','Sudah dikirim.'),IF(o.status=3,'Dalam Pengiriman Kurir.',IF(o.status=4,'Selesai.','Batal.')))) as status,
+		(select count(do.orders) from det_orders do where do.orders=o.id_orders) item,
+		CONCAT('Rp ',FORMAT( (SUM(dto.qty*(dto.hrg_jual+dto.hrg_varian))-SUM(dto.qty*dto.diskon)+p.biaya-IFNULL(pb.jumlah_voucher,0)),0)) total,
+		m.nama, CONCAT(p.kurir,', ', p.service) kurir, CONCAT('Rp ',FORMAT(p.biaya,0)) ongkir, p.no_resi, CONCAT('Rp ',FORMAT(SUM(dto.qty*(dto.hrg_jual+dto.hrg_varian)),0)) sub_total, SUM(dto.qty*dto.diskon) diskon, pb.jumlah_voucher, pb.voucher", array("det_orders dto", "pengiriman p", "member m", "det_pembayaran dp", "pembayaran pb"), array("dto.orders=o.id_orders", "p.orders=o.id_orders", "m.id_member=o.member", "dp.orders=o.id_orders", "pb.id_pembayaran=dp.pembayaran"), null, "o.tgl_orders DESC", "o.id_orders", $limit);
 		echo json_encode($read_data,JSON_PRETTY_PRINT);
 
 	}
