@@ -15,6 +15,61 @@ class Api extends CI_Controller {
 
 	}
 
+	public function monitoring() {
+		$last_month = date('Y-m', strtotime('-50 month', strtotime(date('Y-m'))));
+		$this_month = date('Y-m');
+		$last_month2 = date('Y-m-d', strtotime('-1 month', strtotime(date('Y-m-d'))));
+		$now = date('Y-m-d');
+		$last_month3 = date('Y-m-d', strtotime('-100 month', strtotime(date('Y-m-d'))));
+
+		$get_orders = $this->m_crud->get_join_data("orders o", "COUNT(DISTINCT o.id_orders) penjualan, IFNULL(SUM(dto.qty * (dto.hrg_jual+dto.hrg_varian-dto.diskon)), 0) total", array("det_orders dto", "det_pembayaran dtp", "pembayaran p"), array("dto.orders=o.id_orders", "o.id_orders=dtp.orders", "dtp.pembayaran=p.id_pembayaran"), "o.status IN ('1', '2', '3', '4') and p.tgl_verify is not null");
+
+		$get_members = $this->m_crud->get_data("member", "COUNT(id_member) member", "SUBSTRING(tgl_register, 1, 7) = '".$this_month."'");
+
+		$chart_bulan = $this->m_crud->read_data("orders", "DATE_FORMAT(tgl_orders, '%Y-%m-%d') AS tgl , COUNT(tgl_orders)/10 AS count", "tgl_orders BETWEEN DATE_FORMAT('".$last_month2."', '%Y-%m-%d') AND DATE_FORMAT('".$now."', '%Y-%m-%d')",null,'tgl');
+		$chart_all = $this->m_crud->read_data("orders", "DATE_FORMAT(tgl_orders, '%Y-%m-%d') AS tgl , COUNT(tgl_orders)/10 AS count", "tgl_orders BETWEEN DATE_FORMAT('".$last_month3."', '%Y-%m-%d') AND DATE_FORMAT('".$now."', '%Y-%m-%d')",null,'tgl');
+		$charts = '[[';
+		foreach($chart_bulan as $k=>$item){
+			$charts .= '"'.$item['count'].'"'.(count($chart_bulan)!=$k+1?',':'');
+		}
+		$charts.='],[';
+		foreach($chart_all as $k=>$item){
+			$charts .= '"'.$item['count'].'"'.(count($chart_all)!=$k+1?',':']]');
+		}
+		$result =array(
+			'omset'=>"Rp ".number_format($get_orders['total']),
+			'orders'=>$get_orders['penjualan'],
+			'avg'=>"Rp ".number_format($get_orders['total']/$get_orders['penjualan']),
+			'member'=>$get_members['member'],
+			'charts'=>$charts
+		);
+		echo json_encode($result);
+
+	}
+
+	public function login_monitoring(){
+		 $username = $this->input->post('username');
+        $password = $this->input->post('password');
+
+        $cek = $this->m_website->login($username);
+        if($cek <> 0){
+            if (password_verify($password, $cek->password)) {
+				echo json_encode(array("status"=>1,"msg"=>"Berhasil."));
+            } else {
+                echo json_encode(array("status"=>0,"msg"=>"Password salah."));
+            }
+        } else {
+			echo json_encode(array("status"=>0,"msg"=>"User tidak ditemukan."));
+        }
+	}
+	
+	public function laporan_monitoring(){
+		$limit=1;
+		$read_data = $this->m_crud->join_data("orders o", "o.id_orders, o.tgl_orders, IF(o.status=1,IF(pb.status>=2,'Sudah dibayar.','Menunggu Pembayaran.'), IF(o.status=2,IF(p.no_resi='' OR p.no_resi=null,'Belum dikirim.','Sudah dikirim.'),IF(o.status=3,'Dalam Pengiriman Kurir.',IF(o.status=4,'Selesai.','Batal.')))) as status, m.nama, CONCAT(p.kurir,', ', p.service) kurir, CONCAT('Rp ',FORMAT(p.biaya,0)) ongkir, p.no_resi, CONCAT('Rp ',FORMAT(SUM(dto.qty*(dto.hrg_jual+dto.hrg_varian)),0)) sub_total, SUM(dto.qty*dto.diskon) diskon, pb.jumlah_voucher, pb.voucher", array("det_orders dto", "pengiriman p", "member m", "det_pembayaran dp", "pembayaran pb"), array("dto.orders=o.id_orders", "p.orders=o.id_orders", "m.id_member=o.member", "dp.orders=o.id_orders", "pb.id_pembayaran=dp.pembayaran"), null, "o.tgl_orders DESC", "o.id_orders", $limit);
+		echo json_encode($read_data,JSON_PRETTY_PRINT);
+
+	}
+
 	public function cek_poin(){
 //		var_dump($this->site);
 		$read_data = $this->m_crud->read_data("poin","*");
@@ -115,7 +170,7 @@ class Api extends CI_Controller {
 				'ol_code' => $ol_code
 			);
 			$this->m_crud->create_data("member", $data_member);
-// 			$cek = $this->curl->simple_post('http://192.168.100.151:8080/workspace/netindo/boidknrm/api/insert_sample', array('ol_code'=>'894','nama'=>'teko','email'=>'teko@gmail.com','tlp1'=>'089568895'));
+		// 			$cek = $this->curl->simple_post('http://192.168.100.151:8080/workspace/netindo/boidknrm/api/insert_sample', array('ol_code'=>'894','nama'=>'teko','email'=>'teko@gmail.com','tlp1'=>'089568895'));
 			// var_dump($cek);die();
 			$this->m_website->request_api_interlocal('insert_sample','&ol_code='.$ol_code.'&nama='.$nama.'&email='.$email.'&telepon='.$tlp.'');
 
@@ -1996,6 +2051,8 @@ class Api extends CI_Controller {
 				'list' => $list
 			);
 
+			$this->m_website->create_notif(array('head'=>"Pesanan baru masuk",'content'=>'Invoice '.$code_pembayaran));
+
 			$get_email = $this->m_crud->get_data("member", "email", "id_member='".$member."'");
 			$this->m_website->email_invoice($get_email['email'], json_encode($data));
 			$this->m_website->email_invoice($this->config->item('email'), json_encode($data));
@@ -2243,6 +2300,9 @@ class Api extends CI_Controller {
 			$this->db->trans_commit();
 			$result['status'] = true;
 			$result['count'] = $this->m_crud->count_data("pembayaran", "id_pembayaran", "member='".$member."' AND status = '1'");
+
+			$this->m_website->create_notif(array('head'=>"Pembayaran berhasil",'content'=>'Penmabayaran dengan invoice '.$code_pembayaran.' telah berhasil.'));
+
 		}
 
 		echo json_encode($result);

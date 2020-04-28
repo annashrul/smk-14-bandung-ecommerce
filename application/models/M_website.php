@@ -32,6 +32,46 @@ class M_website extends CI_Model {
 
 	}
 
+	public function create_notif($data_notif){
+        $fields = array(
+            'app_id' => "9a74b710-c5f3-441c-b3d5-de924945e5f9",
+            'data' => array("type"=>"order"),
+            'headings' => array("en" => $data_notif['head']),
+            'contents' => array("en" => $data_notif['content']),
+			'included_segments' => array('All'),
+        );
+        // if(isset($data_notif['include_player_ids']) && $data_notif['include_player_ids']!=null){
+        //     $fields['include_player_ids'] = $data_notif['include_player_ids'];
+        // }
+        // if(isset($data_notif['big_picture']) && $data_notif['big_picture']!=null){
+        //     $fields['big_picture'] = $data_notif['big_picture'];
+        // }
+        // if(isset($data_notif['included_segments']) && $data_notif['included_segments']!=null){
+        //     //'included_segments' => array('Active Users'),
+        //     $fields['included_segments'] = $data_notif['included_segments'];
+        // }
+
+		$fields = json_encode($fields,JSON_PRETTY_PRINT);
+		// echo $fields;die();
+        //print("\nJSON sent:\n");
+        //print($fields);
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://onesignal.com/api/v1/notifications");
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json; charset=utf-8', 'Authorization: Basic YzY0NzQ3ODgtZDkzYy00NTBjLWFjZTctNzlhYjNhNzA5Y2I5'));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($ch, CURLOPT_HEADER, FALSE);
+        curl_setopt($ch, CURLOPT_POST, TRUE);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        return $response;
+    }
+
+
 
 	public function request_api_interlocal($param="check_server", $data="", $method="POST") {
 		$ch = curl_init();
