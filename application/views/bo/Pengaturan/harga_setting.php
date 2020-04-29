@@ -23,6 +23,7 @@
 				    <form class="form" id="form_bestsellers" enctype="multipart/form-data">
 							<div class="form-group">
 								<?php $label = 'harga_cod'; ?>
+								<label style="color:black">Harga COD</label>
 								<input type="text" name="<?=$label?>" class="form-control" id="<?=$label?>" autocomplete="off" placeholder="Harga COD">
 							</div>
 					<div style="float:right !important">
