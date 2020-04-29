@@ -3,45 +3,49 @@
 		margin: 0px !important;
 	}
 </style>
-
-
-<div class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" id="modal_bestsellers" style="display: none">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="modal_title"></h4>
-			</div>
-			<form class="form-horizontal" id="form_bestsellers" enctype="multipart/form-data">
-				<div class="modal-body">
-					<div class="box-body">
-						<div class="row">
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box">
+                <div class="box-header">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h3 class="box-title"><?=$title?></h3>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="box-tools pull-right">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body" id="result_table" 				style="padding:20px">
+				    <form class="form" id="form_bestsellers" enctype="multipart/form-data">
 							<div class="form-group">
 								<?php $label = 'harga_cod'; ?>
-								<input type="text" name="<?=$label?>" class="form-control" id="<?=$label?>" autocomplete="off" placeholder="Cari Produk">
+								<input type="text" name="<?=$label?>" class="form-control" id="<?=$label?>" autocomplete="off" placeholder="Harga COD">
 							</div>
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
+					<div style="float:right !important">
 					<button type="submit" class="btn btn-primary" id="simpan" name="simpan">Simpan</button>
+				    <input type="hidden" name="param" id="param" value="add">
+				    <input type="hidden" name="id" id="id">
+					</div>
+					</form>
 				</div>
-				<input type="hidden" name="param" id="param" value="add">
-				<input type="hidden" name="id" id="id">
-			</form>
-		</div>
-		<!-- /.modal-content -->
-	</div>
-	<!-- /.modal-dialog -->
-</div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+    </div>
+</section>
+
 
 <script>
-	$("#modal_bestsellers").modal("show");
+	// $("#modal_bestsellers").modal("show");
 	$(document).ready(function(){
-		$("#modal_title").text("Tambah Promo");
+		// $("#modal_title").text("Tambah Promo");
 		$("#param").val("add");
-		$("#modal_bestsellers").modal("show");
+		// $("#modal_bestsellers").modal("show");
 		load_data();
 	});
 
