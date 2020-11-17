@@ -1626,22 +1626,22 @@ class M_website extends CI_Model {
 		}
 		return $result = /** @lang text */ '
 		<div class="single-product mb-60">
-				<div class="product-img">
+				<div class="product-img" style="margin-bottom:0px !important">
 					<img src="'.base_url().$gambar.'" alt="">
 					'.$tempDiskon.'
 				</div>
 				<div class="product-caption">
-					<div class="product-ratting">
+					<!--<div class="product-ratting">
 						<i class="far fa-star"></i>
 						<i class="far fa-star"></i>
 						<i class="far fa-star"></i>
 						<i class="far fa-star low-star"></i>
 						<i class="far fa-star low-star"></i>
-					</div>
+					</div>-->
 					<h4><a href="'.base_url().'store/product?product_id='.$id.'">'.$nama.'</a></h4>
 					<div class="price">
 						<ul>
-							<li>'.number_format($hrg_jual).'</li>
+							<li>Rp '.number_format($hrg_jual).'</li>
 							<li class="discount">'.$hrg_sebelum.'</li>
 						</ul>
 					</div>
@@ -1651,8 +1651,8 @@ class M_website extends CI_Model {
 	}
 
 	public function tempNews($gambar,$tgl,$slug,$judul,$ringkasan,$nama){
-		return /** @lang text */'
-		<a href="'.base_url().'store/article?detail='.$slug.'">
+		return 
+		'<a href="'.base_url().'store/article?detail='.$slug.'">
 			<article class="blog_item">
 				<div class="blog_item_img">
 					<img class="card-img rounded-0" src="'.base_url().$gambar.'" alt="">

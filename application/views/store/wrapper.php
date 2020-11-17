@@ -82,11 +82,12 @@
 	<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
 	<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 	<script src="<?=base_url().'assets/fo/'?>assets/js/main.js"></script>
-	<link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.css">
-	<link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
+	
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 
-	<script src="https://unpkg.com/swiper/js/swiper.js"></script>
-	<script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 	<script>
 		$(document).on('ready', function () {
 			countCart();

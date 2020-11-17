@@ -146,7 +146,7 @@
 							<?php foreach($model as $row):?>
 							<li>
 								<a href="#">
-									<img class="img-fluid" src="<?=base_url()?>assets/fo/assets/img/post/post_5.png" alt="">
+									<img class="img-fluid" src="<?=base_url().$model['gambar']?>" alt="">
 								</a>
 							</li>
 							<?php endforeach; ?>

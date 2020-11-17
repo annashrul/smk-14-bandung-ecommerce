@@ -47,7 +47,7 @@ class Store extends CI_Controller
 			null,"pr.id_produk DESC","pr.id_produk",8
 		);
 		$data['model'] = $this->m_crud->read_data("model", "id_model, nama, CONCAT('".base_url()."', gambar) gambar",null,null,null,12);
-		$data['news'] = $this->m_crud->join_data("berita b","b.*,kb.*",array("kategori_berita kb"),array("kb.id_kategori_berita=b.kategori_berita"),null,"b.id_berita DESC",null,6);
+		$data['news'] = $this->m_crud->join_data("berita b","b.*,kb.nama",array("kategori_berita kb"),array("kb.id_kategori_berita=b.kategori_berita"),null,"b.id_berita DESC",null,6);
 		$data['promo'] = $this->m_crud->read_data("promo", "deskripsi,id_promo, promo, gambar, diskon", "'".date('Y-m-d H:i:s')."' BETWEEN tgl_awal AND tgl_akhir");
 		$data['topitem'] = $this->m_crud->read_data("top_item", "*");
 		if($_GET['page']){
@@ -100,8 +100,8 @@ class Store extends CI_Controller
 			$data['content']='store/article_detail';
 			$data['detail'] = $this->m_crud->get_join_data(
 				"berita b",
-				"b.*,kb.*",
-				$table_join,$join_on,"b.slug='".$_GET['detail']."'","b.tgl_berita DESC"
+				"b.*,kb.nama",
+				$table_join,$join_on,"b.id_berita='".$_GET['detail']."'","b.tgl_berita DESC"
 			);
 		}
 		if(isset($_POST['any']) && $_POST['any']!=''){
@@ -138,7 +138,7 @@ class Store extends CI_Controller
 				foreach($read_data as $row){
 					$result.='
 					<div class="col-12 col-xs-12 col-md-6">
-						'.$this->m_website->tempNews($row["gambar"],$row["tgl_berita"],$row["slug"],$row["judul"],$row["ringkasan"],$row["nama"]).'
+						'.$this->m_website->tempNews($row["gambar"],$row["tgl_berita"],$row["id_berita"],$row["judul"],$row["ringkasan"],$row["nama"]).'
 					</div>
 					';
 				}

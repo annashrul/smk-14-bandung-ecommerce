@@ -224,9 +224,9 @@
 			<div class="swiper-button-prev previous"></div>
 			<div class="swiper-button-next next"></div>
 			<div class="swiper-wrapper">
-				<?php foreach($model as $key=>$row):$url=$key%2==0?'https://indokids.co.id/assets/images/produk/1.jpeg':'https://indokids.co.id/assets/images/produk/indokids_co_id-1522478700359.jpg'?>
-					<div class="swiper-slide" onclick="return window.location.href='<?=base_url()."store/list_produk/model/".$row["id_model"]?>'" style="padding: 0px;cursor: pointer!important;">
-						<img src="<?=base_url().$row['gambar']?>" style="height: 100%;width: 100%;" alt="">
+				<?php foreach($model as $key=>$row):?>
+					<div class="swiper-slide" style="padding: 0px;cursor: pointer!important;" onclick="return window.location.href='<?=base_url()."store/list_produk/model/".$row["id_model"]?>'">
+						<img src="<?=$row['gambar']?>" style="height: 100%;width: 100%;" alt="">
 
 					</div>
 				<?php endforeach; ?>
@@ -262,7 +262,7 @@
 		<div class="row" >
 			<?php foreach($news as $row):?>
 				<div class="col-sm-6 col-lg-4">
-					<?=$this->m_website->tempNews($row["gambar"],$row["tgl_berita"],$row["slug"],$row["judul"],$row["ringkasan"],$row["nama"])?>
+					<?=$this->m_website->tempNews($row["gambar"],$row["tgl_berita"],$row["id_berita"],$row["judul"],$row["ringkasan"],$row["nama"])?>
 				</div>
 
 			<?php endforeach; ?>
