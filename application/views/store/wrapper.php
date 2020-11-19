@@ -265,26 +265,12 @@
 							<div class="footer-tittle">
 								<div class="footer-pera">
 									<aside class="single_sidebar_widget newsletter_widget">
-										<form action="#">
 											<div class="form-group">
-												<input type="email" class="form-control" onfocus="this.placeholder = ''" onblur="this.placeholder = 'email'" placeholder='email' required>
+                                                <textarea placeholder="tulis kritik dan saran anda" name="pesan" id="pesan" class="form-control" cols="30" rows="4"></textarea>
 											</div>
-											<div class="row">
-												<div class="col-md-6">
-													<div class="form-group">
-														<input type="text" class="form-control" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" placeholder='First Name' required>
-													</div>
+                                        <input type="hidden" id="member" value="<?=$this->session->id_member?>">
 
-												</div>
-												<div class="col-md-6">
-													<div class="form-group">
-														<input type="text" class="form-control" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Last Name'" placeholder='Last Name' required>
-													</div>
-
-												</div>
-											</div>
-											<button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn" type="submit">Subscribe</button>
-										</form>
+											<button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn" type="submit" onclick="submitForm()">Subscribe</button>
 									</aside>
 								</div>
 							</div>
@@ -399,6 +385,68 @@
 <script src="<?=base_url().'assets/fo/popup-img/'?>lightgallery-all.min.js"></script>
 <script src="<?=base_url().'assets/fo/popup-img/'?>jquery.mousewheel.min.js"></script>
 <script>
+
+    function submitForm(){
+        if ("<?=$this->session->id_member?>" !== '') {
+            console.log($("#member").val());
+            var data_ = {
+                member: $("#member").val(),
+                pesan:$("#pesan").val(),
+            };
+            if($("#pesan").val()==""){
+                $("#pesan").focus();
+            }
+            else{
+                $.ajax({
+                    url: "<?=base_url().'api/feedback'?>",
+                    type: "POST",
+                    data: data_,
+                    dataType: "JSON",
+                    beforeSend: function() {
+                        $('body').append('<div class="first-loader"><img src="<?=base_url().'/assets/images/spin.svg'?>"></div>');
+                    },
+                    complete: function() {
+                        $('.first-loader').remove();
+                    },
+                    success: function (res) {
+                        console.log(res);
+                        if (res.status) {
+                            $("#pesan").val("");
+                            Swal.fire({
+                                title: 'Berhasil',
+                                text: "Terimakasih telah meluangkan waktu anda",
+                                icon: 'success',
+//                            showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+//                            cancelButtonColor: '#d33',
+                                confirmButtonText: 'Oke'
+                            })
+                        } else {
+                            alert("Data gagal disimpan!");
+                        }
+                    }
+                });
+            }
+
+        }
+        else{
+            Swal.fire({
+                title: 'Opppss ...',
+                text: "You have not logged in",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sign In'
+            }).then((result) => {
+                if (result.value) {
+                    window.location.href="<?=base_url().'store/auth?page=login'?>"
+                }
+            })
+        }
+
+    }
+
 	$(document).on('ready', function () {
 		initSlider();
 		mainSlider();
@@ -612,7 +660,6 @@
 			type : "POST",
 			dataType : "JSON",
 			success:function(res){
-				console.log(res);
 				$("#countCart").html(res.count);
 			}
 		})

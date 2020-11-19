@@ -363,8 +363,13 @@ class Laporan extends CI_Controller
                 'result_table' => $output
             );
             echo json_encode($result);
-        } else {
+        }
+        elseif($action=='simpan'){
+
+        }
+        else {
             $this->load->view('bo/index', $data);
         }
+
     }
 }

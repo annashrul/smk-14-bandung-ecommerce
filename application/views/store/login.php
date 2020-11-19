@@ -81,7 +81,14 @@
 					if (res.status) {
 						window.location.href="<?=base_url()?>";
 					}else{
-						alert(res.status);
+                        Swal.fire({
+                            title: 'Opppss ...',
+                            text: "Periksa kembali email dan password anda",
+                            icon: 'warning',
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'Oke'
+                        })
+//						alert(res.status);
 					}
 				}
 			});
