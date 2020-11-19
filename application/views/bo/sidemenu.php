@@ -39,7 +39,7 @@
                     <li class="<?=$page=='karir'?'active':null?>" <?php (substr($access->access,9,1)!=1)?'style="display:none;"':null?>><a href="<?=base_url().'pengaturan/karir'?>"><i class="fa fa-briefcase"></i> Karir</a></li>
                     <li class="<?=$page=='home_setting'?'active':null?>" <?php (substr($access->access,10,1)!=1)?'style="display:none;"':null?>><a href="<?=base_url().'pengaturan/home_setting'?>"><i class="fa fa-home"></i> Home Setting</a></li>
                     <li class="<?=$page=='harga_setting'?'active':null?>" <?php (substr($access->access,8,1)!=1)?'style="display:none;"':null?>><a href="<?=base_url().'pengaturan/harga_setting'?>"><i class="fa fa-money"></i> Harga Setting</a></li>
-                    <li class="<?=$page=='shipping_service'?'active':null?>" <?php (substr($access->access,8,1)!=1)?'style="display:none;"':null?>><a href="<?=base_url().'pengaturan/shipping_service'?>"><i class="fa fa-truck"></i> Shipping Service</a></li>
+                    <li class="<?=$page=='shipping_service'?'active':null?>" <?php (substr($access->access,8,1)!=1)?'style="display:none;"':null?>><a href="<?=base_url().'pengaturan/shipping_service'?>"><i class="fa fa-truck"></i> Service</a></li>
                 </ul>
             </li>
             <?php $side_menu=array('0', 'data_user', 'user_level', 'member', 'bank', 'rekening', 'lokasi', 'berita', 'galeri', 'testimoni', 'kategori_berita', 'kurir'); ?>

@@ -83,6 +83,8 @@ class Store extends CI_Controller
 			array("do.orders=o.id_orders", "dp.orders=o.id_orders", "pb.id_pembayaran=dp.pembayaran", "pn.orders=o.id_orders"),
 			"o.member='".$this->user."' AND o.status <> '0'", "o.tgl_orders DESC", "o.id_orders"
 		);
+//		echo '<pre/>';
+//		var_dump($data['orders']);
 		$this->load->view("store/wrapper",$data);
 	}
 
@@ -102,7 +104,7 @@ class Store extends CI_Controller
 			$data['detail'] = $this->m_crud->get_join_data(
 				"berita b",
 				"b.*,kb.nama",
-				$table_join,$join_on,"b.id_berita='".$_GET['detail']."'","b.tgl_berita DESC"
+				$table_join,$join_on,"b.slug_berita='".$_GET['detail']."'","b.tgl_berita DESC"
 			);
 		}
 		if(isset($_POST['any']) && $_POST['any']!=''){
@@ -130,16 +132,17 @@ class Store extends CI_Controller
 			$pagin=$this->m_website->myPagination('join',5,"berita b","b.id_berita",$table_join,$join_on,$where,4,$page);
 			$read_data = $this->m_crud->join_data(
 				"berita b",
-				"b.*,kb.*",
+				"b.*,kb.id_kategori_berita,kb.nama,kb.slug_kategori_berita",
 				$table_join,$join_on,$where,"b.tgl_berita DESC",null,$pagin['perPage'],$pagin['start']
 			);
+
 //			var_dump($read_data);die();
 			$result='';
 			if($read_data!=null){
 				foreach($read_data as $row){
 					$result.='
 					<div class="col-12 col-xs-12 col-md-6">
-						'.$this->m_website->tempNews($row["gambar"],$row["tgl_berita"],$row["id_berita"],$row["judul"],$row["ringkasan"],$row["nama"]).'
+						'.$this->m_website->tempNews($row["gambar"],$row["tgl_berita"],$row["slug_berita"],$row["judul"],$row["ringkasan"],$row["nama"]).'
 					</div>
 					';
 				}

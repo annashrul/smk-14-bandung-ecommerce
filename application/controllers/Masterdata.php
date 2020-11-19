@@ -1446,7 +1446,7 @@ class Masterdata extends CI_Controller
             if ($read_data != null) {
                 foreach ($read_data as $row) {
                     if($row['gambar']!=null && $row['gambar']!=''){
-                        $gambar = '<img style="max-height:100px;" src="' . base_url().$this->m_website->file_thumb($row['gambar']) . '" />';
+                        $gambar = '<img style="max-height:100px;" src="' . base_url().$row['gambar']. '" />';
                     } else {
                         $gambar = '<img style="max-height:100px;" src="' . base_url().'assets/images/no_image.png' . '" />';
                     }
@@ -1523,6 +1523,7 @@ class Masterdata extends CI_Controller
             if($valid==true) {
                 $data_berita = array(
                     'judul' => $this->m_website->replace_kutip($_POST['judul']),
+                    'slug_berita' => $this->slug($this->m_website->replace_kutip($_POST['judul'])),
                     'kategori_berita' => $this->m_website->replace_kutip($_POST['kategori_berita']),
                     'tgl_berita' => isset($_POST['tanggal'])?date('Y-m-d', strtotime($_POST['tanggal'])).' '.date('H:i:s'):null,
                     'ringkasan' => $this->m_website->replace_kutip($_POST['ringkasan']),

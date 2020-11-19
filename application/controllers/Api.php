@@ -1032,7 +1032,7 @@ class Api extends CI_Controller {
 		$this->db->trans_begin();
 
 		$this->m_crud->create_data(
-		    "feedback", array("tanggal"=>date('Y-m-d H:i:s'), "member"=>$_POST['member'], "pesan"=>$_POST['pesan']));
+		    "feedback", array("tanggal"=>date('Y-m-d H:i:s'), "member"=>$this->input->post("member",true), "pesan"=>$this->input->post("pesan",true)));
 
 		if ($this->db->trans_status() === true) {
 			$this->db->trans_commit();

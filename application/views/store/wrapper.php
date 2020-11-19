@@ -147,20 +147,19 @@
 									<ul id="navigation">
 
 										<li class="d-block d-lg-none"><a href="<?=base_url()?>">Home</a></li>
-										<li><a href="javascript:void(0)">Baby Shop</a>
+										<li><a  style="<?=$this->uri->segment(2)=='list_produk'?'color:red':null?>" href="javascript:void(0)">Baby Shop</a>
 											<ul class="submenu">
-												<?php foreach ($nav_menu as $row) {
-													echo '
-													<li class="item">
-														<a href="'.base_url().'store/list_produk/groups/'.$row['id_groups'].'"><font size="3" face="calibri">'.$row['nama'].'</font></a>
-													</li>
-												';}?>
+												<?php foreach ($nav_menu as $row) {?>
+                                                    <li class="item">
+                                                        <a href="<?=base_url().'store/list_produk/groups/'.$row['id_groups']?>"><font size="3" face="calibri"><?=$row['nama']?></font></a>
+                                                    </li>
+												<?php } ?>
 											</ul>
 										</li>
-										<li><a href="<?=base_url().'store/promo'?>">Pomo</a></li>
-										<li><a href="<?=base_url().'store?page=gallery'?>">Gallery</a></li>
-										<li><a href="<?=base_url().'store?page=location'?>">Location</a></li>
-										<li><a href="javascript:void(0)">Information</a>
+										<li><a style="<?=$this->uri->segment(2)=='promo'?'color:red':null?>" href="<?=base_url().'store/promo'?>">Promo</a></li>
+										<li><a style="<?=$_GET['page']=='gallery'?'color:red':null?>" href="<?=base_url().'store?page=gallery'?>">Gallery</a></li>
+										<li><a style="<?=$_GET['page']=='location'?'color:red':null?>" href="<?=base_url().'store?page=location'?>">Location</a></li>
+										<li><a style="<?=$_GET['page']=='about'||$_GET['page']=='tutorial'||$this->uri->segment(2)=='article'?'color:red':null?>" href="javascript:void(0)">Information</a>
 											<ul class="submenu">
 												<li><a href="<?=base_url().'store?page=about'?>">About</a></li>
 												<li><a href="<?=base_url().'store?page=tutorial'?>">Tutorial</a></li>
@@ -168,7 +167,7 @@
 											</ul>
 										</li>
 										<?php if($this->session->userdata('id_member')!=''){ ?>
-										<li><a href="javascript:void(0)"><?=$this->session->userdata('nama')?></a>
+										<li><a style="<?=$this->uri->segment(2)=='history'?'color:red':null?>" href="javascript:void(0)"><?=$this->session->userdata('nama')?></a>
 											<ul class="submenu">
 												<li><a href="javascript:void(0)">poin : <?= $this->data['account']['poin'] ?></a></li>
 												<li><a href="javascript:void(0)">member code : <?= $this->data['account']['ol_code'] ?></a></li>
@@ -287,7 +286,7 @@
 								<li><a href="<?=base_url().'store?page=resolution'?>">Resolution Center</a></li>
 								<li><a href="<?=base_url().'store?page=career'?>">Career</a></li>
 								<li><a href="<?=base_url().'store?page=tutorial'?>">Tutorial</a></li>
-								<li><a href="<?=base_url().'store/store/article/all'?>">Article</a></li>
+								<li><a href="<?=base_url().'store/article/all'?>">Article</a></li>
 							</ul>
 						</div>
 					</div>

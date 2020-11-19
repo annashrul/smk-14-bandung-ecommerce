@@ -77,7 +77,6 @@
 				beforeSend: function() {$('body').append('<div class="first-loader"><img src="<?=base_url()?>assets/images/spin.svg"></div>');},
 				complete: function() {$('.first-loader').remove();},
 				success: function (res) {
-					console.log(res);
 					if (res.status) {
 						window.location.href="<?=base_url()?>";
 					}else{

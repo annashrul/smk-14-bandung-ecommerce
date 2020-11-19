@@ -270,7 +270,6 @@
 			type: "POST",
 			dataType: "JSON",
 			success: function (res) {
-				console.log(res);
 				if (res.status) {
 					var list = '';
 					for (var x=0; x<res.res_warna.length; x++) {
@@ -278,7 +277,6 @@
 						// list += $('.current').html(res.res_warna[x].warna);
 						list += '<option value="'+res.res_warna[x].id_det_produk+'">'+res.res_warna[x].warna+'</option>';
 					}
-					console.log(list);
 					$("#warnas").html(list);
 					// $("#xwarna").val(list);
 				}
@@ -303,9 +301,7 @@
 				data: data_,
 				dataType: "JSON",
 				success: function (res) {
-					console.log(res);
 					if (res.status) {
-						console.log(res);
 						countCart();
 						Swal.fire({
 							title: 'Add to bag success!',

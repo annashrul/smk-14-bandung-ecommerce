@@ -115,9 +115,9 @@ class Ajax extends CI_Controller
 
 	public function register($action=null) {
 		$response = array();
-		$nama = $_POST['nama'];
-		$email = $_POST['email'];
-		$tlp = $_POST['telp'];
+		$nama = $this->input->post("nama",true);
+		$email = $this->input->post("email",true);
+		$tlp = $this->input->post("telp",true);
 		$id = md5($email);
 		$new_password = $this->random_char();
 		$options = array('cost' => 12);
@@ -139,7 +139,7 @@ class Ajax extends CI_Controller
 			'ol_code' => $ol_code
 		);
 		if (isset($_POST['jk'])) {
-			$data_member['jenis_kelamin'] = $_POST['jk'];
+			$data_member['jenis_kelamin'] =  $this->input->post("jk",true);
 		}
 
 		if (isset($_POST['tgl_lahir'])) {

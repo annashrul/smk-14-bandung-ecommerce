@@ -143,14 +143,14 @@
 			<div class="col-lg-4">
 				<div class="blog_right_sidebar">
 					<aside class="single_sidebar_widget tag_cloud_widget">
-						<h4 class="widget_title">Category</h4>
+						<h4 class="widget_title">Category <span id="cat"></span></h4>
 						<ul class="list">
 							<li>
 								<a href="javascript:void(0)" onclick="cari('all')">All</a>
 							</li>
 							<?php foreach($category as $row): ?>
 							<li>
-								<a href="javascript:void(0)" onclick="cari('<?=$row["slug_kategori_berita"]?>')"><?=$row['nama']?></a>
+								<a id="cik<?=$row['slug_kategori_berita']?>" href="javascript:void(0)" onclick="cari('<?=$row["slug_kategori_berita"]?>')"><?=$row['nama']?></a>
 								<input type="hidden" name="category" id="category">
 							</li>
 							<?php endforeach; ?>
@@ -220,9 +220,9 @@
 		if(e.keyCode === 13)
 		{
 			if($("#category").val() !== ''){
-				load_data(1,{any:$("#any").val(),category:$("#category").val()})
+                load_data(1,{any:$("#any").val(),category:$("#category").val()})
 			}else{
-				load_data(1,{any:$("#any").val()})
+                load_data(1,{any:$("#any").val()})
 			}
 		}
 	});
@@ -231,15 +231,12 @@
 			if($("#category").val() !== ''){
 				load_data(1,{any:$("#any").val(),category:$("#category").val()})
 			}else{
-				load_data(1,{any:$("#any").val()})
+                load_data(1,{any:$("#any").val()})
 			}
 		}else{
-			$("#category").val(param);
-			//document.location.hash = param.replace("#<?//=$this->uri->segment(3)?>//", param);
-			//document.location.href = String( document.location.href ).replace( "<?//=$this->uri->segment(3)?>//", param );
-			//var url = 'http://localhost/ecommerce/store/article/<?//=$this->uri->segment(3)?>//';
-			//url = url.slice( 0, url.indexOf("#<?//=$this->uri->segment(3)?>//"));
-			//console.log(url);
+            $("#category").val(param);
+			$("#cat").text(param);
+
 			if($("#any").val()!==''){
 				load_data(1,{any:$("#any").val(),category:$("#category").val()})
 			}else{
@@ -252,7 +249,6 @@
 	}
 
 	function load_data(page, data={}) {
-		console.log(data);
 		$.ajax({
 			url:"<?=base_url().'store/article/'.$this->uri->segment(3).'/load_data/';?>"+page,
 			type:"POST",
@@ -262,7 +258,6 @@
 			complete: function() {$('.first-loader').remove();},
 			success:function(res)
 			{
-				console.log(res);
 				$('#resultArticle').html(res.result);
 				$('#pagination_link').html(res.pagination_link);
 
