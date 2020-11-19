@@ -1220,7 +1220,7 @@ class Masterdata extends CI_Controller
 
             $output = '';
             $read_data = $this->m_crud->read_data($table, "*", $where, "nama", null, $config["per_page"], $start);
-            $output .= '
+            $output .= /** @lang text */'
                 <table class="table table-hover">
                 <tr>
                     <th width="1%">No</th>
@@ -1237,7 +1237,7 @@ class Masterdata extends CI_Controller
                     } else {
                         $gambar = '<img style="max-height:100px;" src="' . base_url().'assets/images/no_image.png' . '" />';
                     }
-                    $output .= '
+                    $output .= /** @lang text */'
                     <tr>
                         <td>' . $no++ . '</td>
                         <td>
@@ -1255,7 +1255,7 @@ class Masterdata extends CI_Controller
                 ';
                 }
             } else {
-                $output .= '
+                $output .= /** @lang text */'
                 <tr>
                     <td colspan="4" class="text-center">Tidak ada data</td>
                 </tr>
@@ -1315,7 +1315,7 @@ class Masterdata extends CI_Controller
                 }
             }
 
-            $data_katagori = array('nama' => $_POST['nama']);
+            $data_katagori = array('nama' => $_POST['nama'],'slug_kategori_berita'=>$this->slug($_POST['nama']));
 
             if($_FILES['file_upload']['name']!=null) {
 
@@ -2303,4 +2303,22 @@ class Masterdata extends CI_Controller
         }
     }
     /*End master kurir*/
+    public function slug($text)
+    {
+        // replace non letter or digits by -
+        $text = preg_replace('~[^\\pL\d]+~u', '-', $text);
+        // trim
+        $text = trim($text, '-');
+        // transliterate
+        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+        // lowercase
+        $text = strtolower($text);
+        // remove unwanted characters
+        $text = preg_replace('~[^-\w]+~', '', $text);
+        if (empty($text))
+        {
+            return 'n-a';
+        }
+        return $text;
+    }
 }

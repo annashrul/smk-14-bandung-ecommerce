@@ -227,7 +227,6 @@
 				<?php foreach($model as $key=>$row):?>
 					<div class="swiper-slide" style="padding: 0px;cursor: pointer!important;" onclick="return window.location.href='<?=base_url()."store/list_produk/model/".$row["id_model"]?>'">
 						<img src="<?=$row['gambar']?>" style="height: 100%;width: 100%;" alt="">
-
 					</div>
 				<?php endforeach; ?>
 			</div>
@@ -270,6 +269,24 @@
 		<!-- End Nav Card -->
 	</div>
 </section>
+
+
+<!-- feature part here -->
+<section class="feature_part">
+    <div class="container">
+        <div class="row justify-content-center">
+            <?php foreach ($service as $row): ?>
+            <div class="col-lg-3 col-sm-6">
+                <div class="single_feature_part">
+                    <img src="<?=$row['image']?>" alt="#">
+                    <h4><?=$row['title']?></h4>
+                </div>
+            </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>
+<!-- feature part end -->
 
 <!---->
 <!--<div class="best-product-area product_img_slide owl-carousel" style="" >-->

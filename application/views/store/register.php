@@ -90,7 +90,7 @@
 						<h2>New to our Shop?</h2>
 						<p>There are advances being made in science and technology
 							everyday, and a good example of this is the</p>
-						<a href="<?=base_url().'store/auth?page=register'?>" class="btn_3">Create an Account</a>
+						<a href="<?=base_url().'store/auth?page=login'?>" class="btn_3">Sign In</a>
 					</div>
 				</div>
 			</div>
@@ -115,7 +115,7 @@
 							</div>
 							<div class="col-md-12 form-group">
 								<?php $field = 'telp'; ?>
-								<input type="text" class="form-control" id="<?=$field?>" name="<?=$field?>" value="" placeholder="No Telephone">
+								<input type="number" class="form-control" id="<?=$field?>" name="<?=$field?>" value="" placeholder="No Telephone">
 							</div>
 							<div class="col-md-12 form-group">
 								<input type="email" class="form-control" id="email" name="email" value="" placeholder="Email">

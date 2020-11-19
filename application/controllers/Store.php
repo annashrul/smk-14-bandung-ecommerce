@@ -35,6 +35,7 @@ class Store extends CI_Controller
 		$data = $this->data;
 		$data['title']='home';
 		$data['slider'] = $this->m_crud->read_data("home_slide", "*");
+		$data['service'] = $this->m_crud->read_data("shipping_service", "*","status=1",null,null,4);
 		$data['bestSeller'] = $this->m_crud->join_data(
 			"bestsellers bs", "bs.*,pr.*,dp.*,gp.*",
 			array("produk pr","det_produk dp","gambar_produk gp"),
@@ -46,14 +47,14 @@ class Store extends CI_Controller
 			array("pr.id_produk=gp.produk","pr.id_produk=dp.produk"),
 			null,"pr.id_produk DESC","pr.id_produk",8
 		);
-		$data['model'] = $this->m_crud->read_data("model", "id_model, nama, CONCAT('".base_url()."', gambar) gambar",null,null,null,12);
+		$data['model'] = $this->m_crud->read_data("model", "id_model, nama, gambar",null,null,null,12);
 		$data['news'] = $this->m_crud->join_data("berita b","b.*,kb.nama",array("kategori_berita kb"),array("kb.id_kategori_berita=b.kategori_berita"),null,"b.id_berita DESC",null,6);
 		$data['promo'] = $this->m_crud->read_data("promo", "deskripsi,id_promo, promo, gambar, diskon", "'".date('Y-m-d H:i:s')."' BETWEEN tgl_awal AND tgl_akhir");
 		$data['topitem'] = $this->m_crud->read_data("top_item", "*");
 		if($_GET['page']){
 			if($_GET['page']=='about'){$data['about']= $this->m_crud->get_data("setting", "tentang", "id_setting='1111'")['tentang'];}
 			if($_GET['page']=='tutorial'){$data['tutorial']= $this->m_crud->get_data("setting", "cara_belanja", "id_setting='1111'")['cara_belanja'];}
-			if($_GET['page']=='gallery'){$data['model'] = $this->m_crud->read_data("model", "id_model, nama, CONCAT('".base_url()."', gambar) gambar");}
+			if($_GET['page']=='gallery'){$data['model'] = $this->m_crud->read_data("model", "id_model, nama, gambar");}
 			if($_GET['page']=='location'){$data['res_lokasi'] = $this->m_crud->read_data("lokasi", "*");}
 			if($_GET['page']=='resolution'){$data['res_resolusi'] = $this->m_crud->get_data("setting", "pusat_resolusi", "id_setting='1111'")['pusat_resolusi'];}
 			if($_GET['page']=='privacy_policy'){ $data['res_kebijakan'] = $this->m_crud->get_data("setting", "kebijakan", "id_setting='1111'")['kebijakan'];}
@@ -68,7 +69,7 @@ class Store extends CI_Controller
 	public function promo(){
 		$data = $this->data;
 		$data['content'] = 'store/promo';
-		$data['promo'] = $this->m_crud->read_data("promo", "id_promo, promo, gambar, diskon", "'".date('Y-m-d H:i:s')."' BETWEEN tgl_awal AND tgl_akhir");
+		$data['promo'] = $this->m_crud->read_data("promo", "id_promo, promo, gambar, diskon,slug_promo", "'".date('Y-m-d H:i:s')."' <= tgl_akhir");
 //		var_dump($data['promo']);
 		$this->load->view("store/wrapper",$data);
 	}
@@ -90,9 +91,9 @@ class Store extends CI_Controller
 		$data['title']='article';
 		$data['content'] = 'store/article';
 		$data['category'] = $this->m_crud->read_data("kategori_berita","*");
-		$data['promo'] = $this->m_crud->read_data("promo", "id_promo, promo, gambar, diskon", "'".date('Y-m-d H:i:s')."' BETWEEN tgl_awal AND tgl_akhir");
-		$data['model'] = $this->m_crud->read_data("model", "id_model, nama, CONCAT('".base_url()."', gambar) gambar",null,null,null,12);
-
+		$data['promo'] = $this->m_crud->read_data("promo", "id_promo, promo, gambar, diskon,slug_promo", "'".date('Y-m-d H:i:s')."' <= tgl_akhir");
+		$data['model'] = $this->m_crud->read_data("model", "id_model, nama,gambar",null,null,null,12);
+//		var_dump($data['model']);
 		$where=null;
 		$table_join = array("kategori_berita kb");
 		$join_on = array("kb.id_kategori_berita=b.kategori_berita");
@@ -126,13 +127,13 @@ class Store extends CI_Controller
 
 
 		if($action=='load_data'){
-
 			$pagin=$this->m_website->myPagination('join',5,"berita b","b.id_berita",$table_join,$join_on,$where,4,$page);
 			$read_data = $this->m_crud->join_data(
 				"berita b",
 				"b.*,kb.*",
 				$table_join,$join_on,$where,"b.tgl_berita DESC",null,$pagin['perPage'],$pagin['start']
 			);
+//			var_dump($read_data);die();
 			$result='';
 			if($read_data!=null){
 				foreach($read_data as $row){
@@ -248,7 +249,17 @@ class Store extends CI_Controller
 //			}
 
 			if($uri=='model' || $uri=='top_item' || $uri=='promo'){
-				array_push($table_join, "det_$uri dti");
+			    $tbl="";
+			    $par="";
+			    if($uri=='promo'){
+                    $tbl="det_promo";
+                    $uri="slug_promo";
+                }
+                else{
+			        $tbl="det_$uri";
+                }
+
+				array_push($table_join, "$tbl dti");
 				array_push($join_on, "dti.produk=pr.id_produk AND dti.".$uri."='".$id."'");
 			}
 			$response['merk'] = $this->m_crud->join_data("produk pr", "mr.id_merk, mr.nama", $table_join, $join_on, $where, null, "mr.id_merk");
@@ -260,7 +271,7 @@ class Store extends CI_Controller
 			if($read_produk!=null){
 				foreach($read_produk as $row){
 					/*Get promo*/
-					$get_promo = $this->m_crud->get_join_data("promo pr", "pr.diskon", "det_promo dp", "dp.promo=pr.id_promo", "dp.produk='".$row['id_produk']."' AND '".date('Y-m-d H:i:s')."' BETWEEN pr.tgl_awal AND pr.tgl_akhir");
+					$get_promo = $this->m_crud->get_join_data("promo pr", "pr.diskon", "det_promo dp", "dp.slug_promo=pr.slug_promo", "dp.produk='".$row['id_produk']."' AND '".date('Y-m-d H:i:s')."' BETWEEN pr.tgl_awal AND pr.tgl_akhir");
 					if ($get_promo!=null) {
 						$promo = 1;
 						$hrgcoret = $row['hrg_jual'];

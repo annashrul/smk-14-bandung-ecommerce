@@ -1,6 +1,42 @@
 
 <!-- slider Area End-->
 <style>
+
+    .gallery > h1 {
+        font-size: 3rem;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        margin-bottom: 1rem;
+        color: #333333;
+        font-weight: 100;
+    }
+
+    .gallery > .gallery__list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        grid-template-rows: repeat(6, 200px);
+        grid-gap: 1rem;
+        grid-auto-flow: dense;
+    }
+
+    .gallery > .gallery__list > li:nth-child(4n) {
+        grid-column: span 2;
+        grid-row: span 2;
+    }
+
+    .gallery > .gallery__list > li:nth-child(8n) {
+        grid-column: span 3;
+        grid-row: span 3;
+    }
+
+    .gallery > .gallery__list > li > figure {
+        height: 100%;
+    }
+
+    .gallery > .gallery__list > li > figure > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 	.pagination > li > a {
 		padding: 6px 12px;
 		color: #000000;
@@ -96,7 +132,9 @@
 			</div>
 			<div class="col-lg-8 mb-5 mb-lg-0">
 				<div class="blog_left_sidebar">
-					<div class="row" id="resultArticle"></div>
+					<div class="row" id="resultArticle">
+
+                    </div>
 				</div>
 				<div class="row">
 					<div class="col-md-12 col-sm-12 col-xs-12"><nav aria-label="..." id="pagination_link"></nav></div>
@@ -132,7 +170,7 @@
 								}
 							?>
 							<li>
-								<a href="<?=base_url().'store/list_produk/promo/'.$row['id_promo']?>" class="d-flex">
+								<a href="<?=base_url().'store/list_produk/promo/'.$row['slug_promo']?>" class="d-flex">
 									<p><?=$row['promo']?> <?=$data_diskon?></p>
 								</a>
 							</li>
@@ -145,8 +183,8 @@
 						<ul class="instagram_row flex-wrap">
 							<?php foreach($model as $row):?>
 							<li>
-								<a href="#">
-									<img class="img-fluid" src="<?=base_url().$model['gambar']?>" alt="">
+								<a href="<?=base_url().'store/list_produk/model/'.$row['id_model']?>">
+									<img class="img-fluid" src="<?=$row['gambar']?>" alt="">
 								</a>
 							</li>
 							<?php endforeach; ?>

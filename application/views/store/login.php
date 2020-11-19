@@ -22,7 +22,7 @@
 								<input type="text" class="form-control" id="email" name="email" value="" placeholder="Email">
 							</div>
 							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="password" name="password" value="" placeholder="Password">
+								<input type="password" class="form-control" id="password" name="password" value="" placeholder="Password">
 
 							</div>
 							<div class="col-md-12 form-group">

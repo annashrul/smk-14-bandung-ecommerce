@@ -1301,6 +1301,7 @@ class Produk extends CI_Controller
 
             $output = '';
             $read_data = $this->m_crud->read_data($table, "*", $where, "promo", null, $config["per_page"], $start);
+
             $output .= '
                 <table class="table table-hover">
                 <tr>
@@ -1434,7 +1435,8 @@ class Produk extends CI_Controller
                     'deskripsi' => $_POST['deskripsi'],
                     'tgl_awal' => $tgl_awal,
                     'tgl_akhir' => $tgl_akhir,
-                    'diskon' => json_encode($diskon)
+                    'diskon' => json_encode($diskon),
+                    'slug_promo'=>slug($_POST['promo'])
                 );
                 if($_FILES['gambar']['name']!=null){
                     $data_promo['gambar'] = 'assets/images/promo/'.$file['gambar']['file_name'];
@@ -1443,7 +1445,7 @@ class Produk extends CI_Controller
                 $id = $this->db->insert_id();
 
                 foreach ($_POST['id_produk'] as $row) {
-                    $this->m_crud->create_data("det_promo", array('promo'=>$id,'produk'=>$row));
+                    $this->m_crud->create_data("det_promo", array('promo'=>$id,'produk'=>$row,'slug_promo'=>slug($_POST['promo'])));
                 }
             } else {
                 $id = $_POST['id'];
@@ -1452,7 +1454,9 @@ class Produk extends CI_Controller
                     'deskripsi' => $_POST['deskripsi'],
                     'tgl_awal' => $tgl_awal,
                     'tgl_akhir' => $tgl_akhir,
-                    'diskon' => json_encode($diskon)
+                    'diskon' => json_encode($diskon),
+                    'slug_promo'=>slug($_POST['promo'])
+
                 );
                 if($_FILES['gambar']['name']!=null){
                     $data_promo['gambar'] = 'assets/images/promo/'.$file['gambar']['file_name'];
@@ -1461,7 +1465,8 @@ class Produk extends CI_Controller
 
                 $this->m_crud->delete_data("det_promo", "promo='".$id."'");
                 foreach ($_POST['id_produk'] as $row) {
-                    $this->m_crud->create_data("det_promo", array('promo'=>$id,'produk'=>$row));
+//                    $this->m_crud->create_data("det_promo", array('promo'=>$id,'produk'=>$row));
+                    $this->m_crud->create_data("det_promo", array('promo'=>$id,'produk'=>$row,'slug_promo'=>slug($_POST['promo'])));
                 }
             }
 
@@ -1965,7 +1970,7 @@ class Produk extends CI_Controller
                         </div>
                         </td>
                         <td>' . $row['nama'] . '</td>
-                        <td><img class="img_profile" src="' . base_url().$row['gambar'] . '"></td>
+                        <td><img class="img_profile" src="' . $row['gambar'] . '"></td>
                     </tr>
                 ';
                 }
@@ -2054,7 +2059,7 @@ class Produk extends CI_Controller
                     'nama' => $_POST['nama']
                 );
                 if($_FILES['gambar']['name']!=null){
-                    $data_model['gambar'] = 'assets/images/produk/'.$file['gambar']['file_name'];
+                    $data_model['gambar'] = base_url()."assets/images/produk/".$file['gambar']['file_name'];
                 }
                 $this->m_crud->create_data($table, $data_model);
                 $id = $this->db->insert_id();
@@ -2068,7 +2073,7 @@ class Produk extends CI_Controller
                     'nama' => $_POST['nama']
                 );
                 if($_FILES['gambar']['name']!=null){
-                    $data_model['gambar'] = 'assets/images/produk/'.$file['gambar']['file_name'];
+                    $data_model['gambar'] = base_url()."assets/images/produk/".$file['gambar']['file_name'];
                 }
                 $this->m_crud->update_data($table, $data_model, "id_model='".$id."'");
 

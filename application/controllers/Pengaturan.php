@@ -1494,4 +1494,205 @@ class Pengaturan extends CI_Controller
         }
     }
     /*End master home_slide*/
+
+    public function shipping_service($action=null, $page=1) {
+        //$this->access_denied(11);
+        $data = $this->data;
+        $function = 'shipping_service';
+        $table = 'shipping_service';
+        $view = $this->control.'/';
+        if($this->session->userdata($this->site . 'admin_menu')!=$function) {
+            $this->session->unset_userdata('search');
+            $this->cart->destroy();
+            $this->session->set_userdata($this->site . 'admin_menu', $function);
+        }
+        $data['main'] = 'Pengaturan';
+        $data['title'] = 'Shipping Service';
+        $data['page'] = $function;
+        $data['content'] = $view.$function;
+        $data['table'] = $table;
+        $where = null;
+
+        if(isset($_POST['search'])||isset($_POST['to_excel'])) {
+            $this->session->set_userdata('search', array('any' => $_POST['any']));
+        }
+
+        $search = $this->session->search['any'];
+        if(isset($search)&&$search!=null) {
+            ($where == null) ? null : $where .= " AND ";
+            $where .= "title like '%".$search."%'";
+        }
+
+        if ($action == 'get_data') {
+            $config = array();
+            $config["base_url"] = "#";
+            //$config["total_rows"] = $this->ajax_pagination_model->count_all();
+            $config["total_rows"] = $this->m_crud->count_data($table, "id_shipping_service", $where);
+            $config["per_page"] = 6;
+            $config["uri_segment"] = 4;
+            $config["num_links"] = 5;
+            $config["use_page_numbers"] = TRUE;
+            $config["full_tag_open"] = '<ul class="pagination pagination-sm">';
+            $config["full_tag_close"] = '</ul>';
+            $config['first_link'] = '&laquo;';
+            $config["first_tag_open"] = '<li>';
+            $config["first_tag_close"] = '</li>';
+            $config['last_link'] = '&raquo;';
+            $config["last_tag_open"] = '<li>';
+            $config["last_tag_close"] = '</li>';
+            $config['next_link'] = '&gt;';
+            $config["next_tag_open"] = '<li>';
+            $config["next_tag_close"] = '</li>';
+            $config["prev_link"] = "&lt;";
+            $config["prev_tag_open"] = "<li>";
+            $config["prev_tag_close"] = "</li>";
+            $config["cur_tag_open"] = "<li class='active'><a href='#'>";
+            $config["cur_tag_close"] = "</a></li>";
+            $config["num_tag_open"] = "<li>";
+            $config["num_tag_close"] = "</li>";
+            $this->pagination->initialize($config);
+            $start = ($page - 1) * $config["per_page"];
+
+            $output = '';
+            $read_data = $this->m_crud->read_data($table, "*", $where, "id_shipping_service", null, $config["per_page"], $start);
+            $output .= '
+                <table class="table table-hover">
+                <tr>
+                    <th width="1%">No</th>
+                    <th width="1%" class="text-center">#</th>
+                    <th>Judul</th>
+                    <th>Status</th>
+                    <th>Gambar</th>
+                </tr>
+            ';
+            $no = $start+1;
+            if ($read_data != null) {
+                foreach ($read_data as $row) {
+                    $status="";
+                    if($row['status']==0){
+                        $status.='<button class="btn btn-primary bg-red  btn-sm">Tidak Aktif</button>';
+                    }
+                    else{
+                        $status.='<button class="btn btn-primary bg-green btn-sm">Aktif</button>';
+                    }
+                    $output .= '
+                    <tr>
+                        <td>' . $no++ . '</td>
+                        <td>
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Pilihan <span class="fa fa-caret-down"></span></button>
+                            <ul class="dropdown-menu dropdown-position">
+                                <li><a href="#" onclick="edit(\'' . $row['id_shipping_service'] . '\')">Edit</a></li>
+                                <li><a href="#" onclick="hapus(\'' . $row['id_shipping_service'] . '\')">Hapus</a></li>
+                            </ul>
+                        </div>
+                        </td>
+                        <td>' . $row['title'] . '</td>
+                        <td>'.$status.'</td>
+                        <td><img style="max-height:100px;" src="' .$row['image'] . '" /></td>
+                    </tr>
+                ';
+                }
+            } else {
+                $output .= '
+                <tr>
+                    <td colspan="5" class="text-center">Tidak ada data</td>
+                </tr>
+                ';
+            }
+            $output .= '</table>';
+
+            $result = array(
+                'pagination_link' => $this->pagination->create_links(),
+                'result_table' => $output
+            );
+            echo json_encode($result);
+        } else if ($action == 'simpan') {
+            $path = 'assets/images/shipping_service';
+            $config['upload_path']          = './'.$path;
+            $config['allowed_types']        = 'bmp|gif|jpg|jpeg|png|svg';
+            $config['max_size']             = 5120;
+            $this->load->library('upload', $config);
+            $input_file = array('1'=>'file_upload');
+            $valid = true;
+            foreach($input_file as $row){
+                if( (! $this->upload->do_upload($row)) && $_FILES[$row]['name']!=null){
+                    $file[$row]['file_name']=null;
+                    $file[$row] = $this->upload->data();
+                    $valid = false;
+                    $data['error_'.$row] = $this->upload->display_errors();
+                    break;
+                } else{
+                    $file[$row] = $this->upload->data();
+                    $data[$row] = $file;
+                    if($file[$row]['file_name']!=null){
+                        $manipulasi['image_library'] = 'gd2';
+                        $manipulasi['source_image'] = $file[$row]['full_path'];
+                        $manipulasi['maintain_ratio'] = true;
+                        $manipulasi['width']         = 500;
+                        //$manipulasi['height']       = 250;
+                        $manipulasi['new_image']       = $file[$row]['full_path'];
+                        $manipulasi['create_thumb']       = true;
+                        //$manipulasi['thumb_marker']       = '_thumb';
+                        $this->load->library('image_lib', $manipulasi);
+                        $this->image_lib->resize();
+                    }
+                }
+            }
+
+            $this->db->trans_begin();
+
+            if ($valid) {
+                $data_slide = array(
+                    'title' => $_POST['title'],
+                    'status' => $_POST['status'],
+                );
+
+                if($_FILES['file_upload']['name']!=null) {
+                    $data_slide['image'] = base_url().$path.'/'.$file['file_upload']['file_name'];
+                }
+
+                if ($_POST['param'] == 'add') {
+                    $this->m_crud->create_data($table, $data_slide);
+                } else {
+                    $id = $_POST['id'];
+                    $this->m_crud->update_data($table, $data_slide, "id_shipping_service='" . $id . "'");
+                }
+            }
+
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+                echo false;
+            } else {
+                $this->db->trans_commit();
+                echo $valid;
+            }
+        } else if ($action == 'edit') {
+            $get_data = $this->m_crud->get_data($table, "*", "id_shipping_service = '".$_POST['id']."'");
+            $result = array();
+
+            if ($get_data != null) {
+                $result['status'] = true;
+                $result['res_data'] = $get_data;
+            } else {
+                $result['status'] = false;
+            }
+
+            echo json_encode($result);
+        } else if ($action == 'hapus') {
+            $delete_data = $this->m_crud->delete_data($table, "id_shipping_service = '".$_POST['id']."'");
+
+            if ($delete_data) {
+                $status = true;
+            } else {
+                $status = false;
+            }
+
+            echo $status;
+        } else {
+            $this->load->view('bo/index', $data);
+        }
+    }
+
+
 }

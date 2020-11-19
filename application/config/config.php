@@ -25,7 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 //$config['base_url'] = 'http://localhost/ecommerce/';
 $config['url'] = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "https" : "http").'://'.$_SERVER['HTTP_HOST'].'/';
-$config['site'] = '/';
+$config['site'] = 'web-ecommerce/';
 $config['base_url'] = $config['url'].$config['site'];
 /*
 |--------------------------------------------------------------------------

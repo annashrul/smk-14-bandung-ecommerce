@@ -199,6 +199,7 @@ $menu_group = $this->m_crud->get_data($table, "*", "$id='" . $param . "' $status
 			complete: function() {$('.first-loader').remove();},
 			success:function(res)
 			{
+
 				// console.log(res.kelompok);
 				// load_kelompok(res.kelompok);
 				$('#items').html(res.res_produk);
