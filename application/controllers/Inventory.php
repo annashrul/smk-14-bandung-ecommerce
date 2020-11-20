@@ -206,20 +206,24 @@ class Inventory extends CI_Controller
                 'page' => $page
             );
 
-            $req_api = json_decode($this->m_website->request_api("kartu_stock", $data_post), true);
+            $req_api = json_decode($this->m_website->request_api_interlocal("kartu_stock", $data_post), true);
 
             $total_rows = $req_api['total_rows'];
             $res_api = $req_api['result'];
             $report = $res_api['report'];
 
-            foreach ($report as $key => $item) {
-                foreach ($get_produk as $item2) {
-                    if ($item['kd_brg'] == $item2['code']) {
-                        $report[$key]['nama_produk'] = $item2['nama'];
-                        break;
-                    }
-                }
-            }
+			// echo json_encode($report);
+			// var_dump($report);
+			if(!is_null($report)){
+				foreach ($report as $key => $item) {
+					foreach ($get_produk as $item2) {
+						if ($item['kd_brg'] == $item2['code']) {
+							$report[$key]['nama_produk'] = $item2['nama'];
+							break;
+						}
+					}
+				}
+			}
 
             $config = array();
             $config["base_url"] = "#";
@@ -264,7 +268,7 @@ class Inventory extends CI_Controller
                 </tr>
             ';
             $no = $start+1;
-            if (count($report) > 0) {
+            if (count(is_null($report)?0:$report) > 0) {
                 $stok_awal_page = 0; $stok_masuk_page = 0; $stok_keluar_page = 0;
                 $stok_awal_total = (int)$res_api['tstaw'];
                 $stok_masuk_total = (int)$res_api['tstma'];
@@ -367,7 +371,7 @@ class Inventory extends CI_Controller
                 'tgl_akhir' => $tgl_akhir
             );
 
-            $req_api = json_decode($this->m_website->request_api("detail_by_transaksi", $data_post), true);
+            $req_api = json_decode($this->m_website->request_api_interlocal("detail_by_transaksi", $data_post), true);
             $read_data = $req_api['list'];
             if (count($read_data) > 0) {
                 foreach ($read_data as $row) {
