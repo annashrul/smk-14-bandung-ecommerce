@@ -139,11 +139,11 @@
 						$get_ongkir = $this->m_crud->get_data("pengiriman", "biaya", "orders='" . $row['id_orders'] . "'")['biaya'];
 				?>
 				<tr>
-					<td data-label="No Transaction"><?=$row['id_orders']?></td>
+					<td data-label="No Transaction" style="text-align:left;width:20%"><?=$row['id_orders']?></td>
 					<td data-label="Due Date"><?=date('d M Y', strtotime($row['tgl_orders']))?></td>
 					<td data-label="Time"><?=date('H:i:s', strtotime($row['tgl_orders']))?></td>
-					<td data-label="Transaction Type">Transfer <?=$row['status']?></td>
-					<td data-label="Amount"><?=number_format((float)$row['total']+(float)$row['kode_unik']+(float)$get_ongkir-$row['jumlah_voucher'])?></td>
+					<td data-label="Transaction Type">Transfer </td>
+					<td data-label="Amount">Rp <?=number_format((float)$row['total']+(float)$row['kode_unik']+(float)$get_ongkir-$row['jumlah_voucher'])?></td>
 					<td data-label="Status"><?=$status?></td>
 					<td data-label="Action">
 						<div class="dropdown">

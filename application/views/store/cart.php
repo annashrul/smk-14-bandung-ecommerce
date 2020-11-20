@@ -53,7 +53,7 @@
 					<li class="d-lg-block"> <a href="<?=base_url()?>" class="btn header-btn">Continue Shopping</a></li>
 				</div>
 				<div class="col-6 col-xs-6">
-					<li class="d-lg-block"> <a href="<?=base_url().'store/checkout'?>" style="float: right;" class="btn header-btn">Go To Checkout</a></li>
+					<li class="d-lg-block"> <a id="btn_checkout" href="<?=base_url().'store/checkout'?>" style="float: right;" class="btn header-btn">Go To Checkout</a></li>
 				</div>
 			</div>
 		</div>
@@ -68,10 +68,12 @@
 			type : "POST",
 			dataType : "JSON",
 			success:function(res){
-				console.log(res.qty);
+				console.log(res.count);
 				$("#resTable").html(res.result);
 				$("#tot_qty").val(res.qty);
 				$("#tot_price").html(res.total);
+				if(parseInt(res.count)>0) $("#btn_checkout").css('display','block')
+				else  $("#btn_checkout").css('display','none')
 			}
 		})
 	}
