@@ -1297,9 +1297,11 @@ class Api extends CI_Controller {
 		if ($this->db->trans_status() === FALSE) {
 			$this->db->trans_rollback();
 			$result['status'] = false;
+			$result['data']=$_POST['jumlah'];
 		} else {
 			$this->db->trans_commit();
 			$result['status'] = true;
+            $result['data']=$_POST['jumlah'];
 		}
 
 		echo json_encode($result);

@@ -199,10 +199,31 @@
 
 
 <script>
+
+    $("").autocomplete({
+        minChars: 3,
+        serviceUrl: '<?=base_url().'ajax/get_produk'?>',
+        type: 'post',
+        dataType: 'json',
+        response: function(event, ui) {
+            if (ui.content.length === 0) {
+                $("#empty-message").text("No results found");
+            } else {
+                $("#empty-message").empty();
+            }
+        },
+        onSelect: function (suggestion) {
+            if (suggestion.lokasi !== 'not_found') {
+                window.location.href='<?=base_url().'store/product?product_id='?>'+suggestion.id_produk;
+            } else {
+                console.log('gagal')
+            }
+        }
+    });
+
+
 	$(document).ready(function() {
-
 		load_data(1);
-
 	}).on("click", ".pagination li a", function(event){
 		event.preventDefault();
 		var page = $(this).data("ci-pagination-page");

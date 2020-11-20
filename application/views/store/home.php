@@ -59,79 +59,40 @@
 	}
 </style>
 <!-- slider Area Start -->
-<div class="slider-area ">
+<div class="slider-area " style="">
 	<!-- Mobile Menu -->
 	<div class="slider-active">
-		<?php if($promo!=null){ foreach($promo as $row):
-			$diskon = json_decode($row['diskon'], true);
-			$data_diskon = '';
-			for ($i=0;$i<count($diskon);$i++) {
-				$data_diskon .= ($i>0)?' + ':' ';
-				$data_diskon .= $diskon[$i].'%';
-			}
-		?>
-			<div class="single-slider" style="background-size: cover;background-repeat: no-repeat;" data-background="<?=base_url().$row['gambar']?>">
-				<div class="container">
-					<div class="row d-flex align-items-center justify-content-between">
-						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 d-none d-md-block">
-							<div class="hero__img" data-animation="bounceIn" data-delay=".4s">
-								<img src="<?=base_url().$row['gambar']?>" alt="" style="background-size: cover;background-repeat: no-repeat;background-position:center;height: 600px;">
-							</div>
-						</div>
-						<div class="col-xl-5 col-lg-5 col-md-5 col-sm-8">
-							<div class="hero__caption">
-								<span data-animation="fadeInRight" data-delay=".4s"><?=$data_diskon?> Discount</span>
-								<h1 data-animation="fadeInRight" data-delay=".6s"><?=$row['promo']?></h1>
-								<p data-animation="fadeInRight" data-delay=".8s"><?=$row['deskripsi']?></p>
-								<!-- Hero-btn -->
-								<div class="hero__btn" data-animation="fadeInRight" data-delay="1s">
-									<a href="<?=base_url().'store/list_produk/promo/'.$row['id_promo']?>" class="btn hero-btn">Shop Now</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		<?php endforeach; }else{ ?>
-		<?php if($slider!=null){ foreach($slider as $row):
-		?>
-		<div class="single-slider slider-height" data-background="<?=base_url().$row['gambar']?>">
-			<div class="container">
-				<div class="row d-flex align-items-center justify-content-between">
-					<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 d-none d-md-block">
-						<div class="hero__img" data-animation="bounceIn" data-delay=".4s">
-							<img src="<?=base_url().$row['gambar']?>" alt="" style="height: 600px;">
-						</div>
-					</div>
-					<div class="col-xl-5 col-lg-5 col-md-5 col-sm-8">
-						<div class="hero__caption">
-							<h1 data-animation="fadeInRight" data-delay=".6s"><?=$row['judul']?></h1>
-							<!-- Hero-btn -->
-							<div class="hero__btn" data-animation="fadeInRight" data-delay="1s">
-								<a href="<?=base_url().$row['link']?>" class="btn hero-btn">Shop Now</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<?php endforeach; }} ?>
+
+
+		<?php if($slider!=null){ foreach($slider as $row):?>
+            <div class="single-slider" style="padding:10px;background-size: cover;background-repeat: no-repeat;" data-background="<?=base_url().$row['gambar']?>">
+                <div class="container">
+                    <div class="row d-flex align-items-center justify-content-between">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 align-items-center" style="height:370px!important;">
+                            <div class="hero__caption text-right" style="padding-right:30px;padding-bottom:10px;position: absolute; bottom: 10px;width:100%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
+                                <h3 data-animation="fadeInRight" data-delay=".6s" style="text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;"><?=$row['judul']?></h3>
+                                <div class="hero__btn" data-animation="fadeInRight" data-delay="1s">
+                                    <a href="<?=$row['link']?>" class="btn hero-btn">Selengkapnya</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		<?php endforeach; } ?>
 	</div>
 </div>
 <!-- slider Area End-->
-<section class="latest-product-area padding-bottom section-padding30">
+<section class="latest-product-area padding-bottom section-padding30 bestSeller">
 	<div class="container">
 		<div class="row product-btn d-flex justify-content-end align-items-end">
 			<!-- Section Tittle -->
-			<div class="col-xl-4 col-lg-5 col-md-5">
+			<div class="col-xl-12 col-lg-12 col-md-12">
 				<div class="section-tittle mb-30">
 					<h2>Best Seller</h2>
 				</div>
 			</div>
-			<div class="col-xl-8 col-lg-7 col-md-7">
-				<div class="properties__button f-right">
-				</div>
-			</div>
+
 		</div>
 		<!-- Nav Card -->
 		<div class="tab-content" id="nav-tabContent">
@@ -164,6 +125,7 @@
 				<div class="section-tittle mb-30">
 					<h2>Latest Products</h2>
 				</div>
+
 			</div>
 		</div>
 		<!-- Nav Card -->
@@ -204,6 +166,9 @@
 
 	/*// Large devices (desktops, screens less than 75em)*/
 	@media (min-width: 74.9em) {
+        .slider-area{height:500px;margin-bottom: -150px;}
+        .single-slider{height:480px;}
+        .bestSeller{margin-bottom: -150px;}
 		.product_img_slide{height: 700px!important;}
 	/*// write CSS properties here*/
 	}
@@ -245,12 +210,13 @@
 					<h2>Article</h2>
 				</div>
 			</div>
+
 			<div class="col-6 col-xs-6  col-xl-8 col-lg-7 col-md-7">
 				<div class="properties__button f-right">
 					<!--Nav Button  -->
 					<nav>
 						<div class="nav nav-tabs" id="nav-tab" role="tablist">
-							<a href="<?=base_url().'store/article/all'?>" class="nav-item nav-link active">See All</a>
+							<a href="<?=base_url().'store/article/all'?>" class="d-none d-xl-block text-right nav-item nav-link active">Lihat Semua Artikel</a>
 						</div>
 					</nav>
 					<!--End Nav Button  -->
@@ -261,12 +227,14 @@
 		<div class="row" >
 			<?php foreach($news as $row):?>
 				<div class="col-sm-6 col-lg-4">
-					<?=$this->m_website->tempNews($row["gambar"],$row["tgl_berita"],$row["id_berita"],$row["judul"],$row["ringkasan"],$row["nama"])?>
+					<?=$this->m_website->tempNews($row["gambar"],$row["tgl_berita"],$row["slug_berita"],$row["judul"],$row["ringkasan"],$row["nama"])?>
 				</div>
 
 			<?php endforeach; ?>
 		</div>
-		<!-- End Nav Card -->
+        <a href="<?=base_url().'store/article/all'?>" class="d-md-none d-lg-none d-xl-none button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn">Lihat Semua Artikel</a>
+
+        <!-- End Nav Card -->
 	</div>
 </section>
 
@@ -407,7 +375,7 @@
 			},
 			breakpoints: {
 				320: {
-					slidesPerView: 1,
+					slidesPerView: 2,
 					spaceBetween: 10,
 					centeredSlides: true,
 				},

@@ -243,7 +243,7 @@
 									$berat = $berat + ($row['berat']*$row['qty']);
 									$gambar = $this->m_crud->get_data("gambar_produk", "CONCAT('" . base_url() . "', gambar) gambar", "produk='" . $row['id_produk'] . "'", "id_gambar DESC")['gambar'];
 									?>
-									<div class="col-6 col-xs-6 col-xl-3 col-lg-3 col-md-6">
+									<div class="col-6 col-xs-6 col-xl-3 col-lg-3 col-md-6" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border:1px solid #EEEEEE;">
 										<div class="single-product mb-60">
 											<div class="product-img">
 												<img src="<?=base_url().$gambar?>" alt="">
@@ -282,10 +282,10 @@
 						</div>
 						<div class="row">
 							<div class="col-6 col-xs-6">
-								<a href="<?=base_url()?>" class="btn header-btn">Shopping</a>
+								<a href="<?=base_url()?>" class="btn header-btn">Belanja</a>
 							</div>
 							<div class="col-6 col-xs-6">
-								<button type="submit" style="float: right;" class="btn header-btn">Checkout</button>
+								<button type="submit" style="float: right;" class="btn header-btn">Selesai</button>
 							</div>
 						</div>
 					</div>

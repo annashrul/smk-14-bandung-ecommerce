@@ -9,7 +9,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!--	<link rel="manifest" href="site.webmanifest">-->
 	<link rel="shortcut icon" type="image/x-icon" href="<?=base_url().$this->data['site']->icon?>">
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700"><link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
 	<!-- CSS here -->
 	<link rel="stylesheet" href="<?=base_url().'assets/fo/'?>assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="<?=base_url().'assets/fo/'?>assets/css/owl.carousel.min.css">
@@ -25,6 +26,7 @@
 	<link href="<?=base_url()?>assets/fo/popup-img/lightgallery.css" rel="stylesheet">
 
 	<style>
+        a,body,h1,h2,h3,h4,h5,h6,html,li,p,td,th{font-family:Rubik,sans-serif!important;font-weight:700!important}
 		.owl-prev,.owl-next{display: none!important;}
 		.header-bottom .header-right .shopping-card #countCart {
 			position: absolute;
@@ -92,129 +94,208 @@
 		$(document).on('ready', function () {
 			countCart();
 		});
-
 		function countCart(){
 			$.ajax({
 				url : "<?=base_url().'ajax/cart'?>",
 				type : "POST",
 				dataType : "JSON",
 				success:function(res){
+
 					$("#countCart").html(res.count);
 					$("#countCartMbl").html(res.count);
 				}
 			})
 		}
+		function goCart(){
+            if($("#countCart").text()==="0"){
+                alert("maaf keranjang anda kosong");
+            }
+            else{
+                window.location.href="<?=base_url().'store/cart'?>"
+            }
+        }
 	</script>
 </head>
 
 <body>
 
-
-<!-- GetButton.io widget -->
-<script type="text/javascript">
-	(function () {
-		var options = {
-			whatsapp: "+<?=$sosmed['whatsapp']?>", // WhatsApp number
-			// company_logo_url: "//storage.whatshelp.io/widget/fb/fb9d/fb9d0cb73397d2a1244720058e5383df/17903932_1320400234679798_5162717605185640625_n.jpg", // URL of company logo (png, jpg, gif)
-			call_to_action: "Message us", // Call to action
-			position: "left", // Position may be 'right' or 'left'
-		};
-		var proto = document.location.protocol, host = "getbutton.io", url = proto + "//static." + host;
-		var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = url + '/widget-send-button/js/init.js';
-		s.onload = function () { WhWidgetSendButton.init(host, proto, options); };
-		var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
-	})();
-</script>
 <!-- /GetButton.io widget -->
 <!-- /GetButton.io widget -->
 <header>
 	<!-- Header Start -->
 	<div class="header-area">
 		<div class="main-header ">
-			<div class="header-bottom  header-sticky" style="z-index: 99;">
-				<div class="container-fluid">
-					<div class="row align-items-center">
-						<!-- Logo -->
-						<div class="col-xl-1 col-lg-1 col-md-1 col-sm-3">
-							<div class="logo">
-								<a href="<?=base_url()?>"><img src="<?=base_url().$this->data['site']->logo?>" style="height: 50px;" alt=""></a>
-							</div>
-						</div>
-						<div class="col-xl-6 col-lg-8 col-md-7 col-sm-5">
-							<!-- Main-menu -->
-							<div class="main-menu f-right d-none d-lg-block">
-								<nav>
-									<ul id="navigation">
+            <nav class="navbar navbar-dark bg-info navbar-expand d-md-none d-lg-none d-xl-none fixed-bottom" style="background-color:#2577fd!important; ">
+                <ul class="navbar-nav nav-justified w-100">
+                    <li class="nav-item" style="<?=$this->uri->segment(1)==''?'border:2px solid white':null;?>">
+                        <a href="<?=base_url()?>" class="nav-link"><i class="fas fa-home" style="color:white"></i></a>
+                    </li>
+                    <li class="nav-item" style="<?=$_GET['page']=='gallery'?'border:2px solid white':null?>">
+                        <a href="<?=base_url().'store?page=gallery'?>" class="nav-link"><i style="color:white" class="fa fa-image" aria-hidden="true"></i></a>
+                    </li>
+                    <li class="nav-item" style="<?=$this->uri->segment(2)=='promo'?'border:2px solid white':null?>">
+                        <a href="<?=base_url().'store/promo'?>" class="nav-link"><i style="color:white" class="fa fa-tag"></i></a>
+                    </li>
+                    <li class="nav-item" style="<?=$this->uri->segment(2)=='article'?'border:2px solid white':null?>">
 
-										<li class="d-block d-lg-none"><a href="<?=base_url()?>">Home</a></li>
-										<li><a  style="<?=$this->uri->segment(2)=='list_produk'?'color:red':null?>" href="javascript:void(0)">Baby Shop</a>
-											<ul class="submenu">
-												<?php foreach ($nav_menu as $row) {?>
+                        <a href="<?=base_url().'store/article/all'?>" class="nav-link">
+                            <svg style="color:white;" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-newspaper" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M0 2.5A1.5 1.5 0 0 1 1.5 1h11A1.5 1.5 0 0 1 14 2.5v10.528c0 .3-.05.654-.238.972h.738a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 1 1 0v9a1.5 1.5 0 0 1-1.5 1.5H1.497A1.497 1.497 0 0 1 0 13.5v-11zM12 14c.37 0 .654-.211.853-.441.092-.106.147-.279.147-.531V2.5a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0-.5.5v11c0 .278.223.5.497.5H12z"/>
+                                <path d="M2 3h10v2H2V3zm0 3h4v3H2V6zm0 4h4v1H2v-1zm0 2h4v1H2v-1zm5-6h2v1H7V6zm3 0h2v1h-2V6zM7 8h2v1H7V8zm3 0h2v1h-2V8zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1z"/>
+                            </svg>
+                        </a>
+
+                    </li>
+                    <li class="nav-item" style="<?=$this->uri->segment(2)=='auth'?'border:2px solid white':null;?>">
+                        <?php if($this->session->userdata('id_member')!=''){ ?>
+                        <a href="<?=base_url().'store/logout'?>" class="nav-link"><i  style="color:white" class="fa fa-power-off"></i></a>
+                        <?php } else{ ?>
+                        <a href="<?=base_url().'store/auth?page=login'?>" class="nav-link"><i style="color:white" class="fa fa-sign-in-alt"></i></a>
+                        <?php } ?>
+                    </li>
+                </ul>
+            </nav>
+            <div class="header-bottom  header-sticky" >
+                <div class="container-fluid">
+                    <div class="row align-items-center">
+                        <!-- Logo -->
+                        <div class="col-xl-1 col-lg-1 col-md-1 col-sm-3">
+                            <div class="logo d-none d-lg-block">
+                                <a href="<?=base_url()?>"><img src="<?=base_url().$this->data['site']->logo?>" style="height:50px;"></a>
+                            </div>
+                            <div class="logo d-block d-lg-none">
+                                <a href="<?=base_url()?>"><img src="<?=base_url().$this->data['site']->logo?>" style="height: 30px;"></a>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6 col-lg-8 col-md-7 col-sm-5">
+                            <!-- Main-menu -->
+                            <div class="main-menu f-right d-none d-lg-block">
+                                <nav>
+                                    <ul id="navigation">
+                                        <li><a  style="<?=$this->uri->segment(2)=='list_produk'?'color:red':null?>" href="javascript:void(0)">Category</a>
+                                            <ul class="submenu">
+                                                <?php foreach ($nav_menu as $row) {?>
                                                     <li class="item">
                                                         <a href="<?=base_url().'store/list_produk/groups/'.$row['id_groups']?>"><font size="3" face="calibri"><?=$row['nama']?></font></a>
                                                     </li>
-												<?php } ?>
-											</ul>
-										</li>
-										<li><a style="<?=$this->uri->segment(2)=='promo'?'color:red':null?>" href="<?=base_url().'store/promo'?>">Promo</a></li>
-										<li><a style="<?=$_GET['page']=='gallery'?'color:red':null?>" href="<?=base_url().'store?page=gallery'?>">Gallery</a></li>
-										<li><a style="<?=$_GET['page']=='location'?'color:red':null?>" href="<?=base_url().'store?page=location'?>">Location</a></li>
-										<li><a style="<?=$_GET['page']=='about'||$_GET['page']=='tutorial'||$this->uri->segment(2)=='article'?'color:red':null?>" href="javascript:void(0)">Information</a>
-											<ul class="submenu">
-												<li><a href="<?=base_url().'store?page=about'?>">About</a></li>
-												<li><a href="<?=base_url().'store?page=tutorial'?>">Tutorial</a></li>
-												<li><a href="<?=base_url().'store/article/all'?>">Article</a></li>
-											</ul>
-										</li>
-										<?php if($this->session->userdata('id_member')!=''){ ?>
-										<li><a style="<?=$this->uri->segment(2)=='history'?'color:red':null?>" href="javascript:void(0)"><?=$this->session->userdata('nama')?></a>
-											<ul class="submenu">
-												<li><a href="javascript:void(0)">poin : <?= $this->data['account']['poin'] ?></a></li>
-												<li><a href="javascript:void(0)">member code : <?= $this->data['account']['ol_code'] ?></a></li>
-												<li><a href="javascript:void(0)"><?=$this->session->userdata('telepon')?></a></li>
-												<li><a href="<?=base_url().'store/history'?>">Order History</a></li>
-											</ul>
-										</li>
-										<?php } ?>
+                                                <?php } ?>
+                                            </ul>
+                                        </li>
+                                        <li><a style="<?=$this->uri->segment(2)=='promo'?'color:red':null?>" href="<?=base_url().'store/promo'?>">Promo</a></li>
+                                        <li><a style="<?=$_GET['page']=='gallery'?'color:red':null?>" href="<?=base_url().'store?page=gallery'?>">Gallery</a></li>
+                                        <li><a style="<?=$_GET['page']=='location'?'color:red':null?>" href="<?=base_url().'store?page=location'?>">Location</a></li>
+                                        <li><a style="<?=$_GET['page']=='about'||$_GET['page']=='tutorial'||$this->uri->segment(2)=='article'?'color:red':null?>" href="javascript:void(0)">Information</a>
+                                            <ul class="submenu">
+                                                <li><a href="<?=base_url().'store?page=about'?>">About</a></li>
+                                                <li><a href="<?=base_url().'store?page=tutorial'?>">Tutorial</a></li>
+                                                <li><a href="<?=base_url().'store/article/all'?>">Article</a></li>
+                                            </ul>
+                                        </li>
+                                        <?php if($this->session->userdata('id_member')!=''){ ?>
+                                            <li class="d-block d-lg-none"><a style="<?=$this->uri->segment(2)=='history'?'color:red':null?>" href="javascript:void(0)"><?=$this->session->userdata('nama')?></a>
+                                                <ul class="submenu">
+                                                    <li><a href="javascript:void(0)">poin : <?= $this->data['account']['poin'] ?></a></li>
+                                                    <li><a href="javascript:void(0)">member code : <?= $this->data['account']['ol_code'] ?></a></li>
+                                                    <li><a href="javascript:void(0)"><?=$this->session->userdata('telepon')?></a></li>
+                                                    <li><a href="<?=base_url().'store/history'?>">Order History</a></li>
+                                                    <li><a href="<?=base_url().'store/logout'?>">Logout</a></li>
 
-									</ul>
-								</nav>
-							</div>
-						</div>
-						<div class="col-xl-5 col-lg-3 col-md-3 col-sm-3 fix-card">
-							<ul class="header-right f-right d-none d-lg-block d-flex justify-content-between">
-								<li class="d-none d-xl-block">
-									<div class="form-box f-right">
-										<input type="text" name="Search" class="cari" placeholder="Search products">
-										<div class="search-icon">
-											<i class="fas fa-search special-tag"></i>
-										</div>
-									</div>
-								</li>
-								<?php if($this->session->userdata('id_member')!=''){ ?>
-								<li>
-									<div class="shopping-card">
-										<p id="countCart">0</p>
-										<a href="<?=base_url().'store/cart'?>"><i class="fas fa-shopping-cart"></i></a>
-									</div>
-								</li>
+                                                </ul>
+                                            </li>
+                                        <?php } ?>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="col-xl-5 col-lg-6 col-md-6 col-sm-4 fix-card">
+                            <ul class="header-right f-right d-none d-lg-block d-flex justify-content-between">
+                                <li class="d-none d-xl-block" style="padding:0px!important;">
+                                    <div class="form-box f-right" style="width: 100%!important;">
+                                        <input type="text" name="Search" class="cari" placeholder="Search products">
+                                    </div>
+                                </li>
+                                <?php if($this->session->userdata('id_member')!=''){ ?>
+                                    <li class="d-none d-xl-block" style="padding: 0px!important;float: right!important;">
+                                        <div class="shopping-cards">
+                                            <div class="dropdown" style="padding:0px!important;">
+                                                <a href="#!" data-toggle="dropdown"><i class="fas fa-user"></i>
+                                                    <span class="caret"></span></a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="javascript:void(0)" style="font-size:12px;color:black;padding-left: 0px">poin : <?= $this->data['account']['poin'] ?></a></li>
+                                                    <li><a href="javascript:void(0)" style="font-size:12px;color:black;padding-left: 0px">code : <?= $this->data['account']['ol_code'] ?></a></li>
+                                                    <li><a href="javascript:void(0)" style="font-size:12px;color:black;padding-left: 0px"><?=$this->session->userdata('telepon')?></a></li>
+                                                    <li><a class="btn btn-primary" href="<?=base_url().'store/logout'?>" style="font-size:12px;width: 80%!important;">Logout</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
 
-									<li class="d-block d-lg-block"> <a href="<?=base_url().'store/logout'?>" class="btn btn-primary" style="font-size: 12px;"><i class="fa fa-power-off"></i></a></li>
-								<?php }else{?>
-									<li class="d-block d-lg-block"> <a href="<?=base_url().'store/auth?page=login'?>" class="btn btn-primary" style="font-size: 12px;"><i class="fa fa-sign-in-alt"></i></a></li>
-								<?php } ?>
-							</ul>
-						</div>
-						<!-- Mobile Menu -->
-						<div class="col-12">
-							<div class="mobile_menu d-block d-lg-none">
+                                <li style="padding: 0px!important;float: right!important;">
+                                    <div class="shopping-card">
+                                        <p id="countCart">0</p>
+                                        <a href="javascript:void(0)" onclick="goCart()"><i class="fas fa-shopping-cart"></i></a>
+                                    </div>
+                                </li>
+                                    <style>
+                                        .header-bottom .header-right .shopping-cards::before {
+                                            position: absolute;
+                                            content: "2";
+                                            width: 25px;
+                                            height: 25px;
+                                            background: #00b1ff;
+                                            color: #fff;
+                                            line-height: 25px;
+                                            text-align: center;
+                                            border-radius: 30px;
+                                            font-size: 12px;
+                                            top: 0px;
+                                            right: 0px;
+                                            -webkit-transition: all 0.2s ease-out 0s;
+                                            -moz-transition: all 0.2s ease-out 0s;
+                                            -ms-transition: all 0.2s ease-out 0s;
+                                            -o-transition: all 0.2s ease-out 0s;
+                                            transition: all 0.2s ease-out 0s;
+                                            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+                                            display: none;
+                                        }
+                                        .header-bottom .header-right .shopping-cards i {
+                                            width: 50px;
+                                            height: 50px;
+                                            line-height: 50px;
+                                            text-align: center;
+                                            border-radius: 50%;
+                                            border: 1px solid #eeeeee;
+                                            color: #4e4e4e;
+                                            font-size: 14px;
+                                            cursor: pointer;
+                                        }
+                                    </style>
+                                    <li class="d-none d-xl-block" style="padding: 0px!important;float: right!important;">
+                                        <div class="shopping-cards">
+                                            <a href="<?=base_url().'store/history'?>"><i class="fas fa-history"></i></a>
+                                        </div>
+                                    </li>
 
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+                                <?php }else{?>
 
+                                <li class="d-none d-lg-block"> <a href="<?=base_url().'store/auth?page=login'?>" class="btn header-btn">Sign in</a></li>
+                                <?php } ?>
+                            </ul>
+                        </div>
+                        <!-- Mobile Menu -->
+                        <div class="col-12">
+                            <div class="mobile_menu d-block d-lg-none">
+                                <div class="form-group">
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="cari form-control" placeholder='cari produk'>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 		</div>
 	</div>
 	<!-- Header End -->
@@ -294,7 +375,7 @@
 				<div class="col-xl-3 col-lg-3 col-md-4 col-sm-7">
 					<div class="single-footer-caption mb-50">
 						<div class="footer-tittle">
-							<h4>Baby & Shop</h4>
+							<h4>Category</h4>
 							<ul>
 								<?php foreach ($nav_menu as $row) {
 								echo '
@@ -345,7 +426,12 @@
 	<!-- Footer End-->
 </footer>
 <!-- JS here -->
-
+<style>
+    #scrollUp{
+        border:1px solid black;
+        margin-bottom: 100px;
+    }
+</style>
 <!-- All JS Custom Plugins Link Here here -->
 <script src="<?=base_url().'assets/fo/'?>assets/js/vendor/modernizr-3.5.0.min.js"></script>
 <!-- Jquery, Popper, Bootstrap -->

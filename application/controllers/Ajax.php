@@ -206,18 +206,39 @@ class Ajax extends CI_Controller
 			array("do.orders=o.id_orders", "dp.id_det_produk=do.det_produk", "p.id_produk=dp.produk"), "o.status='0' AND o.member='".$this->session->id_member."'"
 		);
 		if(count($get_keranjang)>0){
-			$result='';$total = 0;$no=1;$qty=0;
+			$result='';$resMobile="";$total = 0;$no=1;$qty=0;
 			foreach($get_keranjang as $row){
 				$total = $total + ($row['harga']*$row['qty']);
 				$qty = $qty+$row['qty'];
 				$gambar = $this->m_crud->get_data("gambar_produk", "CONCAT('".base_url()."', gambar) gambar", "produk='".$row['id_produk']."'", "id_gambar DESC")['gambar'];
+				$resMobile.= /** @lang text */'
+				<div class="col-xl-12 col-lg-12 col-md-12" style="margin-bottom:15px;">
+                    <div class="row" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border:1px solid #EEEEEE;">
+                        <div class="col-xs-4" style="float: left;width: 30%;padding-top:25px">
+                            <img style="height:100px;" src="'.base_url().$row["gambar"].'" alt="">
+                        </div>
+                        <div class="col-xs-8" style="padding-top: 30px;width:70%">
+                            <h6 style="color: black">
+                                '.$row["nama_produk"].'
+                            </h6>
+                            <span style="color:#2577fd!important;font-size: 10px">'.number_format($row['harga']).'<s style="font-size: 10px;color:#ff003c">'.number_format($row['harga']).'</s></span>
+                            <h6 style="color: black;font-size: 10px">
+                                '.$row['qty'].' barang x '.number_format($row['harga']).' = '.number_format($row['harga']*$row['qty']).'
+                            </h6>
+                            <input style="text-align: left;width: 100%!important;" class="qty_m-'.$row['id_det_produk'].' form-control" type="number" value="'.$row['qty'].'"  onkeypress="update_qty_m(\''.$row['id_orders'].'\', \''.$row['id_det_produk'].'\')">
+                        </div>
+                        <button onclick="hapus_item(\''.$row['id_orders'].'\', \''.$row['id_det_produk'].'\')" style="height:40px;margin-top: -170px;" class="genric-btn danger-border circle"><i class="fa fa-trash"></i></button>
+                    </div>
+                </div>
+				';
+
 				$result.= /** @lang text */'
 				<tr>
 					<td>'.$no++.'</td>
 					<td>
 						<div class="media">
 							<div class="d-flex">
-								<img src="'.base_url().'assets/images/member/default.png'.'" alt="" style="height:40px;" />
+								<img src="'.base_url().$row["gambar"].'" alt="" style="height:40px;" />
 							</div>
 							<div class="media-body">
 								<p>'.$row["nama_produk"].'</p>
@@ -229,7 +250,7 @@ class Ajax extends CI_Controller
 					</td>
 					<td>
 						<div class="product_count">
-							<input style="text-align: left;" id="qty-'.$row['id_det_produk'].'" class="input-number" onchange="update_qty(\''.$row['id_orders'].'\', \''.$row['id_det_produk'].'\')" type="text" value="'.$row['qty'].'" >
+							<input style="text-align: left;" class="input-number qty-'.$row['id_det_produk'].'" onchange="update_qty(\''.$row['id_orders'].'\', \''.$row['id_det_produk'].'\')" type="text" value="'.$row['qty'].'" >
 						</div>
 					</td>
 					<td>
@@ -242,7 +263,7 @@ class Ajax extends CI_Controller
 				';
 			}
 			echo json_encode(
-				array('count'=>count($get_keranjang), 'result' => $result,'total'=>number_format($total),'qty'=>$qty)
+				array('count'=>count($get_keranjang), 'result' => $result,'total'=>number_format($total),'qty'=>$qty, 'res_mobile'=>$resMobile)
 			);
 		}else{
 			echo json_encode(array('count'=>0,'result' => $this->m_website->noData()));

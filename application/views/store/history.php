@@ -244,7 +244,7 @@
 			</div>
 			<div class="modal-body">
 				<form id="form_confirm">
-					<input type="text" name="id_orders" id="id_orders">
+					<input type="hidden" name="id_orders" id="id_orders">
 					<input type="hidden" name="id_pembayaran" id="id_pembayaran">
 					<div class="form-group-group">
 						<span>Nama Bank</span>

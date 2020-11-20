@@ -23,7 +23,7 @@
 						<?php $readGambar = $this->m_crud->read_data("gambar_produk","*","produk='".$product['id_produk']."'"); foreach($readGambar as $key=>$row):?>
 						<li class="col-4 col-xs-3 col-sm-4 col-md-3"  data-src="<?=base_url().$row['gambar']?>" data-sub-html="<h4 style='color:black;'><?=$product['nama']?></h4><p style='color:black;'>Rp <?=number_format($product['hrg_jual'])?></p>">
 							<a href="javascript:void(0)">
-								<img class="img-responsive" src="<?=base_url().$row['gambar']?>" style="width: 100%;height: 100px;">
+								<img class="img-responsive" src="<?=base_url().$row['gambar']?>" style="width: 100%;height: 100px;margin-bottom: 10px;">
 							</a>
 						</li>
 						<?php endforeach; ?>
@@ -147,37 +147,19 @@
 		<div class="tab-content" id="nav-tabContent">
 			<!-- card one -->
 			<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-				<div class="swiper-container swiper-best-seller">
-					<div class="swiper-button-prev previous"></div>
-					<div class="swiper-button-next next"></div>
-					<div class="swiper-wrapper">
-						<?php foreach($releatedProduct as $row):?>
-							<div class="swiper-slide">
-								<div class="single-product mb-60">
-									<div class="product-img">
-										<img src="<?=base_url().$row['gambar']?>" alt="">
-									</div>
-									<div class="product-caption">
-										<div class="product-ratting">
-											<i class="far fa-star"></i>
-											<i class="far fa-star"></i>
-											<i class="far fa-star"></i>
-											<i class="far fa-star low-star"></i>
-											<i class="far fa-star low-star"></i>
-										</div>
-										<h4><a href="<?=base_url().'store/product?product_id='.$row['id_produk']?>"><?=$row['nama']?></a></h4>
-										<div class="price">
-											<ul>
-												<li><?=$row['hrg_jual']?></li>
+                <div class="swiper-container swiper-best-seller">
+                    <div class="swiper-button-prev previous"></div>
+                    <div class="swiper-button-next next"></div>
+                    <div class="swiper-wrapper">
+                        <?php foreach($releatedProduct as $row):?>
+                            <div class="swiper-slide">
+                                <?=$this->m_website->tempProduk($row['gambar'],$row['id_produk'],$row['nama'],$row['hrg_jual'],$row['hrg_sebelum'],null)?>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
 
-											</ul>
-										</div>
-									</div>
-								</div>
-							</div>
-						<?php endforeach; ?>
-					</div>
-				</div>
+
 			</div>
 		</div>
 		<!-- End Nav Card -->
@@ -215,7 +197,7 @@
 			},
 			breakpoints: {
 				320: {
-					slidesPerView: 1,
+					slidesPerView: 2,
 					spaceBetween: 10,
 					centeredSlides: true,
 					coverflowEffect: {

@@ -24,8 +24,8 @@
 	}
 
 	.gallery > .gallery__list > li:nth-child(8n) {
-		grid-column: span 3;
-		grid-row: span 3;
+		grid-column: span 2;
+		grid-row: span 2;
 	}
 
 	.gallery > .gallery__list > li > figure {
@@ -38,14 +38,15 @@
 		object-fit: cover;
 	}
 </style>
-<main class="gallery">
-	<ul class="gallery__list">
-		<?php foreach($model as $row):?>
-		<li style="cursor: pointer;" onclick="return window.location.href='<?=base_url().'store/list_produk/model/'.$row['id_model']?>'">
-			<figure>
-				<img src="<?=$row['gambar']?>" alt="notfound">
-			</figure>
-		</li>
-		<?php endforeach; ?>
-	</ul>
-</main>
+
+<div class="container-fluid">
+    <div class="row">
+        <?php foreach($model as $row):?>
+            <div class="col-12 col-xs-12 col-lg-4 col-md-3" style="cursor: pointer;" onclick="return window.location.href='<?=base_url().'store/list_produk/model/'.$row['id_model']?>'">
+                <img class="img img-responsive" src="<?=$row['gambar']?>" alt="notfound">
+            </div>
+        <?php endforeach; ?>
+    </div>
+
+</div>
+

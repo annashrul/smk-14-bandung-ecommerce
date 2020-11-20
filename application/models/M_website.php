@@ -1625,12 +1625,13 @@ class M_website extends CI_Model {
 					</div>';
 		}
 		return $result = /** @lang text */ '
-		<div class="single-product mb-60">
+		<a href="'.base_url().'store/product?product_id='.$id.'">
+		<div class="single-product mb-60" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border:1px solid #EEEEEE;border-bottom-left-radius:10px;border-bottom-right-radius:10px">
 				<div class="product-img" style="margin-bottom:0px !important">
 					<img src="'.base_url().$gambar.'" alt="">
 					'.$tempDiskon.'
 				</div>
-				<div class="product-caption">
+				<div class="product-caption" style="padding:10px">
 					<!--<div class="product-ratting">
 						<i class="far fa-star"></i>
 						<i class="far fa-star"></i>
@@ -1641,19 +1642,20 @@ class M_website extends CI_Model {
 					<h4><a href="'.base_url().'store/product?product_id='.$id.'">'.$nama.'</a></h4>
 					<div class="price">
 						<ul>
-							<li>Rp '.number_format($hrg_jual).'</li>
+							<li style="color:#2577fd!important;">Rp '.number_format($hrg_jual).'</li>
 							<li class="discount">'.$hrg_sebelum.'</li>
 						</ul>
 					</div>
 				</div>
 			</div>
+        </a>
 		';
 	}
 
 	public function tempNews($gambar,$tgl,$slug,$judul,$ringkasan,$nama){
 		return 
 		'<a href="'.base_url().'store/article?detail='.$slug.'">
-			<article class="blog_item">
+			<article class="blog_item" style="margin-bottom: 60px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border:1px solid #EEEEEE;border-bottom-left-radius:10px;border-bottom-right-radius:10px">
 				<div class="blog_item_img">
 					<img class="card-img rounded-0" src="'.base_url().$gambar.'" alt="">
 					<a href="'.base_url().'store/article?detail='.$slug.'" class="blog_item_date">
@@ -1665,7 +1667,7 @@ class M_website extends CI_Model {
 					<a href="'.base_url().'store/article?detail='.$slug.'" class="d-inline-block" href="single-blog.html">
 						<h2>'.$judul.'</h2>
 					</a>
-					<p>'.$ringkasan.'</p>
+					<p>'.substr($ringkasan,0,100).'</p>
 					<ul class="blog-info-link">
 						<li><a href="#"><i class="fa fa-tag"></i> '.$nama.'</a></li>
 						<li><a href="#"><i class="fa fa-clock"></i> '.date('Y-m-d',strtotime($tgl)).'</a></li>

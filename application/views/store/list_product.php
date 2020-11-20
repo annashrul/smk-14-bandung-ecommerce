@@ -87,13 +87,16 @@ $menu_group = $this->m_crud->get_data($table, "*", "$id='" . $param . "' $status
 <!-- slider Area Start-->
 <div class="slider-area ">
 	<!-- Mobile Menu -->
-	<div class="single-slider slider-height2 d-flex align-items-center" data-background="https://www.vippng.com/png/detail/21-217546_splash-teal-paint-stroke-transparent-background-png-paint.png">
+	<div class="single-slider slider-height2 d-flex align-items-center">
 		<div class="container">
 			<div class="row">
 				<div class="col-xl-12">
-					<div class="hero-cap text-center" style="background-color: rgba(255, 255, 255, 0.5);">
-						<h2><?=$menu_group['nama']?></h2>
-					</div>
+                    <div class="hero-cap text-center" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);padding:50px;background-color: rgba(255, 255, 255, 0.5);">
+                        <h2 style="text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;"><?=$menu_group['nama']?></h2>
+                    </div>
+<!--					<div class="hero-cap text-center" style="background-color: rgba(255, 255, 255, 0.5);">-->
+<!--						<h2>--><?//=$menu_group['nama']?><!--</h2>-->
+<!--					</div>-->
 				</div>
 			</div>
 		</div>
