@@ -416,7 +416,6 @@
 		var kurir_ = $("#kurir").val();
 		var berat_ = $("#berat").val();
 
-		console.log("kec="+kecamatan_ + "kurir="+kurir_ + "berat="+berat_);
 		if (kecamatan_ !== '' && kurir_ !== '') {
 			array_ongkir = [];
 			$.ajax({
@@ -468,7 +467,6 @@
 		}
 
 		total = ongkir + parseFloat($("#total").val()) - (isNaN(parseFloat(voucher))?0:parseFloat(voucher));
-		console.log("TOTAL AING = "+total);
 		$("#ongkir").val(to_rp(ongkir, '-'));
 		$(".v_ongkir").text('Rp '+to_rp(ongkir, '-'));
 		$(".v_total").text('Rp '+to_rp(total, '-'));
@@ -566,7 +564,7 @@
 							if (res.status) {
 								Swal.fire({
 									title: 'Checkout berhasil!',
-									html: 'Segera transfer ke rekening :<br><b style="font-weight: bold">Bank '+res.bank+'</b><br> <b style="font-weight: bold">Nomor Rekening : '+res.norek+'</b><br> <b style="font-weight: bold">Atas Nama : '+res.atasnama+'</b><br> <b style="font-weight: bold">Sejumlah : '+res.total+'</b>',
+									html: 'Segera transfer ke rekening :<br><b style="font-weight: bold">Bank '+res.bank+'</b><br> <b style="font-weight: bold">Nomor Rekening : '+res.norek+'</b><br> <b style="font-weight: bold">Atas Nama : '+res.atasnama+'</b><br> <b style="font-weight: bold">Sejumlah : '+to_rp(res.total)+'</b>',
 									type: 'success'
 								}).then(function (result) {
 									window.location = '<?=base_url().'store/history'?>';
