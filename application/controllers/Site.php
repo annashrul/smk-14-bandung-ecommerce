@@ -306,7 +306,8 @@ class Site extends CI_Controller {
             $get_members = $this->m_crud->get_data("member", "COUNT(id_member) member", "SUBSTRING(tgl_register, 1, 7) = '".$this_month."'");
             $last_members = $this->m_crud->get_data("member", "COUNT(id_member) member", "SUBSTRING(tgl_register, 1, 7) = '".$last_month."'");
             $get_omset = $this->m_crud->join_data("orders o", "SUBSTRING(o.tgl_orders, 9, 2) tanggal, IFNULL(SUM(dto.qty * (dto.hrg_jual+dto.hrg_varian-dto.diskon)), 0) total", array("det_orders dto", "det_pembayaran dtp", "pembayaran p"), array("dto.orders=o.id_orders", "o.id_orders=dtp.orders", "dtp.pembayaran=p.id_pembayaran"), "SUBSTRING(o.tgl_orders, 1, 7) = '".$this_month."' AND o.status IN ('1', '2', '3', '4') and p.tgl_verify is not null", "SUBSTRING(o.tgl_orders, 9, 2)", "SUBSTRING(o.tgl_orders, 9, 2)");
-            for($d=1; $d<=31; $d++) {
+			
+			for($d=1; $d<=31; $d++) {
                 $time=mktime(12, 0, 0, $month, $d, $year);
                 if (date('m', $time)==$month)
                     $label[]=date('d', $time);
@@ -396,7 +397,7 @@ class Site extends CI_Controller {
                 }
             }
 
-            echo json_encode(array('label'=>$label, 'data'=>$data, 'head'=>array('omset'=>number_format($get_orders['total']),'orders'=>$get_orders['penjualan'],'avg'=>number_format($get_orders['total']/$get_orders['penjualan']),'member'=>$get_members['member']), 'persentase'=>array('omset'=>$p_omt,'orders'=>$p_ord,'avg'=>$p_avg,'member'=>$p_mbr)));
+            echo json_encode(array('label'=>$label, 'data'=>$data, 'head'=>array('omset'=>number_format($get_orders['total']),'orders'=>$get_orders['penjualan'],'avg'=>number_format($get_orders['total']?($get_orders['total']/$get_orders['penjualan']):0),'member'=>$get_members['member']), 'persentase'=>array('omset'=>$p_omt,'orders'=>$p_ord,'avg'=>$p_avg,'member'=>$p_mbr)));
         } else {
             $this->load->view('bo/index', $data);
         }

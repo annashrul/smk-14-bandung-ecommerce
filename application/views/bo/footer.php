@@ -142,7 +142,7 @@
                 format: 'YYYY-MM-DD h:mm A'
             },
             startDate: moment(),
-            endDate: moment()
+            endDate: moment().add(5,'days')
         }
     );
     $('.daterangesingle').daterangepicker(

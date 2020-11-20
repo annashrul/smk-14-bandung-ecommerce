@@ -94,10 +94,13 @@
 			type : "POST",
 			dataType : "JSON",
 			success:function(res){
+				console.log(res.count);
 				$("#resTable").html(res.result);
 				$("#res_mobile").html(res.res_mobile);
 				$("#tot_qty").val(res.qty);
 				$("#tot_price").html(res.total);
+				if(parseInt(res.count)>0) $("#btn_checkout").css('display','block')
+				else  $("#btn_checkout").css('display','none')
 			}
 		})
 	}

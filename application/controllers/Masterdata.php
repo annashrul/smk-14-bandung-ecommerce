@@ -1040,7 +1040,7 @@ class Masterdata extends CI_Controller
             $start = ($page - 1) * $config["per_page"];
 
             $output = '';
-            $read_data = $this->m_crud->join_data($table. " r", "r.id_rekening, r.atas_nama, r.no_rek, b.id_bank, b.nama, (SELECT COUNT(id_rekening) FROM rekening WHERE bank=b.id_bank) rows", "bank b", "b.id_bank=r.bank", $where, "b.nama", null, $config["per_page"], $start);
+            $read_data = $this->m_crud->join_data($table. " r", "r.id_rekening, r.atas_nama, r.no_rek, b.id_bank, b.nama, (SELECT COUNT(id_rekening) FROM rekening WHERE bank=b.id_bank) rows2", "bank b", "b.id_bank=r.bank", $where, "b.nama", null, $config["per_page"], $start);
             $output .= '
                 <table class="table table-hover">
                 <tr>
