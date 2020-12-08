@@ -35,11 +35,11 @@
 		</div>
 
 		<div class="col-md-7">
-			<div class="single_product_text text-center">
-				<h3><?=$product['nama']?></h3>
-				<h3>Rp <?=number_format($product['hrg_jual'])?></h3>
+			<div class="single_product_text">
+				<h3 class=" text-center"><?=$product['nama']?></h3>
+				<h3 class=" text-center">Rp <?=number_format($product['hrg_jual'])?></h3>
 				<p>
-					<?=nl2br($product['deskripsi'])?>
+					<?=$product['deskripsi']?>
 				</p>
 				<div class="card_area">
 					<div class="product_count_area row">

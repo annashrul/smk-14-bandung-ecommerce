@@ -21,7 +21,9 @@
 	<link rel="stylesheet" href="<?=base_url().'assets/fo/'?>assets/css/fontawesome-all.min.css">
 	<link rel="stylesheet" href="<?=base_url().'assets/fo/'?>assets/css/themify-icons.css">
 	<link rel="stylesheet" href="<?=base_url().'assets/fo/'?>assets/css/slick.css">
-<!--	<link rel="stylesheet" href="--><?//=base_url().'assets/fo/'?><!--assets/css/nice-select.css">-->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!--	<link rel="stylesheet" href="--><?//=base_url().'assets/fo/'?><!--assets/css/nice-select.css">-->
 	<link rel="stylesheet" href="<?=base_url().'assets/fo/'?>assets/css/style.css">
 	<link href="<?=base_url()?>assets/fo/popup-img/lightgallery.css" rel="stylesheet">
 
@@ -286,11 +288,11 @@
                         <!-- Mobile Menu -->
                         <div class="col-12">
                             <div class="mobile_menu d-block d-lg-none">
-                                <div class="form-group">
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="cari form-control" placeholder='cari produk'>
-                                    </div>
-                                </div>
+<!--                                <div class="form-group">-->
+<!--                                    <div class="input-group mb-3">-->
+<!--                                        <input type="text" class="cari form-control" placeholder='cari produk'>-->
+<!--                                    </div>-->
+<!--                                </div>-->
                             </div>
                         </div>
                     </div>
@@ -469,7 +471,10 @@
 <script src="https://cdn.jsdelivr.net/picturefill/2.3.1/picturefill.min.js"></script>
 <script src="<?=base_url().'assets/fo/popup-img/'?>lightgallery-all.min.js"></script>
 <script src="<?=base_url().'assets/fo/popup-img/'?>jquery.mousewheel.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
 <script>
+    AOS.init();
 
     function submitForm(){
         if ("<?=$this->session->id_member?>" !== '') {
@@ -623,13 +628,19 @@
 			doAnimations($animatingElements);
 		});
 		BasicSlider.slick({
-			autoplay: false,
-			autoplaySpeed: 10000,
+//            slidesToShow: 1,
+//            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 2000,
+            arrows:false,
+//
+//			autoplay: true,
+//			autoplaySpeed: 10000,
 			dots: false,
 			fade: true,
-			arrows: false,
-			prevArrow: '<button type="button" class="slick-prev"><i class="ti-shift-left"></i></button>',
-			nextArrow: '<button type="button" class="slick-next"><i class="ti-shift-right"></i></button>',
+//			arrows: false,
+//			prevArrow: '<button type="button" class="slick-prev"><i class="ti-shift-left"></i></button>',
+//			nextArrow: '<button type="button" class="slick-next"><i class="ti-shift-right"></i></button>',
 			responsive: [{
 				breakpoint: 1024,
 				settings: {

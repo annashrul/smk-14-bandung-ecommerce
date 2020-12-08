@@ -7,9 +7,10 @@
 		#map-canvas {
 			border: 1px solid #DDD;
 			width:100%;
-			height: 400px;
+			height: 500px;
 			float:left;
-			margin: 0px;
+            margin-bottom: 50px;
+
 			-webkit-box-shadow: #AAA 0px 0px 15px;
 		}
 		#map-canvas img {
@@ -114,34 +115,6 @@
 		<div id="map">
 			<div id="map-canvas"></div>
 			<div class="loading"></div>
-		</div>
-
-		<div class="swiper-container">
-			<div class="swiper-button-prev previous"></div>
-			<div class="swiper-button-next next"></div>
-			<div class="swiper-wrapper" style="padding-left: 0px; padding-right: 0px; transform: translate3d(0px, 0px, 0px); transition-duration: 3s; width: 102900px; height: 300px;">
-				<?php foreach ($res_lokasi as $row):?>
-				<div class="swiper-slide store font" style="border:1px solid black;background-color: rgba(0, 0.5, 0.5, 0.5);z-index: -1;  overflow: hidden;background: url('https://www.pinclipart.com/picdir/big/7-79819_search-icon-png-orange-clipart.png');background-size: 50px;
-  background-repeat: no-repeat;
-  background-position: 50% 50%;">
-					<a style="" class="store" href="javascript:" id="<?=$row['id_lokasi']?>" onclick="change_lokasi('<?=$row["id_lokasi"]?>', '<?=$row["nama"]?>', '<?=$row["alamat"]?>', '<?=$row["tlp1"]?>',  '<?=$row["lng"]?>', '<?=$row["lat"]?>')">
-						<div class="badge"></div>
-						<div style="color:black!important;" class="name trim-max" data-length="24" data-long-text="<?=$row['nama']?>">
-							<?=$row['nama']?>
-						</div>
-						<div class="address" style="color:black!important;">
-							<?=$row['alamat']?>
-						</div>
-						<div class="phone" style="color:black!important;">
-							<span>Phone:</span> <?=$row['tlp1']?>
-						</div>
-						<div class="distance" style="color:black!important;">
-							<span>Open:</span> <?=$row['jam_buka']?> to <?=$row['jam_tutup']?>
-						</div>
-					</a>
-				</div>
-				<?php endforeach; ?>
-			</div>
 		</div>
 	</div>
 </div>

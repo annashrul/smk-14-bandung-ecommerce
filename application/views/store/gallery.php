@@ -38,11 +38,19 @@
 		object-fit: cover;
 	}
 </style>
+<style>
+    /*// Extra small devices (smart phones, less than 34em)*/
+    @media (max-width: 33.9em) {
+        .myWrapperGallery{
+            /*margin-top: 50px;*/
+        }
+    }
+</style>
 
-<div class="container-fluid">
+<div class="container-fluid myWrapperGallery">
     <div class="row">
         <?php foreach($model as $row):?>
-            <div class="col-12 col-xs-12 col-lg-4 col-md-3" style="cursor: pointer;" onclick="return window.location.href='<?=base_url().'store/list_produk/model/'.$row['id_model']?>'">
+            <div class="col-12 col-xs-12 col-lg-4 col-md-3" style="margin-bottom:10px;cursor: pointer;" onclick="return window.location.href='<?=base_url().'store/list_produk/model/'.$row['id_model']?>'">
                 <img class="img img-responsive" src="<?=$row['gambar']?>" alt="notfound">
             </div>
         <?php endforeach; ?>

@@ -64,7 +64,7 @@ class Store extends CI_Controller
 			$data['content'] = 'store/home';
 		}
 
-		$this->load->view('store/wrapper',$data);
+		$this->load->view('store/new/index',$data);
 	}
 	public function promo(){
 		$data = $this->data;

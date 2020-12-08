@@ -1618,6 +1618,12 @@ class M_website extends CI_Model {
 		</div>';
 	}
 	public function tempProduk($gambar,$id,$nama,$hrg_jual,$hrg_sebelum,$diskon=null){
+	    if(strlen($nama)>20){
+	        $nama = substr($nama,0,20).'...';
+        }
+        else{
+	        $nama = $nama;
+        }
 		$tempDiskon = '';
 		if($diskon!=null || $diskon != ''){
 			$tempDiskon.='<div class="new-product">
@@ -1628,7 +1634,7 @@ class M_website extends CI_Model {
 		<a href="'.base_url().'store/product?product_id='.$id.'">
 		<div class="single-product mb-60" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border:1px solid #EEEEEE;border-bottom-left-radius:10px;border-bottom-right-radius:10px">
 				<div class="product-img" style="margin-bottom:0px !important">
-					<img src="'.base_url().$gambar.'" alt="">
+					<img src="'.base_url().$gambar.'" alt="" style="width:100%;-o-object-fit:contain;object-fit:contain;">
 					'.$tempDiskon.'
 				</div>
 				<div class="product-caption" style="padding:10px">
@@ -1653,9 +1659,9 @@ class M_website extends CI_Model {
 	}
 
 	public function tempNews($gambar,$tgl,$slug,$judul,$ringkasan,$nama){
-		return 
-		'<a href="'.base_url().'store/article?detail='.$slug.'">
-			<article class="blog_item" style="margin-bottom: 60px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border:1px solid #EEEEEE;border-bottom-left-radius:10px;border-bottom-right-radius:10px">
+		return
+            /** @lang text */ '<a href="'.base_url().'store/article?detail='.$slug.'">
+			<article class="blog_item" style="margin-bottom: 60px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border:1px solid #EEEEEE;border-bottom-left-radius:10px;border-bottom-right-radius:10px;height:650px;background-color:white!important;">
 				<div class="blog_item_img">
 					<img class="card-img rounded-0" src="'.base_url().$gambar.'" alt="">
 					<a href="'.base_url().'store/article?detail='.$slug.'" class="blog_item_date">
@@ -1663,7 +1669,7 @@ class M_website extends CI_Model {
 						<p>'.date('d',strtotime($tgl))." ".date('F',strtotime($tgl)).'</p>
 					</a>
 				</div>
-				<div class="blog_details">
+				<div class="blog_details" style="padding-right:10px;">
 					<a href="'.base_url().'store/article?detail='.$slug.'" class="d-inline-block" href="single-blog.html">
 						<h2>'.$judul.'</h2>
 					</a>

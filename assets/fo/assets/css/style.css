@@ -5712,7 +5712,7 @@ input:focus {
 /* line 529, ../../SAIFUL/Running_project/250 eCommerce_HTML/250 eCommerce_HTML/250 eCommerce_HTML/assets/scss/_blog_page.scss */
 .blog_details {
   padding: 30px 0 20px 10px;
-  box-shadow: 0px 10px 20px 0px rgba(221, 221, 221, 0.3);
+  box-shadow: 0px 0px 0px 0px rgba(221, 221, 221, 0.3);
 }
 
 @media (min-width: 768px) {

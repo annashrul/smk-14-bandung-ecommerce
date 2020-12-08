@@ -62,15 +62,13 @@
 <div class="slider-area " style="">
 	<!-- Mobile Menu -->
 	<div class="slider-active">
-
-
 		<?php if($slider!=null){ foreach($slider as $row):?>
             <div class="single-slider" style="padding:10px;background-size: cover;background-repeat: no-repeat;" data-background="<?=base_url().$row['gambar']?>">
                 <div class="container">
                     <div class="row d-flex align-items-center justify-content-between">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 align-items-center" style="height:370px!important;">
                             <div class="hero__caption text-right" style="padding-right:30px;padding-bottom:10px;position: absolute; bottom: 10px;width:100%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
-                                <h3 data-animation="fadeInRight" data-delay=".6s" style="text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;"><?=$row['judul']?></h3>
+                                <h3 data-animation="fadeInRight" data-delay=".6s" style="text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white ;"><?=$row['judul']?></h3>
                                 <div class="hero__btn" data-animation="fadeInRight" data-delay="1s">
                                     <a href="<?=$row['link']?>" class="btn hero-btn">Selengkapnya</a>
                                 </div>
@@ -83,16 +81,15 @@
 	</div>
 </div>
 <!-- slider Area End-->
-<section class="latest-product-area padding-bottom section-padding30 bestSeller">
+<section class="latest-product-area padding-bottom section-padding30 bestSeller" >
 	<div class="container">
 		<div class="row product-btn d-flex justify-content-end align-items-end">
 			<!-- Section Tittle -->
 			<div class="col-xl-12 col-lg-12 col-md-12">
-				<div class="section-tittle mb-30">
+				<div class="section-tittle">
 					<h2>Best Seller</h2>
 				</div>
 			</div>
-
 		</div>
 		<!-- Nav Card -->
 		<div class="tab-content" id="nav-tabContent">
@@ -102,8 +99,8 @@
 					<div class="swiper-button-prev previous"></div>
 					<div class="swiper-button-next next"></div>
 					<div class="swiper-wrapper">
-						<?php foreach($bestSeller as $row):?>
-						<div class="swiper-slide">
+						<?php $np=0; foreach($bestSeller as $row):$no++;?>
+						<div class="swiper-slide" data-aos="<?=$no%2==0?'zoom-in':'zoom-out'?>" data-aos-duration="1000">
 							<?=$this->m_website->tempProduk($row['gambar'],$row['id_produk'],$row['nama'],$row['hrg_jual'],$row['hrg_sebelum'],null)?>
 						</div>
 						<?php endforeach; ?>
@@ -117,7 +114,7 @@
 </section>
 <!-- Category Area End-->
 <!-- Latest Products Start -->
-<section class="latest-product-area">
+<section class="latest-product-area" >
 	<div class="container">
 		<div class="row product-btn d-flex justify-content-end align-items-end">
 			<!-- Section Tittle -->
@@ -133,8 +130,8 @@
 			<!-- card one -->
 			<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 				<div class="row">
-					<?php foreach ($latestProduct as $row):?>
-						<div class="col-6 col-xs-6 col-xl-3 col-lg-3 col-md-6">
+					<?php $no=0; foreach ($latestProduct as $row):$no++;?>
+						<div class="col-6 col-xs-6 col-xl-3 col-lg-3 col-md-6"  data-aos="<?=$no%2==0?'zoom-in':'zoom-out'?>" data-aos-duration="1000">
 							<?=$this->m_website->tempProduk($row['gambar'],$row['id_produk'],$row['nama'],$row['hrg_jual'],null,null)?>
 						</div>
 					<?php endforeach; ?>
@@ -177,26 +174,22 @@
 		/*.product_img_slide{border: 1px solid red;}*/
 	}
 
-	/*// Extra large devices (large desktops)*/
-	/*// No media query since the extra-large breakpoint has no upper bound on its width*/
 </style>
 <!-- Start Align Area -->
 <section class="latest-product-area">
 	<div class="container">
 
-		<!-- Nav Card -->
 		<div class="swiper-container swiper-model">
 			<div class="swiper-button-prev previous"></div>
 			<div class="swiper-button-next next"></div>
 			<div class="swiper-wrapper">
-				<?php foreach($model as $key=>$row):?>
-					<div class="swiper-slide" style="padding: 0px;cursor: pointer!important;" onclick="return window.location.href='<?=base_url()."store/list_produk/model/".$row["id_model"]?>'">
-						<img src="<?=$row['gambar']?>" style="height: 100%;width: 100%;" alt="">
-					</div>
+				<?php $no=0; foreach($model as $row):$no++;?>
+					<div  data-aos="<?=$no%2==0?'zoom-in':'zoom-out'?>" data-aos-duration="1000" class="swiper-slide" style="padding: 0px;cursor: pointer!important;" onclick="return window.location.href='<?=base_url()."store/list_produk/model/".$row["id_model"]?>//'">
+                        <img src="<?=$row['gambar']?>" style="height: 100%;width: 100%;" alt="">
+                    </div>
 				<?php endforeach; ?>
 			</div>
 		</div>
-		<!-- End Nav Card -->
 	</div>
 </section>
 
@@ -225,8 +218,8 @@
 		</div>
 		<!-- Nav Card -->
 		<div class="row" >
-			<?php foreach($news as $row):?>
-				<div class="col-sm-6 col-lg-4">
+			<?php $no=0; foreach($news as $row):$no++;?>
+				<div class="col-sm-6 col-lg-4" data-aos="<?=$no%2==0?'zoom-in-up':'zoom-in-down'?>" data-aos-duration="1000">
 					<?=$this->m_website->tempNews($row["gambar"],$row["tgl_berita"],$row["slug_berita"],$row["judul"],$row["ringkasan"],$row["nama"])?>
 				</div>
 
@@ -238,14 +231,13 @@
 	</div>
 </section>
 
-
 <!-- feature part here -->
 <section class="feature_part">
     <div class="container">
         <div class="row justify-content-center">
-            <?php foreach ($service as $row): ?>
+            <?php $no=0; foreach ($service as $row):$no++; ?>
             <div class="col-lg-3 col-sm-6">
-                <div class="single_feature_part">
+                <div class="single_feature_part" data-aos="<?=$no%2==0?'zoom-in-up':'zoom-in-down'?>" data-aos-duration="1000">
                     <img src="<?=$row['image']?>" alt="#">
                     <h4><?=$row['title']?></h4>
                 </div>
@@ -255,30 +247,6 @@
     </div>
 </section>
 <!-- feature part end -->
-
-<!---->
-<!--<div class="best-product-area product_img_slide owl-carousel" style="" >-->
-<!--	--><?php //foreach($topitem as $row):?>
-<!--		<div class="product-wrapper bg-height" style="background-image: url('https://indokids.co.id/assets/images/site/Capture.PNG?height=960')">-->
-<!--			<div class="container" style="background-color:rgba(0, 0, 0, 0.5);">-->
-<!--				<div class="row justify-content-between align-items-end">-->
-<!--					<div class="col-xl-2 col-lg-2 col-md-2 d-none d-lg-block">-->
-<!--						<div class="vertical-text"  style="color: #0b0b0b">-->
-<!--							<span>--><?//=$row['nama']?><!--</span>-->
-<!--						</div>-->
-<!--					</div>-->
-<!--					<div class="col-xl-8 col-lg-8">-->
-<!--						<div class="best-product-caption">-->
-<!--							<h2 style="color: white;">Find The Best Product<br> from Our Shop</h2>-->
-<!--							<p style="color: white;">Designers who are interesten creating state ofthe.</p>-->
-<!--							<a href="--><?//=base_url().'store/list_produk/top_item/'.$row['id_item']?><!--" class="black-btn">Shop Now</a>-->
-<!--						</div>-->
-<!--					</div>-->
-<!--				</div>-->
-<!--			</div>-->
-<!--		</div>-->
-<!--	--><?php //endforeach; ?>
-<!--</div>-->
 
 
 
@@ -291,6 +259,8 @@
 			// slidesPerGroup:3,
 			// spaceBetween: 5,
 			// slidesPerColumn: 2,
+            autoplay: true,
+            autoplaySpeed: 2000,
 			loop: true,
 			pagination: {
 				el: '.swiper-pagination',
@@ -362,6 +332,8 @@
 
 		var mySwiperBestSeller = new Swiper ('.swiper-best-seller', {
 			direction: 'horizontal',
+            autoplay: true,
+            autoplaySpeed: 2000,
 			loop: true,
 			pagination: {
 				el: '.swiper-pagination',
