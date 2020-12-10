@@ -1289,7 +1289,7 @@ class Api extends CI_Controller {
 
 			$data_order['hrg_jual'] = $harga;
 		}
-		$this->reset_pembayaran();
+//		$this->reset_pembayaran();
 		$this->m_crud->update_data("det_orders", $data_order, "orders='".$_POST['kd_trans']."' AND det_produk='".$_POST['det_produk']."'");
 
 		$this->update_ongkir(base64_encode($_POST['kd_trans']));
@@ -1644,29 +1644,29 @@ class Api extends CI_Controller {
 		$result = array();
 
 		$member = $this->user;
-		$tipe_alamat = $_POST['ch_alamat_jual'];
-		$kota = $_POST['kota'];
-		$nama_penerima = $_POST['nama_penerima'];
-		$alamat = $_POST['alamat'];
-		$kd_prov = $_POST['kd_prov'];
-		$prov = $_POST['provinsi'];
-		$kd_kota = $_POST['kd_kota'];
-		$tlp_penerima = $_POST['telepon'];
-		$kurir = strtoupper($_POST['kurir']);
-		$layanan_kurir = strtoupper($_POST['data_layanan']);
-		$ongkir = str_replace(',', '', $_POST['ongkir']);
-		$jumlah = (float)$_POST['total']+(float)$ongkir;
-		$bank2 = $_POST['bank_tujuan'];
-		$bank = $_POST['nama_bank_tujuan'];
-		$rekening = $_POST['nomor_rekening_tujuan'];
-		$pemilik = $_POST['atas_nama_tujuan'];
-		$bank1 = $_POST['bank_pengirim'];
-		$bank_pengirim = $_POST['nama_bank_pengirim'];
-		$rekening_pengirim = $_POST['nomor_rekening_pengirim'];
-		$pemilik_pengirim = $_POST['atas_nama_pengirim'];
+		$tipe_alamat = $this->input->post('ch_alamat_jual',true);
+		$kota =$this->input->post('kota',true);
+		$nama_penerima = $this->input->post('nama_penerima',true);
+		$alamat = $this->input->post('alamat',true);
+		$kd_prov = $this->input->post('kd_prov',true);
+		$prov = $this->input->post('provinsi',true);
+		$kd_kota = $this->input->post('kd_kota',true);
+		$tlp_penerima = $this->input->post('telepon',true);
+		$kurir = strtoupper($this->input->post('kurir',true));
+		$layanan_kurir = strtoupper($this->input->post('data_layanan',true));
+		$ongkir = str_replace(',', '', $this->input->post('ongkir',true));
+		$jumlah = (float)$this->input->post('total',true)+(float)$ongkir;
+		$bank2 = $this->input->post('bank_tujuan',true);
+		$bank = $this->input->post('nama_bank_tujuan',true);
+		$rekening = $this->input->post('nomor_rekening_tujuan',true);
+		$pemilik =$this->input->post('atas_nama_tujuan',true);
+		$bank1 = $this->input->post('bank_pengirim',true);
+		$bank_pengirim =$this->input->post('nama_bank_pengirim',true);
+		$rekening_pengirim = $this->input->post('nomor_rekening_pengirim',true);
+		$pemilik_pengirim =$this->input->post('atas_nama_pengirim',true);
 		$tanggal = date('Y-m-d H:i:s');
-		$voucher = $_POST['id_voucher'];
-		$jumlah_voucher = $_POST['jumlah_voucher'];
+		$voucher = $this->input->post('id_voucher',true);
+		$jumlah_voucher = $this->input->post('jumlah_voucher',true);
 
 		$kode_unik = 10;
 		$param = true;
@@ -1683,8 +1683,8 @@ class Api extends CI_Controller {
 		$this->db->trans_begin();
 
 		if ($tipe_alamat == 'baru') {
-			$kota = $_POST['kota'];
-			$nama_alamat = $_POST['nama_alamat'];
+			$kota = $this->input->post('kota',true);
+			$nama_alamat = $this->input->post('nama_alamat',true);
 
 			$data_lokasi = array(
 				'nama' => $nama_alamat,
@@ -2272,11 +2272,12 @@ class Api extends CI_Controller {
 	public function konfirmasi_pembayaran() {
 		$result = array();
 		$member = $this->user;
-		$id_pembayaran = $_POST['id_pembayaran'];
+
+		$id_pembayaran = $this->input->post('id_pembayaran',true);
 
 		$row = 'bukti_transfer';
 		$config['upload_path']          = './assets/images/bukti_transfer';
-		$config['allowed_types']        = 'gif|jpg|jpeg|png';
+		$config['allowed_types']        = 'jpg|jpeg|png';
 		$config['max_size']             = 5120;
 		$this->load->library('upload', $config);
 		$valid = true;
@@ -2299,7 +2300,7 @@ class Api extends CI_Controller {
 			$data_pembayaran['bukti_transfer'] = 'assets/images/bukti_transfer/'.$file[$row]['file_name'];
 		}
 		$this->m_crud->update_data("pembayaran", $data_pembayaran, "id_pembayaran='".$id_pembayaran."'");
-		$this->m_crud->update_data("orders", $data_order, "id_orders='".$_POST['id_orders']."'");
+		$this->m_crud->update_data("orders", $data_order, "id_orders='".$this->input->post('id_orders',true)."'");
 
 		if ($this->db->trans_status() === FALSE) {
 			$this->db->trans_rollback();

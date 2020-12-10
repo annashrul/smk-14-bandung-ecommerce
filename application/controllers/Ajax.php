@@ -197,77 +197,89 @@ class Ajax extends CI_Controller
 		return $str;
 	}
 
+    public function getCart(){
+	    $result='';
 
-	public function cart(){
-		$get_keranjang = $this->m_crud->join_data(
-			"orders o",
-			"o.id_orders, p.nama nama_produk, p.id_produk, p.merk, dp.id_det_produk, dp.code, dp.ukuran, dp.warna, do.berat, do.qty, (do.hrg_jual+do.hrg_varian-do.diskon) harga",
-			array("det_orders do", "det_produk dp", "produk p"),
-			array("do.orders=o.id_orders", "dp.id_det_produk=do.det_produk", "p.id_produk=dp.produk"), "o.status='0' AND o.member='".$this->session->id_member."'"
-		);
-		if(count($get_keranjang)>0){
-			$result='';$resMobile="";$total = 0;$no=1;$qty=0;
-			foreach($get_keranjang as $row){
-				$total = $total + ($row['harga']*$row['qty']);
-				$qty = $qty+$row['qty'];
-				$gambar = $this->m_crud->get_data("gambar_produk", "CONCAT('".base_url()."', gambar) gambar", "produk='".$row['id_produk']."'", "id_gambar DESC")['gambar'];
-				$resMobile.= /** @lang text */'
-				<div class="col-xl-12 col-lg-12 col-md-12" style="margin-bottom:15px;">
-                    <div class="row" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border:1px solid #EEEEEE;">
-                        <div class="col-xs-4" style="float: left;width: 30%;padding-top:25px">
-                            <img style="height:100px;" src="'.base_url().$row["gambar"].'" alt="">
+        $get_keranjang = $this->m_crud->join_data(
+            "orders o",
+            "o.id_orders, p.nama nama_produk, p.id_produk, p.merk, dp.id_det_produk, dp.code, dp.ukuran, dp.warna, do.berat, do.qty, (do.hrg_jual+do.hrg_varian-do.diskon) harga",
+            array("det_orders do", "det_produk dp", "produk p"),
+            array("do.orders=o.id_orders", "dp.id_det_produk=do.det_produk", "p.id_produk=dp.produk"), "o.status='0' AND o.member='".$this->session->id_member."'"
+        );
+        if(count($get_keranjang)>0){
+            $total = 0;$no=1;$qty=0;
+            foreach($get_keranjang as $row){
+                $total = $total + ($row['harga']*$row['qty']);
+                $qty = $qty+$row['qty'];
+                $gambar = $this->m_crud->get_data("gambar_produk", "CONCAT('".base_url()."', gambar) gambar", "produk='".$row['id_produk']."'", "id_gambar DESC")['gambar'];
+                $nama=strlen($row["nama_produk"])>10?substr($row["nama_produk"],0,10).'...':$row["nama_produk"];
+                $result.='
+                <div class="col-lg-3 col-md-6 col-11 mt-4 pt-2">
+                    <div class="media customer-testi m-2" style="cursor: pointer">
+                        <img src="'.$gambar.'" class="avatar avatar-small mr-3 rounded shadow" alt="">
+                        <div onclick="hapus_item(\''.$row['id_orders'].'\', \''.$row['id_det_produk'].'\')" class="ribbon ribbon-right ribbon-warning overflow-hidden">
+                            <span class="text-center d-block shadow small h6">
+                                <i class="uil uil-trash align-middle icons"></i>
+                            </span>
                         </div>
-                        <div class="col-xs-8" style="padding-top: 30px;width:70%">
-                            <h6 style="color: black">
-                                '.$row["nama_produk"].'
-                            </h6>
-                            <span style="color:#2577fd!important;font-size: 10px">'.number_format($row['harga']).'<s style="font-size: 10px;color:#ff003c">'.number_format($row['harga']).'</s></span>
-                            <h6 style="color: black;font-size: 10px">
-                                '.$row['qty'].' barang x '.number_format($row['harga']).' = '.number_format($row['harga']*$row['qty']).'
-                            </h6>
-                            <input style="text-align: left;width: 100%!important;" class="qty_m-'.$row['id_det_produk'].' form-control" type="number" value="'.$row['qty'].'"  onkeypress="update_qty_m(\''.$row['id_orders'].'\', \''.$row['id_det_produk'].'\')">
+        
+                        <div class="media-body content p-2 shadow rounded bg-white position-relative">
+                            <ul class="list-unstyled mb-0">
+                                <li class="list-inline-item">'.$row["nama_produk"].'</li>
+                            </ul>
+                            <h5 class="text-muted">'.number_format($row['harga']).' X '.$row['qty'].'</h5>
+                            <hr>
+                            <div class="d-flex align-items-center shop-list align-items-center">
+                                <input onclick="min_qty(\''.$row['id_orders'].'\', \''.$row['id_det_produk'].'\', \''.$row['qty'].'\')" type="button" value="-" class=" minus btn btn-icon btn-soft-primary font-weight-bold mr-2">
+                                <input onchange="update_qty(\''.$row['id_orders'].'\', \''.$row['id_det_produk'].'\')" type="text" step="1" min="1" value="'.$row['qty'].'" title="Qty" class="qty-'.$row['id_det_produk'].' mr-2 btn btn-icon btn-soft-primary font-weight-bold">
+                                <input onclick="add_qty(\''.$row['id_orders'].'\', \''.$row['id_det_produk'].'\', \''.$row['qty'].'\')" type="button" value="+" class="plus btn btn-icon btn-soft-primary font-weight-bold">
+                            </div>
                         </div>
-                        <button onclick="hapus_item(\''.$row['id_orders'].'\', \''.$row['id_det_produk'].'\')" style="height:40px;margin-top: -170px;" class="genric-btn danger-border circle"><i class="fa fa-trash"></i></button>
                     </div>
                 </div>
+                ';
+            }
+            echo json_encode(
+                array('count'=>count($get_keranjang), 'result' => $result,'total'=>number_format($total),'qty'=>$qty, 'res_mobile'=>$resMobile)
+            );
+        }
+        else{
+            echo json_encode(array('count'=>0,'result' => $this->m_website->noData()));
+        }
+    }
+	public function cart(){
+        $get_keranjang = $this->m_crud->join_data(
+            "orders o",
+            "o.id_orders, p.nama nama_produk, p.id_produk, p.merk, dp.id_det_produk, dp.code, dp.ukuran, dp.warna, do.berat, do.qty, (do.hrg_jual+do.hrg_varian-do.diskon) harga",
+            array("det_orders do", "det_produk dp", "produk p"),
+            array("do.orders=o.id_orders", "dp.id_det_produk=do.det_produk", "p.id_produk=dp.produk"), "o.status='0' AND o.member='".$this->session->id_member."'"
+        );
+        if(count($get_keranjang)>0){
+            $result='';$resMobile="";$total = 0;$no=1;$qty=0;
+            foreach($get_keranjang as $row){
+                $total = $total + ($row['harga']*$row['qty']);
+                $qty = $qty+$row['qty'];
+                $gambar = $this->m_crud->get_data("gambar_produk", "CONCAT('".base_url()."', gambar) gambar", "produk='".$row['id_produk']."'", "id_gambar DESC")['gambar'];
+                $nama=strlen($row["nama_produk"])>10?substr($row["nama_produk"],0,10).'...':$row["nama_produk"];
+                $result.='
+				<a href="javascript:void(0)" class="media align-items-center" style="border-bottom: 1px solid #EEEEEE;">
+                    <img src="'.$gambar.'" class="shadow rounded" style="max-height: 64px;width: 64px;" alt="">
+                    <div class="media-body text-left ml-3">
+                        <h6 class="text-dark mb-0">'.$nama.'</h6>
+                        <p class="text-muted mb-0">'.number_format($row['harga']).' X '.$row['qty'].'</p>
+                    </div>
+                    <h6 class="text-dark mb-0">'.number_format($row['harga']*$row['qty']).'</h6>
+                </a>
+				
 				';
-
-				$result.= /** @lang text */'
-				<tr>
-					<td>'.$no++.'</td>
-					<td>
-						<div class="media">
-							<div class="d-flex">
-								<img src="'.base_url().$row["gambar"].'" alt="" style="height:40px;" />
-							</div>
-							<div class="media-body">
-								<p>'.$row["nama_produk"].'</p>
-							</div>
-						</div>
-					</td>
-					<td>
-						<h5>'.number_format($row['harga']).'</h5>
-					</td>
-					<td>
-						<div class="product_count">
-							<input style="text-align: left;" class="input-number qty-'.$row['id_det_produk'].'" onchange="update_qty(\''.$row['id_orders'].'\', \''.$row['id_det_produk'].'\')" type="text" value="'.$row['qty'].'" >
-						</div>
-					</td>
-					<td>
-						<h4 style="text-align:right">'.number_format($row['harga']*$row['qty']).'</h4>
-					</td>
-					<td style="width: 3%">
-						<button class="genric-btn danger-border circle" onclick="hapus_item(\''.$row['id_orders'].'\', \''.$row['id_det_produk'].'\')">Remove</button>
-					</td>
-				</tr>
-				';
-			}
-			echo json_encode(
-				array('count'=>count($get_keranjang), 'result' => $result,'total'=>number_format($total),'qty'=>$qty, 'res_mobile'=>$resMobile)
-			);
-		}else{
-			echo json_encode(array('count'=>0,'result' => $this->m_website->noData()));
-		}
+            }
+            echo json_encode(
+                array('count'=>count($get_keranjang), 'result' => $result,'total'=>number_format($total),'qty'=>$qty, 'res_mobile'=>$resMobile)
+            );
+        }
+        else{
+            echo json_encode(array('count'=>0,'result' => $this->m_website->noData()));
+        }
 	}
 	public function get_location() {
 		$get_lokasi = $this->m_crud->join_data(
@@ -545,6 +557,18 @@ class Ajax extends CI_Controller
 
 		echo json_encode(array("seacrh"=>$where,"produk"=>$read_produk));
 	}
+
+	public function ajax_detail_produk(){
+        $read_data = $this->m_crud->get_join_data(
+            "produk pr","pr.*,gp.*,dp.*",
+            array("gambar_produk gp","det_produk dp"),
+            array("pr.id_produk=gp.produk","pr.id_produk=dp.produk"),
+            "pr.id_produk='".$this->input->post('id',true)."'","pr.id_produk DESC","pr.id_produk",8
+        );
+        $readGambar = $this->m_crud->read_data("gambar_produk","*","produk='".$read_data['id_produk']."'");
+
+        echo json_encode(array("result"=>$read_data,'res_image'=>$readGambar));
+    }
 
 
 

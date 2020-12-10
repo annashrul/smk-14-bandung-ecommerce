@@ -14,7 +14,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- /.box-header -->
+
                 <div class="box-body table-responsive no-padding" id="result_table"></div>
                 <!-- /.box-body -->
             </div>
@@ -41,6 +41,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary" id="simpan" name="simpan">Simpan</button>
@@ -101,6 +102,13 @@
                     $("#modal_title").text("Edit <?=$title?>");
                     $("#param").val("edit");
                     $("#id").val(id);
+//                    const domEditableElement = document.querySelector( '.cara_belanja' );
+
+// Get the editor instance from the editable element.
+//                    const editorInstance = domEditableElement.ckeditorInstance;
+
+// Use the editor instance API.
+//                    editorInstance.setData( '<p>Hello world!<p>' );
                     CKEDITOR.instances.cara_belanja.setData(res.res_data['cara_belanja']);
 					$("#modal_form").modal("show");
                 } else {

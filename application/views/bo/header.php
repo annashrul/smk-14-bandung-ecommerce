@@ -61,6 +61,8 @@
     <link rel="stylesheet" href="<?=base_url().'assets/'?>plugins/clockpicker/clockpicker.css">
     <!-- ChartJS 1.0.1 -->
     <script src="<?=base_url().'assets/'?>plugins/chartjs/Chart.min.js"></script>
+<!--    <script src="--><?php //echo base_url('assets/bootstrap/js/bootstrap.bundle.js');?><!--"></script>-->
+    <script src="<?php echo base_url('assets/ckeditor/ckeditor.js');?>"></script>
 
     <?php
     if($this->session->userdata($this->site . 'isLogin')!=true) {

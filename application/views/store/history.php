@@ -115,7 +115,6 @@
 				if($orders != null){
 					foreach($orders as $key=>$row):
 						$status='';
-
 						$dropdown = '<a class="dropdown-item" href="javascript:" onclick="detail(\'' . $row['id_orders'] . '\')">Detail</a>';
 						if ($row['status'] == '1'){
 							if ($row['status_bayar'] == '1') {

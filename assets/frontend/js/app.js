@@ -42,13 +42,13 @@
         }
     });
     
-    $(".navigation-menu a").each(function () {
-        if (this.href == window.location.href) {
-            $(this).parent().addClass("active"); 
-            $(this).parent().parent().parent().addClass("active"); 
-            $(this).parent().parent().parent().parent().parent().addClass("active"); 
-        }
-    });
+    // $(".navigation-menu a").each(function () {
+    //     if (this.href == window.location.href) {
+    //         $(this).parent().addClass("active");
+    //         $(this).parent().parent().parent().addClass("active");
+    //         $(this).parent().parent().parent().parent().parent().addClass("active");
+    //     }
+    // });
 
     // Clickable Menu
     $(".has-submenu a").click(function() {

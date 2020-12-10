@@ -80,7 +80,8 @@ class Inventory extends CI_Controller
         if(isset($date)&&$date!=null) {
             $explode_date = explode(' - ', $date);
             $tgl_awal = $explode_date[0]; $tgl_akhir = $explode_date[1];
-        } else {
+        }
+        else {
             $tgl_awal = date('Y-m-d'); $tgl_akhir = date('Y-m-d');
         }
 
@@ -191,7 +192,8 @@ class Inventory extends CI_Controller
                 'result_table' => $output
             );
             echo json_encode($result);
-        } else if ($action == 'get_data_api') {
+        }
+        else if ($action == 'get_data_api') {
             $get_produk = $this->m_crud->read_data("produk", "code, nama", $where);
             $in_produk = array();
             foreach ($get_produk as $item) {
@@ -325,7 +327,8 @@ class Inventory extends CI_Controller
                 'result_table' => $output
             );
             echo json_encode($result);
-        } else if ($action == 'detail') {
+        }
+        else if ($action == 'detail') {
             $result = array();
             $id = $_POST['id'];
             $explode_date = explode(' - ', $_POST['date']);
@@ -358,7 +361,8 @@ class Inventory extends CI_Controller
             }
 
             echo json_encode($result);
-        } else if ($action == 'detail_api') {
+        }
+        else if ($action == 'detail_api') {
             $result = array();
             $id = $_POST['id'];
             $explode_date = explode(' - ', $_POST['date']);

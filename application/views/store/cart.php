@@ -88,7 +88,6 @@
     }
 	function load_cart(){
         console.log($("#countCart").text());
-
 		$.ajax({
 			url : "<?=base_url().'ajax/cart'?>",
 			type : "POST",

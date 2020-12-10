@@ -507,41 +507,41 @@
 	}
 
 	$('#form_checkout').validate({
-		rules: {
-			nama_alamat:{
-				required: function(element) {
-					if($("#ch_alamat_jual").val()==='baru'){
-						return true;
-					}else{
-						return false;
-					}
-				}
-			},
-			nama_penerima:{required:true},
-			telepon:{required:true},
-			alamat:{required:true},
-			kota:{required:true},
-			kurir: {required: true},
-			layanan: {required: true},
-			bank_tujuan: {required: true},
-			bank_pengirim: {required: true},
-			nomor_rekening_pengirim: {required: true},
-			atas_nama_pengirim: {required: true}
-		},
-		//For custom messages
-		messages: {
-			nama_alamat: {required: "name address cannot be empty!"},
-			nama_penerima: {required: "name cannot be empty!"},
-			telepon: {required: "phone number cannot be empty!"},
-			alamat: {required: "address cannot be empty!"},
-			kota: {required: "city cannot be empty!"},
-			kurir: {required: "courier cannot be empty!"},
-			layanan: {required: "shipping service cannot be empty!"},
-			bank_tujuan: {required: "bank  cannot be empty"},
-			bank_pengirim: {required: "Bank  cannot be empty!"},
-			nomor_rekening_pengirim: {required: "account number cannot be empty!"},
-			atas_nama_pengirim: {required: "account number cannot be empty!"}
-		},
+//		rules: {
+//			nama_alamat:{
+//				required: function(element) {
+//					if($("#ch_alamat_jual").val()==='baru'){
+//						return true;
+//					}else{
+//						return false;
+//					}
+//				}
+//			},
+//			nama_penerima:{required:true},
+//			telepon:{required:true},
+//			alamat:{required:true},
+//			kota:{required:true},
+//			kurir: {required: true},
+//			layanan: {required: true},
+//			bank_tujuan: {required: true},
+//			bank_pengirim: {required: true},
+//			nomor_rekening_pengirim: {required: true},
+//			atas_nama_pengirim: {required: true}
+//		},
+//		//For custom messages
+//		messages: {
+//			nama_alamat: {required: "name address cannot be empty!"},
+//			nama_penerima: {required: "name cannot be empty!"},
+//			telepon: {required: "phone number cannot be empty!"},
+//			alamat: {required: "address cannot be empty!"},
+//			kota: {required: "city cannot be empty!"},
+//			kurir: {required: "courier cannot be empty!"},
+//			layanan: {required: "shipping service cannot be empty!"},
+//			bank_tujuan: {required: "bank  cannot be empty"},
+//			bank_pengirim: {required: "Bank  cannot be empty!"},
+//			nomor_rekening_pengirim: {required: "account number cannot be empty!"},
+//			atas_nama_pengirim: {required: "account number cannot be empty!"}
+//		},
 
 		submitHandler: function (form) {
 			Swal.fire({
@@ -555,25 +555,26 @@
 				confirmButtonText: 'Ya'
 			}).then(function (result) {
 				if (result.value) {
-					$.ajax({
-						url: "<?=base_url().'api/checkout_bayar'?>",
-						type:"POST",
-						data: $("#form_checkout").serialize(),
-						dataType: "JSON",
-						success: function (res) {
-							if (res.status) {
-								Swal.fire({
-									title: 'Checkout berhasil!',
-									html: 'Segera transfer ke rekening :<br><b style="font-weight: bold">Bank '+res.bank+'</b><br> <b style="font-weight: bold">Nomor Rekening : '+res.norek+'</b><br> <b style="font-weight: bold">Atas Nama : '+res.atasnama+'</b><br> <b style="font-weight: bold">Sejumlah : '+to_rp(res.total)+'</b>',
-									type: 'success'
-								}).then(function (result) {
-									window.location = '<?=base_url().'store/history'?>';
-								})
-							} else {
-								alert("Data gagal disimpan!");
-							}
-						}
-					});
+				    console.log($("#form_checkout").serialize());
+//					$.ajax({
+//						url: "<?//=base_url().'api/checkout_bayar'?>//",
+//						type:"POST",
+//						data: $("#form_checkout").serialize(),
+//						dataType: "JSON",
+//						success: function (res) {
+//							if (res.status) {
+//								Swal.fire({
+//									title: 'Checkout berhasil!',
+//									html: 'Segera transfer ke rekening :<br><b style="font-weight: bold">Bank '+res.bank+'</b><br> <b style="font-weight: bold">Nomor Rekening : '+res.norek+'</b><br> <b style="font-weight: bold">Atas Nama : '+res.atasnama+'</b><br> <b style="font-weight: bold">Sejumlah : '+to_rp(res.total)+'</b>',
+//									type: 'success'
+//								}).then(function (result) {
+//									window.location = '<?//=base_url().'store/history'?>//';
+//								})
+//							} else {
+//								alert("Data gagal disimpan!");
+//							}
+//						}
+//					});
 				}
 			})
 		}

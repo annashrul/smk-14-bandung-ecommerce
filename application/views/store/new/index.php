@@ -3,6 +3,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-MJC5FWG');</script>
+    <!-- End Google Tag Manager -->
+    <meta name="google-site-verification" content="MGaJ-eY9-qmOrrUlu3DHE_-qVFzq6NSYLYvY2hbmyis" />
+
     <meta charset="utf-8" />
     <title>Landrick - Saas & Software Landing Page Template</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,15 +41,48 @@
     <link href="<?=base_url().'assets/frontend/'?>css/colors/default.css" rel="stylesheet" id="color-opt">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="<?=base_url().'assets/frontend/'?>css/owl.carousel.min.css"/>
+    <link rel="stylesheet" href="<?=base_url().'assets/frontend/'?>css/owl.theme.default.min.css"/>
 
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <script src="<?=base_url().'assets/frontend/'?>js/jquery-3.5.1.min.js"></script>
+    <script src="<?=base_url().'assets/frontend/'?>js/owl.carousel.min.js"></script>
+    <script src="<?=base_url().'assets/frontend/'?>js/owl.init.js"></script>
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>-->
+    <script type="text/javascript" src="<?=base_url().'assets/fo/'?>assets/js/jquery-validation/jquery.validate.min.js"></script>
+    <link rel="stylesheet" href="<?=base_url()?>assets/frontend/css/bootstrap-side-modals.css">
+
+    <script type="text/javascript" src="<?=base_url().'assets/fo/'?>assets/js/jQuery-autocomplete/jquery.autocomplete.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
     <style>
         *{font-family: 'Stylish', sans-serif!important;}
         html{font-family: 'Stylish', sans-serif!important;}
         body{font-family: 'Stylish', sans-serif!important;}
-
+        .error{
+            color:red!important;
+        }
+        .first-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1050;
+            background: rgba(168, 168, 168, .5)
+        }
+        .first-loader img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px
+        }
         .swiper-container .next {
             height: 47px;
             width: 47px;
@@ -77,11 +119,20 @@
             -moz-transition: opacity 0.3s ease-in;
             -webkit-transition: opacity 0.3s ease-in;
         }
+        .autocomplete-suggestions { border: 1px solid #999; background: #fff; cursor: default; overflow: auto; }
+        .autocomplete-suggestion { padding: 10px 5px; font-size: 8pt; white-space: nowrap; overflow: hidden; }
+        .autocomplete-selected { background: #f0f0f0; }
+        .autocomplete-suggestions strong { font-weight: normal; color: #3399ff; }
+
     </style>
 </head>
 
 
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MJC5FWG"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 <!-- Loader -->
 <!-- <div id="preloader">
     <div id="status">
@@ -94,11 +145,12 @@
 <!-- Loader -->
 
 <!-- Navbar STart -->
+<?php $mobile=$this->agent->is_mobile(); ?>
 <header id="topnav" class="defaultscroll sticky">
     <div class="container">
         <!-- Logo container-->
         <div>
-            <a class="logo" href="index.html">
+            <a class="logo" href="<?=base_url()?>">
                 <img src="https://technopark.smkn14bdg.sch.id/assets/images/site/logo__2.png" height="30" alt="">
             </a>
         </div>
@@ -108,18 +160,23 @@
                     <button type="button" class="btn btn-link text-decoration-none dropdown-toggle p-0 pr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="mdi mdi-magnify h4 text-muted"></i>
                     </button>
-                    <div class="dropdown-menu dd-menu dropdown-menu-right bg-white shadow rounded border-0 mt-3 py-0" style="width: 300px;">
-                        <form>
-                            <input type="text" id="text" name="name" class="form-control border bg-white" placeholder="Search...">
+                    <div class="dropdown-menu dd-menu dropdown-menu-right bg-white shadow rounded border-0 mt-3 py-0" style="width:400px;">
+                        <form style="width: 100%!important;">
+<!--                            <input type="text" name="Search" class="cari" placeholder="Search products">-->
+
+                            <input style="width:400px;" type="text" id="text" name="name" class="form-control border bg-white cari" placeholder="Search...">
                         </form>
                     </div>
                 </div>
             </li>
+            <?php
+            if($this->session->id_member!=''){
+            ?>
             <li class="list-inline-item mb-0 pr-1">
                 <div class="dropdown">
-                    <button type="button" class="btn btn-icon btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="uil uil-shopping-cart align-middle icons"></i></button>
+                    <button type="button" class="btn btn-icon btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="uil uil-shopping-cart align-middle icons"></i><small id="countCart"></small></button>
                     <div class="dropdown-menu dd-menu dropdown-menu-right bg-white shadow rounded border-0 mt-3 p-4" style="width: 300px;">
-                        <div class="pb-4">
+                        <div class="pb-4" id="cartNav">
                             <a href="javascript:void(0)" class="media align-items-center">
                                 <img src="<?=base_url().'assets/frontend/'?>images/shop/product/s-1.jpg" class="shadow rounded" style="max-height: 64px;" alt="">
                                 <div class="media-body text-left ml-3">
@@ -129,53 +186,41 @@
                                 <h6 class="text-dark mb-0">$640</h6>
                             </a>
 
-                            <a href="javascript:void(0)" class="media align-items-center mt-4">
-                                <img src="<?=base_url().'assets/frontend/'?>images/shop/product/s-2.jpg" class="shadow rounded" style="max-height: 64px;" alt="">
-                                <div class="media-body text-left ml-3">
-                                    <h6 class="text-dark mb-0">Bag</h6>
-                                    <p class="text-muted mb-0">$50 X 5</p>
-                                </div>
-                                <h6 class="text-dark mb-0">$250</h6>
-                            </a>
 
-                            <a href="javascript:void(0)" class="media align-items-center mt-4">
-                                <img src="<?=base_url().'assets/frontend/'?>images/shop/product/s-3.jpg" class="shadow rounded" style="max-height: 64px;" alt="">
-                                <div class="media-body text-left ml-3">
-                                    <h6 class="text-dark mb-0">Watch (Men)</h6>
-                                    <p class="text-muted mb-0">$800 X 1</p>
-                                </div>
-                                <h6 class="text-dark mb-0">$800</h6>
-                            </a>
                         </div>
 
                         <div class="media align-items-center justify-content-between pt-4 border-top">
-                            <h6 class="text-dark mb-0">Total($):</h6>
-                            <h6 class="text-dark mb-0">$1690</h6>
+                            <h6 class="text-dark mb-0">Total(Rp):</h6>
+                            <h6 class="text-dark mb-0" id="totNav">$1690</h6>
                         </div>
 
-                        <div class="mt-3 text-center">
-                            <a href="javascript:void(0)" class="btn btn-primary mr-2">View Cart</a>
-                            <a href="javascript:void(0)" class="btn btn-primary">Checkout</a>
+                        <div class="media align-items-center justify-content-between pt-2">
+                            <a href="javascript:void(0)" onclick="goCart()" class="btn btn-primary mr-2">View Cart</a>
+                            <a href="javascript:void(0)" class="btn btn-primary" onclick="bayar()">Checkout</a>
                         </div>
-                        <p class="text-muted text-left mt-1 mb-0">*T&C Apply</p>
                     </div>
                 </div>
             </li>
-            <li class="list-inline-item mb-0 pr-1">
-                <a href="#" class="btn btn-icon btn-primary" data-toggle="modal" data-target="#wishlist"><i class="uil uil-heart align-middle icons"></i></a>
-            </li>
+            <?php if(!$mobile){ ?>
             <li class="list-inline-item mb-0">
                 <div class="dropdown dropdown-primary">
                     <button type="button" class="btn btn-icon btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="uil uil-user align-middle icons"></i></button>
                     <div class="dropdown-menu dd-menu dropdown-menu-right bg-white shadow rounded border-0 mt-3 py-3" style="width: 200px;">
-                        <a class="dropdown-item text-dark" href="#"><i class="uil uil-user align-middle mr-1"></i> Account</a>
-                        <a class="dropdown-item text-dark" href="#"><i class="uil uil-clipboard-notes align-middle mr-1"></i> Order History</a>
-                        <a class="dropdown-item text-dark" href="#"><i class="uil uil-arrow-circle-down align-middle mr-1"></i> Download</a>
+                        <a class="dropdown-item text-dark" href="<?=base_url().'store/profile'?>"><i class="uil uil-user align-middle mr-1"></i> Account</a>
                         <div class="dropdown-divider my-3 border-top"></div>
-                        <a class="dropdown-item text-dark" href="#"><i class="uil uil-sign-out-alt align-middle mr-1"></i> Logout</a>
+                        <a class="dropdown-item text-dark" href="<?=base_url().'store/logout'?>"><i class="uil uil-sign-out-alt align-middle mr-1"></i> Logout</a>
                     </div>
                 </div>
+
             </li>
+            <?php } ?>
+            <?php }else{ if(!$mobile){?>
+                <li class="list-inline-item mb-0">
+                    <div class="dropdown dropdown-primary">
+                        <a href="<?=base_url().'store/auth?page=login'?>" class="btn btn-icon btn-primary" aria-haspopup="true" aria-expanded="false"><i class="uil uil-sign-in-alt align-middle icons"></i></a>
+                    </div>
+                </li>
+            <?php }} ?>
         </ul><!--end login button-->
         <!-- End Logo container-->
         <div class="menu-extras">
@@ -195,222 +240,41 @@
         <div id="navigation">
             <!-- Navigation Menu-->
             <ul class="navigation-menu">
-                <li><a href="index.html">Home</a></li>
+                <li><a style="<?=$this->uri->segment(1)==""?'color: #2f55d4!important;':'color:#000!important;'?>" href="<?=base_url()?>">Home</a></li>
                 <li class="has-submenu">
-                    <a href="javascript:void(0)">Landing</a><span class="menu-arrow"></span>
+                    <a href="javascript:void(0)">Category</a><span class="menu-arrow"></span>
                     <ul class="submenu megamenu">
                         <li>
                             <ul>
-                                <li><a href="index-saas.html">Saas</a></li>
-                                <li><a href="index-classic-saas.html">Classic Saas</a></li>
-                                <li><a href="index-agency.html">Agency</a></li>
-                                <li><a href="index-apps.html">Application</a></li>
-                                <li><a href="index-classic-app.html">Classic Application</a></li>
-                                <li><a href="index-studio.html">Studio</a></li>
-                                <li><a href="index-marketing.html">Marketing</a></li>
-                                <li><a href="index-enterprise.html">Enterprise</a></li>
-                                <li><a href="index-services.html">Service</a></li>
-                                <li><a href="index-payments.html">Payments</a></li>
-                                <li><a href="index-crypto.html">Cryptocurrency</a></li>
-                                <li><a href="index-hosting.html">Hosting & Domain</a></li>
-                                <li><a href="index-it-solution.html">IT Solution </a></li>
-                                <li><a href="index-business.html">Business</a></li>
-                                <li><a href="index-modern-business.html">Modern Business</a></li>
-                                <li><a href="index-corporate.html">Corporate Business</a></li>
-                                <li><a href="index-hotel.html">Hotel</a></li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <ul>
-                                <li><a href="index-developer.html">Developer <span class="badge badge-pill badge-danger">New</span></a></li>
-                                <li><a href="index-seo-agency.html">SEO Agency <span class="badge badge-pill badge-danger">New</span></a></li>
-                                <li><a href="index-construction.html">Construction <span class="badge badge-pill badge-danger">New</span></a></li>
-                                <li><a href="index-real-estate.html">Real Estate <span class="badge badge-pill badge-danger">New</span></a></li>
-                                <li><a href="index-hospital.html">Hospital <span class="badge badge-pill badge-danger">New</span></a></li>
-                                <li><a href="index-integration.html">Integration <span class="badge badge-pill badge-danger">New</span></a></li>
-                                <li><a href="index-landing-four.html">Landing Four <span class="badge badge-pill badge-danger">New</span></a></li>
-                                <li><a href="index-task-management.html">Task Management </a></li>
-                                <li><a href="index-email-inbox.html">Email Inbox </a></li>
-                                <li><a href="index-landing-one.html">Landing One </a></li>
-                                <li><a href="index-landing-two.html">Landing Two </a></li>
-                                <li><a href="index-landing-three.html">Landing Three </a></li>
-                                <li><a href="index-travel.html">Travel </a></li>
-                                <li><a href="index-blog.html">Blog </a></li>
-                                <li><a href="forums.html">Forums </a></li>
-                                <li><a href="index-personal.html">Personal</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <ul>
-                                <li><a href="index-shop.html">Shop <span class="badge badge-pill badge-info">Updated</span></a></li>
-                                <li><a href="index-insurance.html">Insurance</a></li>
-                                <li><a href="index-coworking.html">Coworking</a></li>
-                                <li><a href="index-course.html">Course</a></li>
-                                <li><a href="index-online-learning.html">Online Learning</a></li>
-                                <li><a href="index-event.html">Event</a></li>
-                                <li><a href="index-single-product.html">Product</a></li>
-                                <li><a href="index-portfolio.html">Portfolio</a></li>
-                                <li><a href="index-job.html">Job</a></li>
-                                <li><a href="index-social-marketing.html">Social Media</a></li>
-                                <li><a href="index-digital-agency.html">Digital Agency</a></li>
-                                <li><a href="index-car-riding.html">Car Ride</a></li>
-                                <li><a href="index-customer.html">Customer</a></li>
-                                <li><a href="index-software.html">Software</a></li>
-                                <li><a href="index-ebook.html">E-Book</a></li>
-                                <li><a href="index-onepage.html">Saas <span class="badge badge-pill badge-warning ml-2">Onepage</span></a></li>
+                                <?php foreach ($nav_menu as $row) {?>
+                                    <li>
+                                        <a href="<?=base_url().'store/list_produk/groups/'.$row['id_groups']?>"><?=$row['nama']?></a>
+                                    </li>
+                                <?php } ?>
                             </ul>
                         </li>
                     </ul>
                 </li>
+                <li class="<?=$this->uri->segment(2)=="promo"?'active':null?>"><a style="<?=$this->uri->segment(2)=="promo"?'color: #2f55d4!important;':'color:#000!important;'?>" href="<?=base_url().'store/promo'?>">Promo</a></li>
+                <li class="<?=$_GET['page']=='gallery'?'active':null?>"><a style="<?=$_GET['page']=='gallery'?'color: #2f55d4!important;':'color:#000!important;'?>" href="<?=base_url()?>">Location</a></li>
+                <li class="has-submenu <?=$_GET['page']=='about'||$_GET['page']=='tutorial'||$this->uri->segment(2)=='article'?'active':null?>">
+                    <a style="<?=$_GET['page']=='about'||$_GET['page']=='tutorial'||$this->uri->segment(2)=='article'?'color:2f55d4!important':'color:#000!important;'?>" href="javascript:void(0)">Information</a>
+                    <span class="menu-arrow" style="color: black!important;"></span>
+                    <ul class="submenu megamenu">
+                        <li>
+                            <ul>
+                                <li><a href="<?=base_url().'store?page=about'?>">About</a></li>
+                                <li><a href="<?=base_url().'store?page=tutorial'?>">Tutorial</a></li>
+                                <li><a href="<?=base_url().'store/article/all'?>">Article</a></li>
+                            </ul>
+                        </li>
 
-                <li class="has-submenu">
-                    <a href="javascript:void(0)">Pages</a><span class="menu-arrow"></span>
-                    <ul class="submenu">
-                        <li class="has-submenu"><a href="javascript:void(0)"> Company </a><span class="submenu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="page-aboutus.html"> About Us</a></li>
-                                <li><a href="page-aboutus-two.html"> About Us Two </a></li>
-                                <li><a href="page-services.html">Services</a></li>
-                                <li><a href="page-history.html">History </a></li>
-                                <li><a href="page-team.html"> Team</a></li>
-                                <li><a href="page-pricing.html">Pricing</a></li>
-                            </ul>
-                        </li>
-                        <li class="has-submenu"><a href="javascript:void(0)"> Account </a><span class="submenu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="account-profile.html">Profile</a></li>
-                                <li><a href="account-members.html">Members </a></li>
-                                <li><a href="account-works.html">Works </a></li>
-                                <li><a href="account-messages.html">Messages </a></li>
-                                <li><a href="account-payments.html">Payments </a></li>
-                                <li><a href="account-setting.html">Setting</a></li>
-                                <li><a href="page-invoice.html">Invoice</a></li>
-                            </ul>
-                        </li>
-                        <li class="has-submenu"><a href="javascript:void(0)"> Shop <span class="badge badge-pill badge-success">Added</span></a><span class="submenu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="shop-grids.html">Product Grids</a></li>
-                                <li><a href="shop-lists.html">Product List <span class="badge badge-pill badge-danger">New</span></a></li>
-                                <li><a href="shop-product-detail.html">Product Details</a></li>
-                                <li><a href="shop-cart.html">Shop Cart</a></li>
-                                <li><a href="shop-checkouts.html">Checkouts</a></li>
-                                <li><a href="shop-myaccount.html">My Account</a></li>
-                            </ul>
-                        </li>
-                        <li class="has-submenu"><a href="javascript:void(0)"> Help center </a><span class="submenu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="helpcenter-overview.html">Helpcenter</a></li>
-                                <li><a href="helpcenter-faqs.html">Faqs</a></li>
-                                <li><a href="helpcenter-guides.html">Guides</a></li>
-                                <li><a href="helpcenter-support-request.html">Support Call</a></li>
-                            </ul>
-                        </li>
-                        <li class="has-submenu"><a href="javascript:void(0)"> Forums </a><span class="submenu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="forums.html">Overview </a></li>
-                                <li><a href="forums-topic.html">Forum Topic </a></li>
-                                <li><a href="forums-comments.html">Forum Comments </a></li>
-                            </ul>
-                        </li>
-                        <li class="has-submenu"><a href="javascript:void(0)"> Email Template</a><span class="submenu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="email-confirmation.html">Confirmation</a></li>
-                                <li><a href="email-password-reset.html">Reset Password</a></li>
-                                <li><a href="email-alert.html">Alert</a></li>
-                                <li><a href="email-invoice.html">Invoice</a></li>
-                            </ul>
-                        </li>
-                        <li class="has-submenu"><a href="javascript:void(0)">Careers <span class="badge badge-pill badge-success">Added</span></a><span class="submenu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="page-jobs.html">Jobs</a></li>
-                                <li><a href="page-jobs-sidebar.html">Jobs - Sidebar</a></li>
-                                <li><a href="page-job-detail.html">Job Detail</a></li>
-                                <li><a href="page-job-apply.html">Job Apply</a></li>
-                                <li><a href="page-job-company-list.html">Company Listing <span class="badge badge-pill badge-danger">New</span></a></li>
-                                <li><a href="page-job-company.html">Company Detail</a></li>
-                                <li><a href="page-job-candidate-list.html">Candidate Listing <span class="badge badge-pill badge-danger">New</span></a></li>
-                                <li><a href="page-job-candidate.html">Candidate Detail</a></li>
-                            </ul>
-                        </li>
-                        <li class="has-submenu"><a href="javascript:void(0)"> Blog </a><span class="submenu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="page-blog-grid.html">Blog Grid</a></li>
-                                <li><a href="page-blog-sidebar.html">Blog with Sidebar</a></li>
-                                <li><a href="page-blog-list.html">Blog Listing</a></li>
-                                <li><a href="page-blog-list-sidebar.html">Blog List & Sidebar</a></li>
-                                <li><a href="page-blog-detail.html">Blog Detail</a></li>
-                                <li><a href="page-blog-detail-two.html">Blog Detail 2 </a></li>
-                            </ul>
-                        </li>
-                        <li class="has-submenu"><a href="javascript:void(0)"> Case Study </a><span class="submenu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="page-cases.html">All Cases </a></li>
-                                <li><a href="page-case-detail.html">Case Detail </a></li>
-                            </ul>
-                        </li>
-                        <li class="has-submenu"><a href="javascript:void(0)"> Portfolio</a><span class="submenu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="page-portfolio-modern.html">Portfolio Modern</a></li>
-                                <li><a href="page-portfolio-classic.html">Portfolio Classic</a></li>
-                                <li><a href="page-portfolio-grid.html">Portfolio Grid</a></li>
-                                <li><a href="page-portfolio-masonry.html">Portfolio Masonry</a></li>
-                                <li><a href="page-portfolio-detail.html">Portfolio Detail</a></li>
-                            </ul>
-                        </li>
-                        <li class="has-submenu"><a href="javascript:void(0)"> Auth Pages</a><span class="submenu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="auth-login.html">Login</a></li>
-                                <li><a href="auth-cover-login.html">Login Cover</a></li>
-                                <li><a href="auth-login-three.html">Login Simple</a></li>
-                                <li><a href="auth-signup.html">Signup</a></li>
-                                <li><a href="auth-cover-signup.html">Signup Cover</a></li>
-                                <li><a href="auth-signup-three.html">Signup Simple</a></li>
-                                <li><a href="auth-re-password.html">Reset Password</a></li>
-                                <li><a href="auth-cover-re-password.html">Reset Password Cover</a></li>
-                                <li><a href="auth-re-password-three.html">Reset Password Simple</a></li>
-                            </ul>
-                        </li>
-                        <li class="has-submenu"><a href="javascript:void(0)"> Utility </a><span class="submenu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="page-terms.html">Terms of Services</a></li>
-                                <li><a href="page-privacy.html">Privacy Policy</a></li>
-                            </ul>
-                        </li>
-                        <li class="has-submenu"><a href="javascript:void(0)"> Special <span class="badge badge-pill badge-success">Added</span></a><span class="submenu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="page-comingsoon.html">Coming Soon</a></li>
-                                <li><a href="page-comingsoon2.html">Coming Soon Two</a></li>
-                                <li><a href="page-maintenance.html">Maintenance</a></li>
-                                <li><a href="page-error.html">Error</a></li>
-                                <li><a href="page-thankyou.html">Thank you <span class="badge badge-pill badge-danger">New</span></a></li>
-                            </ul>
-                        </li>
-                        <li class="has-submenu"><a href="javascript:void(0)"> Contact </a><span class="submenu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="page-contact-detail.html">Contact Detail</a></li>
-                                <li><a href="page-contact-one.html">Contact One</a></li>
-                                <li><a href="page-contact-two.html">Contact Two</a></li>
-                                <li><a href="page-contact-three.html">Contact Three</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li class="has-submenu">
-                    <a href="javascript:void(0)">Docs</a><span class="menu-arrow"></span>
-                    <ul class="submenu">
-                        <li><a href="documentation.html">Documentation</a></li>
-                        <li><a href="changelog.html">Changelog</a></li>
-                        <li><a href="components.html">Components</a></li>
-                        <li><a href="widget.html">Widget</a></li>
                     </ul>
                 </li>
             </ul><!--end navigation menu-->
-            <div class="buy-menu-btn d-none">
-                <a href="https://1.envato.market/4n73n" target="_blank" class="btn btn-primary">Buy Now</a>
-            </div><!--end login button-->
         </div><!--end navigation-->
     </div><!--end container-->
+    <?php if($this->uri->segment(1)==''){?>
     <nav class="navbar navbar-dark bg-info navbar-expand d-md-none d-lg-none d-xl-none fixed-bottom" style="background-color:#2f55d4!important; ">
         <ul class="navbar-nav nav-justified w-100">
             <li class="nav-item" style="padding: 0px!important;<?=$this->uri->segment(1)==''?'border:2px solid white;border-radius:10px;':null;?>">
@@ -420,9 +284,8 @@
             </li>
 
             <li class="nav-item" style="<?=$this->uri->segment(2)=='promo'?'border:2px solid white':null?>">
-                <a href="<?=base_url().'store/promo'?>" class="nav-link" style="<?=$this->uri->segment(2)=='promo'?'color:white':null;?>">
-                    <i class="uil uil-percentage align-middle icons" style="padding:0px!important;"></i><br/> promo
-
+                <a href="<?=base_url().'store/get_all_product'?>" class="nav-link" style="<?=$this->uri->segment(2)=='promo'?'color:white':null;?>">
+                    <i class="uil uil-apps align-middle icons" style="padding:0px!important;"></i><br/> Product
                 </a>
             </li>
             <li class="nav-item" style="<?=$this->uri->segment(2)=='article'?'border:2px solid white':null?>">
@@ -433,8 +296,8 @@
             </li>
             <li class="nav-item" style="<?=$this->uri->segment(2)=='auth'?'border:2px solid white':null;?>">
                 <?php if($this->session->userdata('id_member')!=''){ ?>
-                    <a href="<?=base_url().'store/logout'?>" class="nav-link" style="<?=$this->uri->segment(2)=='auth'?'color:white':null;?>">
-                        <i class="uil uil-sign-out-alt align-middle icons" style="padding:0px!important;"></i><br/> Logout
+                    <a href="<?=base_url().'store/profile'?>" class="nav-link" style="<?=$this->uri->segment(2)=='auth'?'color:white':null;?>">
+                        <i class="uil uil-user align-middle icons" style="padding:0px!important;"></i><br/> Profile
                     </a>
                 <?php } else{ ?>
                     <a href="<?=base_url().'store/auth?page=login'?>" class="nav-link" style="<?=$this->uri->segment(2)=='auth'?'color:white':null;?>">
@@ -444,319 +307,48 @@
             </li>
         </ul>
     </nav>
+    <?php } ?>
+    <?php if($this->uri->segment(2)=='cart'){ ?>
+    <nav class="navbar navbar-dark bg-info navbar-expand d-md-none d-lg-none d-xl-none fixed-bottom" style="background-color:#2f55d4!important; ">
+        <ul class="navbar-nav nav-justified w-100">
+            <li class="nav-item">
+                <a href="javascript:void(0)" onclick="bayar()" class="nav-link text-left">Checkout <small class="totCart" style="float: right;font-weight: bold;"></small></a>
+            </li>
+        </ul>
+    </nav>
+    <?php } ?>
+    <?php if($this->uri->segment(2)=='get_all_product'){ ?>
+        <nav class="navbar navbar-dark bg-info navbar-expand d-md-none d-lg-none d-xl-none fixed-bottom" style="background-color:#2f55d4!important; ">
+            <ul class="navbar-nav nav-justified w-100">
+                <li class="nav-item">
+                    <a href="javascript:void(0)" onclick="loadmore()" class="nav-link">Loadmore</a>
+                </li>
+            </ul>
+        </nav>
+    <?php } ?>
+    <?php if($this->uri->segment(2)=='list_produk'&&$this->uri->segment(4)!=''&&$this->uri->segment(4)!=''){ ?>
+        <nav class="navbar navbar-dark bg-info navbar-expand d-md-none d-lg-none d-xl-none fixed-bottom" style="background-color:#2f55d4!important; ">
+            <ul class="navbar-nav nav-justified w-100">
+                <li class="nav-item">
+                    <a href="javascript:void(0)" onclick="loadmoreProduct()" class="nav-link">Loadmore</a>
+                </li>
+            </ul>
+        </nav>
+    <?php } ?>
 
+    <?php if($this->uri->segment(2)=='article'&&$this->uri->segment(3)!=''){ ?>
+        <nav class="navbar navbar-dark bg-info navbar-expand d-md-none d-lg-none d-xl-none fixed-bottom" style="background-color:#2f55d4!important; ">
+            <ul class="navbar-nav nav-justified w-100">
+                <li class="nav-item">
+                    <a href="javascript:void(0)" onclick="loadmoreNews()" class="nav-link">Loadmore</a>
+                </li>
+            </ul>
+        </nav>
+    <?php } ?>
 </header><!--end header-->
 <!-- Navbar End -->
-
-<!-- Hero Start -->
-<section class="main-slider">
-    <ul class="slides">
-        <li class="bg-slider slider-rtl-2 d-flex align-items-center" style="background:url('<?=base_url().'assets/frontend/'?>images/shop/bg2.jpg') center center;">
-            <div class="container">
-                <div class="row align-items-center mt-5">
-                    <div class="col-lg-7 col-md-7">
-                        <div class="title-heading mt-4">
-                            <h1 class="display-4 title-white font-weight-bold mb-3">New Accessories <br> Collections</h1>
-                            <p class="para-desc text-muted para-dark">Launch your campaign and benefit from our expertise on designing and managing conversion centered bootstrap4 html page.</p>
-                            <div class="mt-4">
-                                <a href="javascript:void(0)" class="btn btn-soft-primary">Shop Now</a>
-                            </div>
-                        </div>
-                    </div><!--end col-->
-                </div><!--end row-->
-            </div><!--end container-->
-        </li>
-        <li class="bg-slider slider-rtl-1 d-flex align-items-center" style="background:url('<?=base_url().'assets/frontend/'?>images/shop/bg1.jpg') center center;">
-            <div class="container">
-                <div class="row align-items-center mt-5">
-                    <div class="col-lg-7 col-md-7">
-                        <div class="title-heading mt-4">
-                            <h1 class="display-4 title-white font-weight-bold mb-3">Headphones <br> Speaker</h1>
-                            <p class="para-desc text-muted para-dark">Launch your campaign and benefit from our expertise on designing and managing conversion centered bootstrap4 html page.</p>
-                            <div class="mt-4">
-                                <a href="javascript:void(0)" class="btn btn-soft-primary">Shop Now</a>
-                            </div>
-                        </div>
-                    </div><!--end col-->
-                </div><!--end row-->
-            </div><!--end container-->
-        </li>
-        <li class="bg-slider slider-rtl-3 d-flex align-items-center" style="background:url('<?=base_url().'assets/frontend/'?>images/shop/bg3.jpg') center center;">
-            <div class="container">
-                <div class="row align-items-center mt-5">
-                    <div class="col-lg-7 col-md-7">
-                        <div class="title-heading mt-4">
-                            <h1 class="display-4 title-white font-weight-bold mb-3">Modern Furniture, <br> Armchair</h1>
-                            <p class="para-desc text-muted para-dark">Launch your campaign and benefit from our expertise on designing and managing conversion centered bootstrap4 html page.</p>
-                            <div class="mt-4">
-                                <a href="javascript:void(0)" class="btn btn-soft-primary">Shop Now</a>
-                            </div>
-                        </div>
-                    </div><!--end col-->
-                </div><!--end row-->
-            </div><!--end container-->
-        </li>
-    </ul>
-</section><!--end section-->
-<!-- Hero End -->
-
-<!-- Features Start -->
-<div class="container-fluid mt-5 pt-2">
-    <div class="row">
-        <div class="swiper-container swiper-best-seller">
-            <div class="swiper-button-prev previous"></div>
-            <div class="swiper-button-next next"></div>
-            <div class="swiper-wrapper">
-                <?php $no=0; foreach($promo as $row):
-                $tmp_disc = array();
-                $decode = json_decode($row['diskon'], true);
-                foreach ($decode as $disc) {
-                    array_push($tmp_disc, $disc.'%');
-                }
-                ?>
-                    <div style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);padding:0px;" class="swiper-slide" data-aos="<?=$no%2==0?'zoom-in':'zoom-out'?>" data-aos-duration="1000">
-                        <div class="py-5 rounded shadow" style="background: url('<?=base_url().'assets/frontend/images/shop/fea2.jpg'?>') top center; ">
-                            <div class="p-4" style="">
-                                <h3 style="color:#EEEEEE"><?=$row['promo'].' - '.implode(' + ', $tmp_disc)?></h3>
-                                <a href="javascript:void(0)" class="btn btn-sm btn-soft-primary mt-2">Shop Now</a>
-                            </div>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        </div>
-
-    </div><!--end row-->
-</div><!--end container-->
-<!-- Features End -->
-
-
-<!-- Start -->
-<section class="section">
-    <!-- Start Most Viewed Products -->
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <h5 class="mb-0">Best Seller</h5>
-            </div><!--end col-->
-        </div><!--end row-->
-
-        <div class="row">
-            <?php for($i=0;$i<8;$i++):?>
-            <div class="col-lg-3 col-md-6 col-6 mt-4 pt-2">
-                <div class="card shop-list border-0 position-relative" style="background:#f5f6fa!important;box-shadow: 0 3px 0px 0 rgba(47, 85, 212, 0.3)!important;">
-                    <ul class="label list-unstyled mb-0">
-                        <li><a href="javascript:void(0)" class="badge badge-pill badge-primary">New</a></li>
-                        <li><a href="javascript:void(0)" class="badge badge-pill badge-success">Featured</a></li>
-                        <li><a href="javascript:void(0)" class="badge badge-pill badge-warning">Sale</a></li>
-                    </ul>
-                    <div class="shop-image position-relative overflow-hidden rounded shadow">
-                        <a href="shop-product-detail.html"><img src="<?=base_url().'assets/frontend/'?>images/shop/product/s1.jpg" class="img-fluid" alt=""></a>
-                        <a href="shop-product-detail.html" class="overlay-work">
-                            <img src="<?=base_url().'assets/frontend/'?>images/shop/product/s-1.jpg" class="img-fluid" alt="">
-                        </a>
-                        <ul class="list-unstyled shop-icons">
-                            <li><a href="javascript:void(0)" class="btn btn-icon btn-pills btn-soft-danger"><i data-feather="heart" class="icons"></i></a></li>
-                            <li class="mt-2"><a href="javascript:void(0)" data-toggle="modal" data-target="#productview" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="eye" class="icons"></i></a></li>
-                            <li class="mt-2"><a href="shop-cart.html" class="btn btn-icon btn-pills btn-soft-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="card-body content pt-4 p-2">
-                        <a href="shop-product-detail.html" class="text-dark product-name h6">Branded T-Shirt</a>
-                        <div class="d-flex justify-content-between mt-1">
-                            <h6 class="text-muted small font-italic mb-0 mt-1">$16.00 <del class="text-danger ml-2">$21.00</del> </h6>
-                            <ul class="list-unstyled text-warning mb-0">
-                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div><!--end col-->
-            <?php endfor;?>
-        </div><!--end row-->
-    </div><!--end container-->
-    <!-- End Most Viewed Product -->
-
-    <!-- Start Categories -->
-    <div class="container mt-100 mt-60">
-        <div class="row">
-            <div class="col-12">
-                <h5 class="mb-0">Top Categories</h5>
-            </div><!--end col-->
-        </div><!--end row-->
-        <div class="row">
-            <div class="col-lg-2 col-md-4 col-6 mt-4 pt-2">
-                <div class="card explore-feature border-10 rounded text-center bg-white">
-                    <div class="card-body">
-                        <img src="<?=base_url().'assets/frontend/'?>images/shop/categories/fashion.jpg" class="avatar avatar-small rounded-circle shadow-md" alt="">
-                        <div class="content mt-3">
-                            <h6 class="mb-0"><a href="javascript:void(0)" class="title text-dark">Fashion</a></h6>
-                        </div>
-                    </div>
-                </div>
-            </div><!--end col-->
-            <div class="col-lg-2 col-md-4 col-6 mt-4 pt-2">
-                <div class="card explore-feature border-10 rounded text-center bg-white">
-                    <div class="card-body">
-                        <img src="<?=base_url().'assets/frontend/'?>images/shop/categories/sports.jpg" class="avatar avatar-small rounded-circle shadow-md" alt="">
-                        <div class="content mt-3">
-                            <h6 class="mb-0"><a href="javascript:void(0)" class="title text-dark">Sports</a></h6>
-                        </div>
-                    </div>
-                </div>
-            </div><!--end col-->
-            <div class="col-lg-2 col-md-4 col-6 mt-4 pt-2">
-                <div class="card explore-feature border-10 rounded text-center bg-white">
-                    <div class="card-body">
-                        <img src="<?=base_url().'assets/frontend/'?>images/shop/categories/music.jpg" class="avatar avatar-small rounded-circle shadow-md" alt="">
-                        <div class="content mt-3">
-                            <h6 class="mb-0"><a href="javascript:void(0)" class="title text-dark">Music</a></h6>
-                        </div>
-                    </div>
-                </div>
-            </div><!--end col-->
-            <div class="col-lg-2 col-md-4 col-6 mt-4 pt-2">
-                <div class="card explore-feature border-10 rounded text-center bg-white">
-                    <div class="card-body">
-                        <img src="<?=base_url().'assets/frontend/'?>images/shop/categories/furniture.jpg" class="avatar avatar-small rounded-circle shadow-md" alt="">
-                        <div class="content mt-3">
-                            <h6 class="mb-0"><a href="javascript:void(0)" class="title text-dark">Furniture</a></h6>
-                        </div>
-                    </div>
-                </div>
-            </div><!--end col-->
-            <div class="col-lg-2 col-md-4 col-6 mt-4 pt-2">
-                <div class="card explore-feature border-10 rounded text-center bg-white">
-                    <div class="card-body">
-                        <img src="<?=base_url().'assets/frontend/'?>images/shop/categories/electronics.jpg" class="avatar avatar-small rounded-circle shadow-md" alt="">
-                        <div class="content mt-3">
-                            <h6 class="mb-0"><a href="javascript:void(0)" class="title text-dark">Electronics</a></h6>
-                        </div>
-                    </div>
-                </div>
-            </div><!--end col-->
-            <div class="col-lg-2 col-md-4 col-6 mt-4 pt-2">
-                <div class="card explore-feature border-10 rounded text-center bg-white">
-                    <div class="card-body">
-                        <img src="<?=base_url().'assets/frontend/'?>images/shop/categories/mobile.jpg" class="avatar avatar-small rounded-circle shadow-md" alt="">
-                        <div class="content mt-3">
-                            <h6 class="mb-0"><a href="javascript:void(0)" class="title text-dark">Mobiles</a></h6>
-                        </div>
-                    </div>
-                </div>
-            </div><!--end col-->
-        </div><!--end row-->
-    </div><!--end container-->
-    <!-- Start Categories -->
-
-    <!-- Start Popular -->
-    <div class="container mt-100 mt-60">
-        <div class="row">
-            <div class="col-12">
-                <h5 class="mb-0">Latest Products</h5>
-            </div><!--end col-->
-        </div><!--end row-->
-
-        <div class="row">
-            <?php for($i=0;$i<8;$i++):?>
-            <div class="col-lg-3 col-md-6 col-6 mt-4 pt-2">
-                <div class="card shop-list border-0 position-relative" style="background:#f5f6fa!important;box-shadow: 0 3px 0px 0 rgba(47, 85, 212, 0.3)!important;">
-                    <ul class="label list-unstyled mb-0">
-                        <li><a href="javascript:void(0)" class="badge badge-pill badge-info">Popular</a></li>
-                    </ul>
-                    <div class="shop-image position-relative overflow-hidden rounded shadow">
-                        <a href="shop-product-detail.html"><img src="<?=base_url().'assets/frontend/'?>images/shop/product/s9.jpg" class="img-fluid" alt=""></a>
-                        <a href="shop-product-detail.html" class="overlay-work">
-                            <img src="<?=base_url().'assets/frontend/'?>images/shop/product/s-9.jpg" class="img-fluid" alt="">
-                        </a>
-                        <ul class="list-unstyled shop-icons">
-                            <li><a href="javascript:void(0)" class="btn btn-icon btn-pills btn-soft-danger"><i data-feather="heart" class="icons"></i></a></li>
-                            <li class="mt-2"><a href="javascript:void(0)" data-toggle="modal" data-target="#productview" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="eye" class="icons"></i></a></li>
-                            <li class="mt-2"><a href="shop-cart.html" class="btn btn-icon btn-pills btn-soft-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="card-body content pt-4 p-2">
-                        <a href="shop-product-detail.html" class="text-dark product-name h6">Coffee Cup / Mug</a>
-                        <div class="d-flex justify-content-between mt-1">
-                            <h6 class="text-muted small font-italic mb-0 mt-1">$16.00 <del class="text-danger ml-2">$21.00</del> </h6>
-                            <ul class="list-unstyled text-warning mb-0">
-                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div><!--end col-->
-            <?php endfor;?>
-        </div><!--end row-->
-    </div><!--end container-->
-    <!-- End Popular -->
-
-    <!-- Start CTA -->
-    <div class="container-fluid mt-100 mt-60">
-        <div class="rounded py-5" style="background: url('<?=base_url().'assets/frontend/'?>images/shop/cta.jpg') fixed;">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="section-title">
-                            <h2 class="font-weight-bold mb-4">End of Season Clearance <br> Sale upto 30%</h2>
-                            <p class="para-desc para-white text-muted mb-0">Launch your campaign and benefit from our expertise on designing and managing conversion centered bootstrap4 html page.</p>
-                            <div class="mt-4">
-                                <a href="javascript:void(0)" class="btn btn-primary">Shop Now</a>
-                            </div>
-                        </div>
-                    </div><!--end col-->
-                </div><!--end row-->
-            </div><!--end container-->
-        </div>
-    </div><!--end container-->
-    <!-- End CTA -->
-
-
-    <div class="container mt-100 mt-60">
-        <div class="row">
-            <div class="col-12">
-                <h5 class="mb-0">Popular News</h5>
-            </div><!--end col-->
-        </div><!--end row-->
-        <div class="row">
-            <?php for($i=0;$i<10;$i++):?>
-                <div class="col-lg-4 col-md-6 mb-4 pb-2 mt-4 pt-2">
-                    <div class="card blog rounded border-0 shadow overflow-hidden">
-                        <div class="position-relative">
-                            <img src="<?=base_url().'assets/frontend/'?>images/blog/01.jpg" class="card-img-top" alt="...">
-                            <div class="overlay rounded-top bg-dark"></div>
-                        </div>
-                        <div class="card-body content">
-                            <h5><a href="javascript:void(0)" class="card-title title text-dark">Design your apps in your own way</a></h5>
-                            <div class="post-meta d-flex justify-content-between mt-3">
-                                <ul class="list-unstyled mb-0">
-                                    <li class="list-inline-item mr-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="mdi mdi-heart-outline mr-1"></i>33</a></li>
-                                    <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="mdi mdi-comment-outline mr-1"></i>08</a></li>
-                                </ul>
-                                <a href="page-blog-detail.html" class="text-muted readmore">Read More <i class="mdi mdi-chevron-right"></i></a>
-                            </div>
-                        </div>
-                        <div class="author">
-                            <small class="text-light user d-block"><i class="mdi mdi-account"></i> Calvin Carlo</small>
-                            <small class="text-light date"><i class="mdi mdi-calendar-check"></i> 13th August, 2019</small>
-                        </div>
-                    </div>
-                </div>
-            <?php endfor;?>
-        </div><!--end row-->
-    </div><!--end container-->
-
-</section><!--end section-->
-<!-- End -->
-
+<?php $this->load->view($content); ?>
+<?php if(!$mobile||$this->uri->segment(1)==""){ ?>
 <!-- Footer Start -->
 <footer class="footer">
     <div class="container">
@@ -844,113 +436,7 @@
     </div><!--end container-->
 </footer><!--end footer-->
 <!-- Footer End -->
-
-<!-- Product View Start -->
-<div class="modal fade" id="productview" tabindex="-1" role="dialog" aria-labelledby="productview-title" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-        <div class="modal-content rounded shadow border-0">
-            <div class="modal-header">
-                <h5 class="modal-title" id="productview-title">Branded T-Shirts </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body p-4">
-                <div class="container-fluid px-0">
-                    <div class="row">
-                        <div class="col-lg-5">
-                            <div class="slider slider-for">
-
-                                <div><img src="<?=base_url().'assets/frontend/'?>images/shop/product/single-2.jpg" class="img-fluid rounded" alt=""></div>
-                                <div><img src="<?=base_url().'assets/frontend/'?>images/shop/product/single-3.jpg" class="img-fluid rounded" alt=""></div>
-                                <div><img src="<?=base_url().'assets/frontend/'?>images/shop/product/single-4.jpg" class="img-fluid rounded" alt=""></div>
-                                <div><img src="<?=base_url().'assets/frontend/'?>images/shop/product/single-5.jpg" class="img-fluid rounded" alt=""></div>
-                                <div><img src="<?=base_url().'assets/frontend/'?>images/shop/product/single-6.jpg" class="img-fluid rounded" alt=""></div>
-                            </div>
-                            <div class="slider slider-nav">
-
-                                <div><img src="<?=base_url().'assets/frontend/'?>images/shop/product/single-2.jpg" class="img-fluid" alt=""></div>
-                                <div><img src="<?=base_url().'assets/frontend/'?>images/shop/product/single-3.jpg" class="img-fluid" alt=""></div>
-                                <div><img src="<?=base_url().'assets/frontend/'?>images/shop/product/single-4.jpg" class="img-fluid" alt=""></div>
-                                <div><img src="<?=base_url().'assets/frontend/'?>images/shop/product/single-5.jpg" class="img-fluid" alt=""></div>
-                                <div><img src="<?=base_url().'assets/frontend/'?>images/shop/product/single-6.jpg" class="img-fluid" alt=""></div>
-                            </div>
-                        </div><!--end col-->
-
-                        <div class="col-lg-7 mt-4 mt-lg-0 pt-2 pt-lg-0">
-                            <h4 class="title">Branded T-Shirts</h4>
-                            <h5 class="text-muted">$21.00 <del class="text-danger ml-2">$25.00</del> </h5>
-                            <ul class="list-unstyled text-warning h5">
-                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
-                            </ul>
-
-                            <h5 class="mt-4">Overview :</h5>
-                            <p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero exercitationem, unde molestiae sint quae inventore atque minima natus fugiat nihil quisquam voluptates ea omnis. Modi laborum soluta tempore unde accusantium.</p>
-
-                            <div class="row mt-4 pt-2">
-                                <div class="col-12">
-                                    <div class="d-flex align-items-center">
-                                        <h6 class="mb-0">Your Size:</h6>
-                                        <ul class="list-unstyled mb-0 ml-3">
-                                            <li class="list-inline-item"><a href="javascript:void(0)" class="btn btn-icon btn-soft-primary">S</a></li>
-                                            <li class="list-inline-item ml-1"><a href="javascript:void(0)" class="btn btn-icon btn-soft-primary">M</a></li>
-                                            <li class="list-inline-item ml-1"><a href="javascript:void(0)" class="btn btn-icon btn-soft-primary">L</a></li>
-                                            <li class="list-inline-item ml-1"><a href="javascript:void(0)" class="btn btn-icon btn-soft-primary">XL</a></li>
-                                        </ul>
-                                    </div>
-                                </div><!--end col-->
-
-                                <div class="col-12 mt-4">
-                                    <div class="d-flex shop-list align-items-center">
-                                        <h6 class="mb-0">Quantity:</h6>
-                                        <div class="ml-3">
-                                            <input type="button" value="-" class="minus btn btn-icon btn-soft-primary font-weight-bold">
-                                            <input type="text" step="1" min="1" name="quantity" value="1" title="Qty" class="btn btn-icon btn-soft-primary font-weight-bold">
-                                            <input type="button" value="+" class="plus btn btn-icon btn-soft-primary font-weight-bold">
-                                        </div>
-                                    </div>
-                                </div><!--end col-->
-                            </div><!--end row-->
-
-                            <div class="mt-4 pt-2">
-                                <a href="javascript:void(0)" class="btn btn-primary">Shop Now</a>
-                                <a href="shop-cart.html" class="btn btn-soft-primary ml-2">Add to Cart</a>
-                            </div>
-                        </div><!--end col-->
-                    </div><!--end row-->
-                </div><!--end container-->
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Product View End -->
-
-<!-- Wishlist Popup Start -->
-<div class="modal fade" id="wishlist" tabindex="-1" role="dialog" aria-labelledby="wishlist-title" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content rounded shadow-lg border-0 overflow-hidden">
-            <div class="modal-body py-5">
-                <div class="text-center">
-                    <div class="icon d-flex align-items-center justify-content-center bg-soft-danger rounded-circle mx-auto" style="height: 95px; width:95px;">
-                        <h1 class="mb-0"><i class="uil uil-heart-break align-middle"></i></h1>
-                    </div>
-                    <div class="mt-4">
-                        <h4>Your wishlist is empty.</h4>
-                        <p class="text-muted">Create your first wishlist request...</p>
-                        <div class="mt-4">
-                            <a href="javascript:void(0)" class="btn btn-outline-primary">+ Create new wishlist</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Wishlist Popup End -->
+<?php } ?>
 
 <!-- Back to top -->
 <a href="#" class="btn btn-icon btn-primary back-to-top" style="margin-bottom: 100px!important;"><i data-feather="arrow-up" class="icons"></i></a>
@@ -958,7 +444,6 @@
 
 
 <!-- javascript -->
-<script src="<?=base_url().'assets/frontend/'?>js/jquery-3.5.1.min.js"></script>
 <script src="<?=base_url().'assets/frontend/'?>js/bootstrap.bundle.min.js"></script>
 <script src="<?=base_url().'assets/frontend/'?>js/jquery.easing.min.js"></script>
 <script src="<?=base_url().'assets/frontend/'?>js/scrollspy.min.js"></script>
@@ -966,7 +451,6 @@
 <script src="<?=base_url().'assets/frontend/'?>js/jquery.flexslider-min.js"></script>
 <script src="<?=base_url().'assets/frontend/'?>js/flexslider.init.js"></script>
 <!-- Slider -->
-<script src="<?=base_url().'assets/frontend/'?>js/owl.carousel.min.js"></script>
 <script src="<?=base_url().'assets/frontend/'?>js/slick.min.js"></script>
 <script src="<?=base_url().'assets/frontend/'?>js/slick.init.js"></script>
 <!-- Icons -->
@@ -982,7 +466,30 @@
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <!-- Quantity Plus Minus JS -->
 <script>
-    AOS.init();
+    $(document).ready(function(){
+        countCart();
+        AOS.init();
+    });
+    $(".cari").autocomplete({
+        minChars: 3,
+        serviceUrl: '<?=base_url().'ajax/get_produk'?>',
+        type: 'post',
+        dataType: 'json',
+        response: function(event, ui) {
+            if (ui.content.length === 0) {
+                $("#empty-message").text("No results found");
+            } else {
+                $("#empty-message").empty();
+            }
+        },
+        onSelect: function (suggestion) {
+            if (suggestion.lokasi !== 'not_found') {
+                window.location.href='<?=base_url().'store/product?product_id='?>'+suggestion.id_produk;
+            } else {
+                console.log('gagal')
+            }
+        }
+    });
 
     $('.plus').click(function () {
         if ($(this).prev().val() < 999) {
@@ -1032,11 +539,71 @@
                 spaceBetween: 30,
             },
             1024: {
-                slidesPerView: 3,
+                slidesPerView: 4,
                 spaceBetween: 40,
             },
         }
     });
+
+    function countCart(){
+        $.ajax({
+            url : "<?=base_url().'ajax/cart'?>",
+            type : "POST",
+            dataType : "JSON",
+            beforeSend: function() {$('body').append('<div class="first-loader"><img src="<?=base_url()?>assets/images/spin.svg"></div>');},
+            complete: function() {$('.first-loader').remove();},
+            success:function(res){
+                console.log(res);
+                $("#countCart").html(res.count);
+                $("#countCartMbl").html(res.count);
+                $("#cartNav").html(res.result);
+                $("#totNav").html(res.total)
+                $(".totCart").html(res.total)
+            }
+        })
+    }
+    function goCart(){
+        if($("#countCart").text()==="0"){
+            alert("maaf keranjang anda kosong");
+        }
+        else{
+            window.location.href="<?=base_url().'store/cart'?>"
+        }
+    }
+    function bayar(){
+        if($("#countCart").text()==="0"){
+            swal({
+                title: "Opppss ...",
+                text: "basket is empty",
+                icon: "warning",
+            })
+        }
+        else{
+            window.location.href="<?=base_url().'store/checkout'?>"
+        }
+
+    }
+    function to_rp(angka, param=null){
+        if(angka !== '' || angka !== 0){
+            var rev     = parseInt(angka, 10).toString().split('').reverse().join('');
+            var rev2    = '';
+            for(var i = 0; i < rev.length; i++){
+                rev2  += rev[i];
+                if((i + 1) % 3 === 0 && i !== (rev.length - 1)){
+                    rev2 += ',';
+                }
+            }
+
+            var dec		= parseFloat(angka, 10).toString().split('.');
+            if(dec[1] > 0){ dec = dec[1]; } else { dec = '00'; }
+
+            //return 'IDR : ' + rev2.split('').reverse().join('') + ',-';
+            return rev2.split('').reverse().join('') + (param==null?'.' + dec:'');
+        } else {
+            //return 'IDR : ';
+            return '0';
+        }
+    }
 
 </script>
 </body>

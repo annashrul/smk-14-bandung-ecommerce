@@ -184,7 +184,7 @@
 			<div class="swiper-button-next next"></div>
 			<div class="swiper-wrapper">
 				<?php $no=0; foreach($model as $row):$no++;?>
-					<div  data-aos="<?=$no%2==0?'zoom-in':'zoom-out'?>" data-aos-duration="1000" class="swiper-slide" style="padding: 0px;cursor: pointer!important;" onclick="return window.location.href='<?=base_url()."store/list_produk/model/".$row["id_model"]?>//'">
+					<div  data-aos="<?=$no%2==0?'zoom-in':'zoom-out'?>" data-aos-duration="1000" class="swiper-slide" style="padding: 0px;cursor: pointer!important;" onclick="return window.location.href='<?=base_url()."store/list_produk/model/".$row["id_model"]?>'">
                         <img src="<?=$row['gambar']?>" style="height: 100%;width: 100%;" alt="">
                     </div>
 				<?php endforeach; ?>

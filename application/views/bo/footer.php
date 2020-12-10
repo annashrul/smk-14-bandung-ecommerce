@@ -307,6 +307,9 @@
             // Replace the <textarea id="editor1"> with a CKEditor
             // instance, using default configuration.
             CKEDITOR.replace(id, {
+                filebrowserImageBrowseUrl : '<?=base_url('assets/kcfinder/browse.php');?>',
+                height: '100%',
+                width: '100%',
                 toolbar: [
                     { name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Source' ] },
                     { name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'Undo', 'Redo' ] },
