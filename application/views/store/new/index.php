@@ -57,7 +57,11 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-
+    <link href="<?=base_url()?>assets/fo/popup-img/lightgallery.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?=base_url().'assets/fo/'?>assets/css/magnific-popup.css">
+    <link href="<?=base_url().'assets/fo/popup-img/'?>lightgallery.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/picturefill/2.3.1/picturefill.min.js"></script>
+    <script src="<?=base_url().'assets/fo/popup-img/'?>lightgallery-all.min.js"></script>
     <style>
         *{font-family: 'Stylish', sans-serif!important;}
         html{font-family: 'Stylish', sans-serif!important;}
@@ -65,6 +69,7 @@
         .error{
             color:red!important;
         }
+
         .first-loader {
             position: fixed;
             top: 0;
@@ -146,13 +151,11 @@
         <ul class="buy-button list-inline mb-0">
             <li class="list-inline-item mb-0">
                 <div class="dropdown">
-                    <button type="button" class="btn btn-link text-decoration-none dropdown-toggle p-0 pr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="mdi mdi-magnify h4 text-muted"></i>
+                    <button type="button" class="btn btn-icon btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="uil uil-filter align-middle icons"></i>
                     </button>
                     <div class="dropdown-menu dd-menu dropdown-menu-right bg-white shadow rounded border-0 mt-3 py-0" style="width:400px;">
                         <form style="width: 100%!important;">
-<!--                            <input type="text" name="Search" class="cari" placeholder="Search products">-->
-
                             <input style="width:400px;" type="text" id="text" name="name" class="form-control border bg-white cari" placeholder="Search...">
                         </form>
                     </div>
@@ -166,21 +169,11 @@
                     <button type="button" class="btn btn-icon btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="uil uil-shopping-cart align-middle icons"></i><small id="countCart"></small></button>
                     <div class="dropdown-menu dd-menu dropdown-menu-right bg-white shadow rounded border-0 mt-3 p-4" style="width: 300px;">
                         <div class="pb-4" id="cartNav">
-                            <a href="javascript:void(0)" class="media align-items-center">
-                                <img src="<?=base_url().'assets/frontend/'?>images/shop/product/s-1.jpg" class="shadow rounded" style="max-height: 64px;" alt="">
-                                <div class="media-body text-left ml-3">
-                                    <h6 class="text-dark mb-0">T-shirt (M)</h6>
-                                    <p class="text-muted mb-0">$320 X 2</p>
-                                </div>
-                                <h6 class="text-dark mb-0">$640</h6>
-                            </a>
-
-
                         </div>
 
                         <div class="media align-items-center justify-content-between pt-4 border-top">
                             <h6 class="text-dark mb-0">Total(Rp):</h6>
-                            <h6 class="text-dark mb-0" id="totNav">$1690</h6>
+                            <h6 class="text-dark mb-0" id="totNav">0</h6>
                         </div>
 
                         <div class="media align-items-center justify-content-between pt-2">
@@ -229,9 +222,9 @@
         <div id="navigation">
             <!-- Navigation Menu-->
             <ul class="navigation-menu">
-                <li><a style="<?=$this->uri->segment(1)==""?'color: #2f55d4!important;':'color:#000!important;'?>" href="<?=base_url()?>">Home</a></li>
+                <li><a style="text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white ;<?=$this->uri->segment(1)==""?'color: #2f55d4!important;':'color:#000!important;'?>" href="<?=base_url()?>">Home</a></li>
                 <li class="has-submenu">
-                    <a href="javascript:void(0)">Category</a><span class="menu-arrow"></span>
+                    <a href="javascript:void(0)" style="text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white ;<?=$this->uri->segment(2)=='list_produk'?'color: #2f55d4!important;':'color:#000!important;'?>">Category</a><span class="menu-arrow"></span>
                     <ul class="submenu megamenu">
                         <li>
                             <ul>
@@ -244,9 +237,9 @@
                         </li>
                     </ul>
                 </li>
-                <li class="<?=$this->uri->segment(2)=="promo"?'active':null?>"><a style="<?=$this->uri->segment(2)=="promo"?'color: #2f55d4!important;':'color:#000!important;'?>" href="<?=base_url().'store/promo'?>">Promo</a></li>
-                <li class="<?=$_GET['page']=='contact'?'active':null?>"><a style="<?=$_GET['page']=='contact'?'color: #2f55d4!important;':'color:#000!important;'?>" href="<?=base_url().'store?page=contact'?>">Contact Us</a></li>
-                <li class="<?=$this->uri->segment(2)=='article'?'active':null?>"><a style="<?=$this->uri->segment(2)=='article'?'color: #2f55d4!important;':'color:#000!important;'?>" href="<?=base_url().'store/article/all'?>">Article</a></li>
+                <li class="<?=$this->uri->segment(2)=="promo"?'active':null?>"><a style="text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white ;<?=$this->uri->segment(2)=="promo"?'color: #2f55d4!important;':'color:#000!important;'?>" href="<?=base_url().'store/promo'?>">Promo</a></li>
+                <li class="<?=$_GET['page']=='contact'?'active':null?>"><a style="text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white ;<?=$_GET['page']=='contact'?'color: #2f55d4!important;':'color:#000!important;'?>" href="<?=base_url().'store?page=contact'?>">Contact Us</a></li>
+                <li class="<?=$this->uri->segment(2)=='article'?'active':null?>"><a style="text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white ;<?=$this->uri->segment(2)=='article'?'color: #2f55d4!important;':'color:#000!important;'?>" href="<?=base_url().'store/article/all'?>">Article</a></li>
 
             </ul><!--end navigation menu-->
         </div><!--end navigation-->
@@ -507,11 +500,14 @@
     }
 
     $(".cari").autocomplete({
-        minChars: 3,
+
+        minChars: 1,
         serviceUrl: '<?=base_url().'ajax/get_produk'?>',
         type: 'post',
         dataType: 'json',
+        matchSubset: false,
         response: function(event, ui) {
+
             if (ui.content.length === 0) {
                 $("#empty-message").text("No results found");
             } else {
@@ -522,7 +518,7 @@
             if (suggestion.lokasi !== 'not_found') {
                 window.location.href='<?=base_url().'store/product?product_id='?>'+suggestion.id_produk;
             } else {
-                console.log('gagal')
+
             }
         }
     });
@@ -589,7 +585,6 @@
             beforeSend: function() {$('body').append('<div class="first-loader"><img src="<?=base_url()?>assets/images/spin.svg"></div>');},
             complete: function() {$('.first-loader').remove();},
             success:function(res){
-                console.log(res);
                 $("#countCart").html(res.count);
                 $("#countCartMbl").html(res.count);
                 $("#cartNav").html(res.result);

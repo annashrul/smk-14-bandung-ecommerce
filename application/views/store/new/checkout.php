@@ -9,17 +9,16 @@
 //if(!$mobile):
 ?>
 <!-- Hero Start -->
-<section class="bg-half bg-light d-table w-100">
+<section class="bg-profile d-table w-100 bg-primary" style="background: url('<?=base_url()?>assets/frontend/images/account/bg.png') center center;">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-12 text-center">
                 <div class="page-next-level">
-                    <h4 class="title"> Checkouts </h4>
+                    <h4 class="title" style="color:white"> Checkouts </h4>
                     <div class="page-next">
                         <nav aria-label="breadcrumb" class="d-inline-block">
                             <ul class="breadcrumb bg-white rounded shadow mb-0">
-                                <li class="breadcrumb-item"><a href="index.html">Landrick</a></li>
-                                <li class="breadcrumb-item"><a href="index-shop.html">Shop</a></li>
+                                <li class="breadcrumb-item"><a href="<?=base_url()?>"><?= $this->data['site']->nama ?></a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Checkouts</li>
                             </ul>
                         </nav>
@@ -468,7 +467,6 @@
             data: {voucher: voucher, orders: orders},
             dataType: "JSON",
             success: function (res) {
-                // console.log(res.v_voucher)
                 if (res.status) {
                     $(".v_voucher").text(res.v_voucher);
                     $("#jumlah_voucher").val(res.jumlah_voucher);
@@ -551,7 +549,6 @@
         }
     });
     function add_lokasi(res) {
-        console.log(res['kec']);
         $("#kd_kota").val(res['kota_id']);
         $("#kd_prov").val(res['provinsi_id']);
         $("#kd_kec").val(res['kecamatan_id']);
@@ -575,25 +572,33 @@
                 beforeSend: function() {$('body').append('<div class="first-loader"><img src="<?=base_url()?>assets/images/spin.svg"></div>');},
                 complete: function() {$('.first-loader').remove();},
                 success: function (res) {
-                    console.log(res);
                     var layanan = '';
                     var data;
-                    if (res.costs.length > 0) {
-                        $("#layanan-error").hide();
-                        for (var x = 0; x < res.costs.length; x++) {
-                            data = {service: res.costs[x].service, cost: res.costs[x].cost};
+                    if(res!==null){
+                        if (res.costs.length > 0) {
+                            $("#layanan-error").hide();
+                            for (var x = 0; x < res.costs.length; x++) {
+                                data = {service: res.costs[x].service, cost: res.costs[x].cost};
+                                array_ongkir.push(data);
+                                layanan += '<option value="' + x + '">' + res.costs[x].service + '</option>';
+                            }
+                        } else {
+                            data = {service: '-', cost: 0};
                             array_ongkir.push(data);
-                            layanan += '<option value="' + x + '">' + res.costs[x].service + '</option>';
                         }
-                    } else {
-                        data = {service: '-', cost: 0};
-                        array_ongkir.push(data);
+                        $("#layanan").html(layanan);
+                        setTimeout(function () {
+                            hitung_total();
+                        }, 500)
                     }
-                    console.log(layanan);
-                    $("#layanan").html(layanan);
-                    setTimeout(function () {
-                        hitung_total();
-                    }, 500)
+                    else{
+                        Swal.fire({
+                            title: 'Ooppps',
+                            text: 'problem server',
+                            type: 'warning'
+                        })
+                    }
+
                 }
             });
         }
@@ -695,7 +700,6 @@
 		},
 
         submitHandler: function (form) {
-
             Swal.fire({
                 title: 'Confirm!',
                 html: 'Pastikan data sudah benar.<br><b style="font-weight: bold">Bank '+$("#nama_bank_pengirim").val()+'</b><br> <b style="font-weight: bold">Nomor Rekening : '+$("#nomor_rekening_pengirim").val()+'</b><br> <b style="font-weight: bold">Atas Nama : '+$("#atas_nama_pengirim").val()+'</b>',
@@ -707,12 +711,13 @@
                 confirmButtonText: 'Ya'
             }).then(function (result) {
                 if (result.value) {
-                    console.log($("#form_checkout").serialize());
 					$.ajax({
                         url: "<?=base_url().'api/checkout_bayar'?>",
                         type:"POST",
                         data: $("#form_checkout").serialize(),
                         dataType: "JSON",
+                        beforeSend: function() {$('body').append('<div class="first-loader"><img src="<?=base_url()?>assets/images/spin.svg"></div>');},
+                        complete: function() {$('.first-loader').remove();},
                         success: function (res) {
                             if (res.status) {
                                 Swal.fire({

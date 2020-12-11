@@ -595,7 +595,7 @@ class Pengaturan extends CI_Controller
             $this->db->trans_begin();
 
             $data_setting = array(
-                'tentang' => $this->m_website->replace_kutip($_POST['tentang'])
+                'tentang' => $this->m_website->replace_kutip($_POST['ckeditor'])
             );
 
             if ($_POST['param'] == 'add') {
@@ -1363,11 +1363,11 @@ class Pengaturan extends CI_Controller
             $output .= '
                 <table class="table table-hover">
                 <tr>
-                    <th width="1%">No</th>
-                    <th width="1%" class="text-center">#</th>
-                    <th>Judul</th>
-                    <th>Link</th>
-                    <th>Gambar</th>
+                    <th  style="white-space:nowrap">No</th>
+                    <th  style="white-space:nowrap" class="text-center">#</th>
+                    <th style="white-space:nowrap">Judul</th>
+                    <th style="white-space:nowrap">Link</th>
+                    <th style="white-space:nowrap">Gambar</th>
                 </tr>
             ';
             $no = $start+1;
@@ -1375,8 +1375,8 @@ class Pengaturan extends CI_Controller
                 foreach ($read_data as $row) {
                     $output .= '
                     <tr>
-                        <td>' . $no++ . '</td>
-                        <td>
+                        <td style="white-space:nowrap">' . $no++ . '</td>
+                        <td style="white-space:nowrap">
                         <div class="input-group-btn">
                             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Pilihan <span class="fa fa-caret-down"></span></button>
                             <ul class="dropdown-menu dropdown-position">
@@ -1385,10 +1385,10 @@ class Pengaturan extends CI_Controller
                             </ul>
                         </div>
                         </td>
-                        <td>' . $row['judul'] . '</td>
-                        <td>' . $row['link'] . '</td>
-                        <td><div style="width: 100px; height: 20px; background: '.$row['warna'].'"></div></td>
-                        <td><img style="max-height:100px;" src="' . base_url().$this->m_website->file_thumb($row['gambar']) . '" /></td>
+                        <td style="white-space:nowrap">' . $row['judul'] . '</td>
+                        <td style="white-space:nowrap">' . $row['link'] . '</td>
+                        <td style="white-space:nowrap"><div style="width: 100px; height: 20px; background: '.$row['warna'].'"></div></td>
+                        <td style="white-space:nowrap"><img style="max-height:100px;" src="' . base_url().$this->m_website->file_thumb($row['gambar']) . '" /></td>
                     </tr>
                 ';
                 }

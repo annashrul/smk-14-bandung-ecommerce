@@ -15,7 +15,7 @@
                     </div>
                 </div>
                 <!-- /.box-header -->
-                <div class="box-body table-responsive no-padding">
+                <div class="box-body table-responsive">
                     <div class="embed-responsive embed-responsive-16by9" id="result_table">
 
                     </div>

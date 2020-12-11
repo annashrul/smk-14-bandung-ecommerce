@@ -1152,6 +1152,21 @@ class Api extends CI_Controller {
 
 		echo json_encode(array('status'=>$status, 'data'=>$get_alamat));
 	}
+    public function delete_alamat() {
+        $data = $this->m_crud->delete_data("alamat_member", "id_alamat_member='".$this->input->post('id')."'");
+
+        $status = false;
+        if ($data) {
+            $status = true;
+//            $this->session->set_userdata("isActiveAddress");
+            $this->session->set_userdata(array("isActiveAddress"=>true));
+
+        }else{
+            $status = false;
+        }
+
+        echo json_encode(array('status'=>$status));
+    }
 
 	public function to_cart() {
 		$result = array();
@@ -1641,171 +1656,175 @@ class Api extends CI_Controller {
 	}
 
 	public function checkout_bayar() {
-		$result = array();
+	    if($this->session->id_member!=''){
+            $result = array();
 
-		$member = $this->user;
-		$tipe_alamat = $this->input->post('ch_alamat_jual',true);
-		$kota =$this->input->post('kota',true);
-		$nama_penerima = $this->input->post('nama_penerima',true);
-		$alamat = $this->input->post('alamat',true);
-		$kd_prov = $this->input->post('kd_prov',true);
-		$prov = $this->input->post('provinsi',true);
-		$kd_kota = $this->input->post('kd_kota',true);
-		$tlp_penerima = $this->input->post('telepon',true);
-		$kurir = strtoupper($this->input->post('kurir',true));
-		$layanan_kurir = strtoupper($this->input->post('data_layanan',true));
-		$ongkir = str_replace(',', '', $this->input->post('ongkir',true));
-		$jumlah = (float)$this->input->post('total',true)+(float)$ongkir;
-		$bank2 = $this->input->post('bank_tujuan',true);
-		$bank = $this->input->post('nama_bank_tujuan',true);
-		$rekening = $this->input->post('nomor_rekening_tujuan',true);
-		$pemilik =$this->input->post('atas_nama_tujuan',true);
-		$bank1 = $this->input->post('bank_pengirim',true);
-		$bank_pengirim =$this->input->post('nama_bank_pengirim',true);
-		$rekening_pengirim = $this->input->post('nomor_rekening_pengirim',true);
-		$pemilik_pengirim =$this->input->post('atas_nama_pengirim',true);
-		$tanggal = date('Y-m-d H:i:s');
-		$voucher = $this->input->post('id_voucher',true);
-		$jumlah_voucher = $this->input->post('jumlah_voucher',true);
+            $member = $this->user;
+            $tipe_alamat = $this->input->post('ch_alamat_jual',true);
+            $kota =$this->input->post('kota',true);
+            $nama_penerima = $this->input->post('nama_penerima',true);
+            $alamat = $this->input->post('alamat',true);
+            $kd_prov = $this->input->post('kd_prov',true);
+            $prov = $this->input->post('provinsi',true);
+            $kd_kota = $this->input->post('kd_kota',true);
+            $tlp_penerima = $this->input->post('telepon',true);
+            $kurir = strtoupper($this->input->post('kurir',true));
+            $layanan_kurir = strtoupper($this->input->post('data_layanan',true));
+            $ongkir = str_replace(',', '', $this->input->post('ongkir',true));
+            $jumlah = (float)$this->input->post('total',true)+(float)$ongkir;
+            $bank2 = $this->input->post('bank_tujuan',true);
+            $bank = $this->input->post('nama_bank_tujuan',true);
+            $rekening = $this->input->post('nomor_rekening_tujuan',true);
+            $pemilik =$this->input->post('atas_nama_tujuan',true);
+            $bank1 = $this->input->post('bank_pengirim',true);
+            $bank_pengirim =$this->input->post('nama_bank_pengirim',true);
+            $rekening_pengirim = $this->input->post('nomor_rekening_pengirim',true);
+            $pemilik_pengirim =$this->input->post('atas_nama_pengirim',true);
+            $tanggal = date('Y-m-d H:i:s');
+            $voucher = $this->input->post('id_voucher',true);
+            $jumlah_voucher = $this->input->post('jumlah_voucher',true);
 
-		$kode_unik = 10;
-		$param = true;
-		while ($param) {
-			$kode_unik = mt_rand( 10, 999 );
-			$cek_kode_unik = $this->m_crud->get_data("pembayaran", "id_pembayaran", "jumlah=".$jumlah." AND kode_unik=".$kode_unik." AND status IN ('0', '1')");
-			if ($cek_kode_unik == null) {
-				$param = false;
-			} else {
-				$param = true;
-			}
-		}
+            $kode_unik = 10;
+            $param = true;
+            while ($param) {
+                $kode_unik = mt_rand( 10, 999 );
+                $cek_kode_unik = $this->m_crud->get_data("pembayaran", "id_pembayaran", "jumlah=".$jumlah." AND kode_unik=".$kode_unik." AND status IN ('0', '1')");
+                if ($cek_kode_unik == null) {
+                    $param = false;
+                } else {
+                    $param = true;
+                }
+            }
 
-		$this->db->trans_begin();
+            $this->db->trans_begin();
 
-		if ($tipe_alamat == 'baru') {
-			$kota = $this->input->post('kota',true);
-			$nama_alamat = $this->input->post('nama_alamat',true);
+            if ($tipe_alamat == 'baru') {
+                $kota = $this->input->post('kota',true);
+                $nama_alamat = $this->input->post('nama_alamat',true);
 
-			$data_lokasi = array(
-				'nama' => $nama_alamat,
-				'alamat' => $alamat,
-				'member' => $member,
-				'penerima' => $nama_penerima,
-				'telepon' => $tlp_penerima,
-				'kota' => $kd_kota,
-				'provinsi' => $kd_prov,
-				'status' => '1'
-			);
+                $data_lokasi = array(
+                    'nama' => $nama_alamat,
+                    'alamat' => $alamat,
+                    'member' => $member,
+                    'penerima' => $nama_penerima,
+                    'telepon' => $tlp_penerima,
+                    'kota' => $kd_kota,
+                    'provinsi' => $kd_prov,
+                    'status' => '1'
+                );
 
-			$this->m_crud->create_data("alamat_member", $data_lokasi);
-		}
+                $this->m_crud->create_data("alamat_member", $data_lokasi);
+            }
 
-		$this->reset_pembayaran();
-		$code_pembayaran = 'TF/'.$this->m_website->date_romawi().'/'.$member;
-		$data_pembayaran = array(
-			'id_pembayaran' => $code_pembayaran,
-			'member' => $member,
-			'tgl_bayar' => $tanggal,
-			'bank2' => $bank2,
-			'bank_tujuan' => $bank,
-			'no_rek_tujuan' => $rekening,
-			'atas_nama_tujuan' => $pemilik,
-			'jumlah' => $jumlah,
-			'kode_unik' => $kode_unik,
-			'bank1' => $bank1,
-			'bank' => $bank_pengirim,
-			'no_rek' => $rekening_pengirim,
-			'atas_nama' => $pemilik_pengirim,
-			'status' => '1'
-		);
+            $this->reset_pembayaran();
+            $code_pembayaran = 'TF/'.$this->m_website->date_romawi().'/'.$member;
+            $data_pembayaran = array(
+                'id_pembayaran' => $code_pembayaran,
+                'member' => $member,
+                'tgl_bayar' => $tanggal,
+                'bank2' => $bank2,
+                'bank_tujuan' => $bank,
+                'no_rek_tujuan' => $rekening,
+                'atas_nama_tujuan' => $pemilik,
+                'jumlah' => $jumlah,
+                'kode_unik' => $kode_unik,
+                'bank1' => $bank1,
+                'bank' => $bank_pengirim,
+                'no_rek' => $rekening_pengirim,
+                'atas_nama' => $pemilik_pengirim,
+                'status' => '1'
+            );
 
-		if ($voucher != '-') {
-			$data_pembayaran['voucher'] = $voucher;
-			$data_pembayaran['jumlah_voucher'] = $jumlah_voucher;
-		}
+            if ($voucher != '-') {
+                $data_pembayaran['voucher'] = $voucher;
+                $data_pembayaran['jumlah_voucher'] = $jumlah_voucher;
+            }
 
-		$this->m_crud->create_data("pembayaran", $data_pembayaran);
+            $this->m_crud->create_data("pembayaran", $data_pembayaran);
 
-		$list = '';
-		$sub_total = 0;
-		$diskon = 0;
-		$get_orders = $this->m_crud->read_data("orders", "id_orders", "member='".$member."' AND status = '0'");
-		foreach ($get_orders as $row) {
-			$romawi = $this->m_website->date_romawi('time');
-			$tanggal = date('Y-m-d H:i:s');
-			$max_order = $this->m_crud->get_data("orders", "MAX(RIGHT(id_orders, 3)) max_data", "RIGHT(id_orders, 3) REGEXP '^[0-9]' AND tgl_orders='".$tanggal."'")['max_data'];
-			$code = '/'.$romawi.'/'.sprintf('%03d', (int)$max_order+1);
-			$this->m_crud->update_data("orders", array('id_orders'=>'TR'.$code, 'tgl_orders'=>$tanggal, 'status'=>'1'), "id_orders='".$row['id_orders']."'");
-			$this->m_crud->update_data("det_orders", array('orders'=>'TR'.$code), "orders='".$row['id_orders']."'");
-			$this->m_crud->create_data("det_pembayaran", array('pembayaran'=> $code_pembayaran, 'orders'=>'TR'.$code));
+            $list = '';
+            $sub_total = 0;
+            $diskon = 0;
+            $get_orders = $this->m_crud->read_data("orders", "id_orders", "member='".$member."' AND status = '0'");
+            foreach ($get_orders as $row) {
+                $romawi = $this->m_website->date_romawi('time');
+                $tanggal = date('Y-m-d H:i:s');
+                $max_order = $this->m_crud->get_data("orders", "MAX(RIGHT(id_orders, 3)) max_data", "RIGHT(id_orders, 3) REGEXP '^[0-9]' AND tgl_orders='".$tanggal."'")['max_data'];
+                $code = '/'.$romawi.'/'.sprintf('%03d', (int)$max_order+1);
+                $this->m_crud->update_data("orders", array('id_orders'=>'TR'.$code, 'tgl_orders'=>$tanggal, 'status'=>'1'), "id_orders='".$row['id_orders']."'");
+                $this->m_crud->update_data("det_orders", array('orders'=>'TR'.$code), "orders='".$row['id_orders']."'");
+                $this->m_crud->create_data("det_pembayaran", array('pembayaran'=> $code_pembayaran, 'orders'=>'TR'.$code));
 
-			$to_cart = $this->m_crud->read_data("det_orders", "det_produk, qty, hrg_jual, hrg_varian, diskon", "orders='".$row['id_orders']."'");
-			foreach ($to_cart as $item) {
-				$hitung_jumlah = ((float)$item['hrg_jual']+(float)$item['hrg_varian'])*(int)$item['qty'];
-				$diskon = $diskon + ((float)$item['diskon']*(int)$item['qty']);
-				$sub_total = $sub_total + $hitung_jumlah;
-				$get_produk = $this->m_crud->get_join_data("produk p", "p.nama", "det_produk dp", "dp.produk=p.id_produk", "dp.id_det_produk='".$item['det_produk']."'");
-				$list .= '
+                $to_cart = $this->m_crud->read_data("det_orders", "det_produk, qty, hrg_jual, hrg_varian, diskon", "orders='".$row['id_orders']."'");
+                foreach ($to_cart as $item) {
+                    $hitung_jumlah = ((float)$item['hrg_jual']+(float)$item['hrg_varian'])*(int)$item['qty'];
+                    $diskon = $diskon + ((float)$item['diskon']*(int)$item['qty']);
+                    $sub_total = $sub_total + $hitung_jumlah;
+                    $get_produk = $this->m_crud->get_join_data("produk p", "p.nama", "det_produk dp", "dp.produk=p.id_produk", "dp.id_det_produk='".$item['det_produk']."'");
+                    $list .= '
                 <tr class="item">
                     <td>'.$get_produk['nama'].' x'.(int)$item['qty'].'</td>
                     <td>'.number_format($hitung_jumlah).'</td>
                 </tr>
 	        ';
-			}
-		}
+                }
+            }
 
-		$data_pengiriman = array(
-			'id_pengiriman' => 'DO'.$code,
-			'orders' => 'TR'.$code,
-			'penerima' => $nama_penerima,
-			'alamat' => $alamat,
-			'id_provinsi' => $kd_prov,
-			'provinsi' => $prov,
-			'id_kota' => $kd_kota,
-			'kota' => $kota,
-			'telepon' => $tlp_penerima,
-			'kurir' => $kurir,
-			'service' => $layanan_kurir,
-			'biaya' => $ongkir
-		);
-		$this->m_crud->create_data("pengiriman", $data_pengiriman);
+            $data_pengiriman = array(
+                'id_pengiriman' => 'DO'.$code,
+                'orders' => 'TR'.$code,
+                'penerima' => $nama_penerima,
+                'alamat' => $alamat,
+                'id_provinsi' => $kd_prov,
+                'provinsi' => $prov,
+                'id_kota' => $kd_kota,
+                'kota' => $kota,
+                'telepon' => $tlp_penerima,
+                'kurir' => $kurir,
+                'service' => $layanan_kurir,
+                'biaya' => $ongkir
+            );
+            $this->m_crud->create_data("pengiriman", $data_pengiriman);
 
-		if ($this->db->trans_status() === FALSE) {
-			$this->db->trans_rollback();
-			$result['status'] = false;
-		} else {
-			$this->db->trans_commit();
-
-			$data = array(
-				'id_orders' => 'TR'.$code,
-				'tanggal' => $tanggal,
-				'penerima' => $nama_penerima,
-				'tlp' => $tlp_penerima,
-				'total' => (float)$jumlah+(float)$kode_unik-(float)$jumlah_voucher,
-				'disc' => (float)$diskon,
-				'bank' => $bank,
-				'rek' => $rekening,
-				'an' => $pemilik,
-				'kurir' => $kurir.' ~ '.$layanan_kurir,
-				'ongkir' => $ongkir,
-				'jumlah_voucher' => $jumlah_voucher,
-				'kode_unik' => $kode_unik,
-				'list' => $list
-			);
-
-			$get_email = $this->m_crud->get_data("member", "email", "id_member='".$member."'");
-			$this->m_website->email_invoice($get_email['email'], json_encode($data));
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+                $result['status'] = false;
+            } else {
+                $this->db->trans_commit();
+                $data = array(
+                    'id_orders' => 'TR'.$code,
+                    'tanggal' => $tanggal,
+                    'penerima' => $nama_penerima,
+                    'tlp' => $tlp_penerima,
+                    'total' => (float)$jumlah+(float)$kode_unik-(float)$jumlah_voucher,
+                    'disc' => (float)$diskon,
+                    'bank' => $bank,
+                    'rek' => $rekening,
+                    'an' => $pemilik,
+                    'kurir' => $kurir.' ~ '.$layanan_kurir,
+                    'ongkir' => $ongkir,
+                    'jumlah_voucher' => $jumlah_voucher,
+                    'kode_unik' => $kode_unik,
+                    'list' => $list
+                );
+                $get_email = $this->m_crud->get_data("member", "email", "id_member='".$member."'");
+                $this->m_website->email_invoice($get_email['email'], json_encode($data));
 //			$this->m_website->email_invoice($this->config->item('email'), json_encode($data));
 
-			$result['status'] = true;
-			$result['code'] = $code_pembayaran;
-			$result['bank'] = $bank;
-			$result['norek'] = $rekening;
-			$result['atasnama'] = $pemilik;
-			$result['total'] = (float)$jumlah+(float)$kode_unik-(float)$jumlah_voucher;
-		}
+                $result['status'] = true;
+                $result['code'] = $code_pembayaran;
+                $result['bank'] = $bank;
+                $result['norek'] = $rekening;
+                $result['atasnama'] = $pemilik;
+                $result['total'] = (float)$jumlah+(float)$kode_unik-(float)$jumlah_voucher;
+            }
 
-		echo json_encode($result);
+            echo json_encode($result);
+        }
+        else{
+	        echo 'licik anying';
+        }
+
 	}
 
 	public function jsons(){
@@ -2607,11 +2626,11 @@ class Api extends CI_Controller {
 		$result = array();
 		$member = $_POST['id_member'];
 
-		$get_data = $this->m_crud->get_data("member", "nama, jenis_kelamin, tgl_lahir, telepon, foto", "id_member='".$member."'");
-
+		$get_data = $this->m_crud->get_data("member", "email,nama, jenis_kelamin, tgl_lahir, telepon, foto", "id_member='".$member."'");
 		if ($get_data != null) {
 			$result['status'] = true;
 			$result['res_profile'] = array(
+				'email' => $get_data['email'],
 				'nama' => $get_data['nama'],
 				'jenis_kelamin' => $get_data['jenis_kelamin'],
 				'tgl_lahir' => $get_data['tgl_lahir'],
@@ -2628,11 +2647,11 @@ class Api extends CI_Controller {
 	public function update_profile() {
 		$result = array();
 
-		$member = $_POST['id_member'];
-		$nama = $_POST['nama'];
-		$jenis_kelamin = $_POST['jenis_kelamin'];
-		$tgl_lahir = date('Y-m-d', strtotime($_POST['tgl_lahir']));
-		$telepon = $_POST['telepon'];
+		$member = $this->input->post('id_member',true);
+		$nama = $this->input->post('nama',true);
+		$jenis_kelamin = $this->input->post('jenis_kelamin',true);
+		$tgl_lahir = date('Y-m-d', strtotime($this->input->post('tgl_lahir',true)));
+		$telepon =$this->input->post('telepon',true);
 
 		$row = 'foto';
 		$config['upload_path']          = './assets/images/member';
@@ -2644,7 +2663,6 @@ class Api extends CI_Controller {
 		$cek_tlp = $this->m_crud->get_data("member", "id_member", "telepon='".$telepon."' and id_member <> '".$member."'");
 
 		if ($cek_tlp == null) {
-
 			if ((!$this->upload->do_upload($row)) && $_FILES[$row]['name'] != null) {
 				$valid = false;
 				$file[$row]['file_name'] = null;
@@ -2687,7 +2705,7 @@ class Api extends CI_Controller {
 					'tlp' => $telepon,
 					'tgl_lahir' => date('Y-m-d', strtotime($tgl_lahir))
 				);
-				$this->m_website->request_api('data_customer', $data_customer);
+//				$this->m_website->request_api('data_customer', $data_customer);
 			}
 		} else {
 			$result['status'] = false;

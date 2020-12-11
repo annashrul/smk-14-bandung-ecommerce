@@ -74,8 +74,7 @@ class Produk extends CI_Controller
         if ($action == 'get_data') {
             $config = array();
             $config["base_url"] = "#";
-            //$config["total_rows"] = $this->ajax_pagination_model->count_all();
-            $config["total_rows"] = $this->m_crud->count_join_data($table." p", "p.id_produk", array(array("table"=>"det_produk dp", "type"=>"LEFT"), array("table"=>"kelompok k", "type"=>"LEFT"), array("table"=>"merk m", "type"=>"LEFT")), array("dp.produk=p.id_produk AND dp.code=p.code", "k.id_kelompok=p.kelompok", "m.id_merk=p.merk"), $where);
+            $config["total_rows"] = $this->m_crud->count_join_data($table." p", "p.id_produk", array(array("table"=>"det_produk dp", "type"=>"LEFT"), array("table"=>"kelompok k", "type"=>"LEFT"), array("table"=>"merk m", "type"=>"LEFT")), array("dp.produk=p.id_produk AND dp.code=p.code", "k.id_kelompok=p.kelompok", "m.id_merk=p.merk"), $where,"p.id_produk DESC");
             $config["per_page"] = 6;
             $config["uri_segment"] = 4;
             $config["num_links"] = 5;
@@ -102,8 +101,9 @@ class Produk extends CI_Controller
             $start = ($page - 1) * $config["per_page"];
 
             $output = '';
-            $read_data = $this->m_crud->join_data($table." p", "p.id_produk, p.nama, p.deskripsi, p.code, p.pre_order, p.free_return, dp.berat, ifnull(dp.hrg_beli, 0) hrg_beli, ifnull(dp.hrg_jual, 0) hrg_jual, ifnull(k.nama, 'Tidak Memiliki Kelompok') nama_kelompok, ifnull(m.nama, 'Tidak Memiliki Merk') nama_merk", array(array("table"=>"det_produk dp", "type"=>"LEFT"), array("table"=>"kelompok k", "type"=>"LEFT"), array("table"=>"merk m", "type"=>"LEFT")), array("dp.produk=p.id_produk AND dp.code=p.code", "k.id_kelompok=p.kelompok", "m.id_merk=p.merk"), $where, "p.nama", null, $config["per_page"], $start);
-            $output .= '
+            $read_data = $this->m_crud->join_data($table." p", "p.id_produk, p.nama, p.deskripsi, p.code, p.pre_order, p.free_return, dp.berat, ifnull(dp.hrg_beli, 0) hrg_beli, ifnull(dp.hrg_jual, 0) hrg_jual, ifnull(k.nama, 'Tidak Memiliki Kelompok') nama_kelompok, ifnull(m.nama, 'Tidak Memiliki Merk') nama_merk", array(array("table"=>"det_produk dp", "type"=>"LEFT"), array("table"=>"kelompok k", "type"=>"LEFT"), array("table"=>"merk m", "type"=>"LEFT")), array("dp.produk=p.id_produk AND dp.code=p.code", "k.id_kelompok=p.kelompok", "m.id_merk=p.merk"), $where, "p.id_produk DESC", null, $config["per_page"], $start);
+            $output .= /** @lang text */
+                '
                 <table class="table table-hover">
                 <tr>
                     <th width="1%">No</th>
@@ -174,7 +174,8 @@ class Produk extends CI_Controller
                 'result_table' => $output
             );
             echo json_encode($result);
-        } else if ($action == 'cek_nama') {
+        }
+        else if ($action == 'cek_nama') {
             $cek_username = null;
 
             if ($_POST['nama']!='' && $_POST['group']!='') {
@@ -190,7 +191,8 @@ class Produk extends CI_Controller
             } else {
                 echo 'false';
             }
-        } else if ($action == 'simpan') {
+        }
+        else if ($action == 'simpan') {
             $row = 'gambar[]';
             $files = $_FILES['gambar'];
             $config['upload_path']          = './assets/images/produk';
@@ -826,7 +828,6 @@ class Produk extends CI_Controller
         if ($action == 'get_data') {
             $config = array();
             $config["base_url"] = "#";
-            //$config["total_rows"] = $this->ajax_pagination_model->count_all();
             $config["total_rows"] = $this->m_crud->count_join_data($table." k", "k.id_kelompok", "groups g", "g.id_groups=k.groups", $where);
             $config["per_page"] = 6;
             $config["uri_segment"] = 4;
@@ -1970,7 +1971,7 @@ class Produk extends CI_Controller
                         </div>
                         </td>
                         <td>' . $row['nama'] . '</td>
-                        <td><img class="img_profile" src="' . $row['gambar'] . '"></td>
+                        <td><img class="img_profile" src="' . base_url().$row['gambar'] . '"></td>
                     </tr>
                 ';
                 }
@@ -2059,7 +2060,7 @@ class Produk extends CI_Controller
                     'nama' => $_POST['nama']
                 );
                 if($_FILES['gambar']['name']!=null){
-                    $data_model['gambar'] = base_url()."assets/images/produk/".$file['gambar']['file_name'];
+                    $data_model['gambar'] = "assets/images/produk/".$file['gambar']['file_name'];
                 }
                 $this->m_crud->create_data($table, $data_model);
                 $id = $this->db->insert_id();
@@ -2073,7 +2074,7 @@ class Produk extends CI_Controller
                     'nama' => $_POST['nama']
                 );
                 if($_FILES['gambar']['name']!=null){
-                    $data_model['gambar'] = base_url()."assets/images/produk/".$file['gambar']['file_name'];
+                    $data_model['gambar'] = "assets/images/produk/".$file['gambar']['file_name'];
                 }
                 $this->m_crud->update_data($table, $data_model, "id_model='".$id."'");
 

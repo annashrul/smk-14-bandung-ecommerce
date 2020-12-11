@@ -32,49 +32,31 @@ class Store extends CI_Controller
 		$this->output->set_header("Cache-Control: no-store, no-cache, max-age=0, post-check=0, pre-check=0");
 
 	}
-    public function forgot_password($action=null) {
-//        if ($this->login) {
-//            redirect(base_url());
-//        }
-        $data = $this->data;
-        $function = 'forgot_password';
-        $view = $this->control.'/';
-        $data['title'] = 'Reset Password';
-        $data['content'] = 'store/new/forgot_password';
-
-        if ($action == 'cek_email') {
-            $where = "email='".$_POST['email']."'";
-
-            $cek_email = $this->m_crud->get_data("member", "email", $where);
-
-            if ($cek_email == null) {
-                echo 'false';
-            } else {
-                echo 'true';
-            }
-        } else if ($action == 'simpan') {
-            $req_api = $this->m_website->request_api_local('forgot_password', array('email'=>$_POST['email']));
-
-            echo $req_api;
-        } else {
-            $this->load->view('store/new/index', $data);
-        }
-    }
 
     public function index(){
 		$data = $this->data;
 		$data['title']='home';
-		$data['slider'] = $this->m_crud->read_data("home_slide", "*");
+        $in_produk = array();
+        $get_bestsellers = $this->m_crud->read_data("bestsellers", "produk", null, "id_bestsellers");
+        if ($get_bestsellers != null) {
+            foreach ($get_bestsellers as $item) {
+                array_push($in_produk, '\''.$item['produk'].'\'');
+            }
+        }
+        $req_api = $this->m_website->request_api_local('get_produk', 'member=' . ($this->login ? $this->user : 'non_member') . '&filter=' . json_encode(array('in_produk' => json_encode($in_produk))));
+//        var_dump($req_api);
+        $data['slider'] = $this->m_crud->read_data("home_slide", "*");
 		$data['service'] = $this->m_crud->read_data("shipping_service", "*","status=1",null,null,4);
-		$data['bestSeller'] = $this->m_crud->join_data(
-			"bestsellers bs", "bs.*,pr.*,dp.*,gp.*",
-			array("produk pr","det_produk dp","gambar_produk gp"),
-			array("bs.produk=pr.id_produk","bs.produk=dp.produk","pr.id_produk=gp.produk"),null,"pr.id_produk DESC","pr.id_produk");
+        $data['bestSeller']=$req_api;
+//        $data['topitem'] = $this->m_crud->read_data("top_item", "*");
+//        $data['middleitem'] = $this->m_crud->read_data("middle_item", "*");
+//        $data['bottomitem'] = $this->m_crud->read_data("bottom_item", "*");
+
 		$data['latestProduct'] = $this->m_crud->join_data(
 			"produk pr","pr.*,gp.*,dp.*",
 			array("gambar_produk gp","det_produk dp"),
 			array("pr.id_produk=gp.produk","pr.id_produk=dp.produk"),
-			null,"pr.id_produk DESC","pr.id_produk",8
+			null,"pr.id_produk DESC","pr.id_produk",16
 		);
 		$data['model'] = $this->m_crud->read_data("model", "id_model, nama, gambar",null,null,null,9);
 		$data['news'] = $this->m_crud->join_data("berita b","b.*,kb.nama",array("kategori_berita kb"),array("kb.id_kategori_berita=b.kategori_berita"),null,"b.id_berita DESC",null,6);
@@ -132,10 +114,11 @@ class Store extends CI_Controller
 		if($_GET['detail']){
 			$data['content']='store/new/article_detail';
 			$data['detail'] = $this->m_crud->get_join_data(
-				"berita b",
-				"b.*,kb.nama nama_kategori",
+				"berita b", "b.*,kb.nama nama_kategori",
 				$table_join,$join_on,"b.slug_berita='".$_GET['detail']."'","b.tgl_berita DESC"
 			);
+//			echo '<pre/>';
+//			var_dump($data['detail']);die();
             $data['nextNews'] = $this->m_crud->get_data("berita","*","id_berita = (select min(id_berita) from berita where id_berita > '".$data['detail']['id_berita']."')");
             $data['prevNews'] = $this->m_crud->get_data("berita","*","id_berita = (select max(id_berita) from berita where id_berita < '".$data['detail']['id_berita']."')");
 
@@ -234,13 +217,18 @@ class Store extends CI_Controller
 				array("gambar_produk gp","det_produk dp"),
 				array("pr.id_produk=gp.produk","pr.id_produk=dp.produk"),$where,"pr.id_produk DESC",'pr.id_produk',6
 			)[0];
-			$data['releatedProduct'] = $this->m_crud->join_data(
-				"produk pr","pr.*,gp.*,dp.*",
-				array("gambar_produk gp","det_produk dp"),
-				array("pr.id_produk=gp.produk","pr.id_produk=dp.produk"),
-				"pr.id_produk!='".$_GET['product_id']."' and pr.kelompok='".$data['product']['kelompok']."'",
-				"pr.id_produk DESC",'pr.id_produk'
-			);
+            $req_api2 = $this->m_website->request_api_local('get_produk', 'member='.($this->login?$this->user:'non_member').'&limit=12&page=1&filter='.json_encode(array('kelompok'=>$decode['res_produk'][0]['kelompok'])));
+            $decode2 = json_decode($req_api2, true);
+            $data['releatedProduct']=$decode2['res_produk'];
+//            echo '<pre/>';
+//            var_dump($decode2);die();
+//            $data['releated   Product'] = $this->m_crud->join_data(
+//				"produk pr","pr.*,gp.*,dp.*",
+//				array("gambar_produk gp","det_produk dp"),
+//				array("pr.id_produk=gp.produk","pr.id_produk=dp.produk"),
+//				"pr.id_produk!='".$_GET['product_id']."' and pr.kelompok='".$data['product']['kelompok']."'",
+//				"pr.id_produk DESC",'pr.id_produk'
+//			);
             $data['nextProduct'] = $this->m_crud->get_data("produk","*","id_produk = (select min(id_produk) from produk where kelompok='".$data['product']['kelompok']."' and id_produk > '".$_GET['product_id']."')");
             $data['prevProduct'] = $this->m_crud->get_data("produk","*","id_produk = (select max(id_produk) from produk where kelompok='".$data['product']['kelompok']."' and id_produk < '".$_GET['product_id']."')");
 //            var_dump($data['prevProduct']);
@@ -368,7 +356,7 @@ class Store extends CI_Controller
 			$response['merk'] = $this->m_crud->join_data("produk pr", "mr.id_merk, mr.nama", $table_join, $join_on, $where, null, "mr.id_merk");
 			$response['kelompok'] = $this->m_crud->join_data("produk pr", "kl.id_kelompok, kl.nama", $table_join, $join_on, $where, null, "kl.id_kelompok");
 //			$pagin=$this->m_website->myPagination('join',5,"produk pr","pr.id_produk",$table_join,$join_on,$where,15,$page);
-			$read_produk = $this->m_crud->join_data("produk pr", "pr.id_produk, pr.nama nama_produk, pr.code, pr.deskripsi, pr.free_return, pr.pre_order, pr.kelompok, dp.hrg_beli, dp.berat, dp.hrg_jual, mr.nama nama_merk, kl.nama nm_kelompok, mr.gambar gambar_merk", $table_join, $join_on, $where, null, "pr.id_produk",  $page, 1);
+			$read_produk = $this->m_crud->join_data("produk pr", "pr.id_produk, pr.nama nama_produk, pr.code, pr.deskripsi, pr.free_return, pr.pre_order, pr.kelompok, dp.hrg_beli, dp.berat, dp.hrg_jual, mr.nama nama_merk, kl.nama nm_kelompok, mr.gambar gambar_merk", $table_join, $join_on, $where, "pr.id_produk DESC", "pr.id_produk",  $page, 1);
 			$result='';
 			if($read_produk!=null){
 				foreach($read_produk as $row){
@@ -406,6 +394,15 @@ class Store extends CI_Controller
 						$gambar_produk=base_url().'assets/images/no_image.png';
 //						array_push($gambar_produk, base_url().'assets/images/no_image.png');
 					}
+                    $core='';
+
+					if($hrgcoret!=''){
+					    $core=number_format($hrgcoret);
+                    }
+                    else{
+					    $core='';
+                    }
+
 					$result.='
 					 <div class="col-lg-3 col-md-6 col-6 mt-4 pt-2">
                         <div class="card shop-list border-0 position-relative" style="background:#f5f6fa!important;box-shadow: 3px 3px 0px 0 #2f55d4!important;">
@@ -422,7 +419,7 @@ class Store extends CI_Controller
                             <div class="card-body content pt-4 p-2">
                                 <a href="'.base_url().'store/product?product_id='.$row['id_produk'].'" class="text-dark product-name h6">'.$row["nama_produk"].'</a>
                                 <div class="d-flex justify-content-between mt-1">
-                                    <h6 class="text-muted small font-italic mb-0 mt-1">'.number_format($hrg_jual).' <del class="text-danger ml-2">'.number_format($hrgcoret).'</del> </h6>
+                                    <h6 class="text-muted small font-italic mb-0 mt-1">'.number_format($hrg_jual).' <del class="text-danger ml-2">'.$core.'</del> </h6>
                                     
                                 </div>
                             </div>

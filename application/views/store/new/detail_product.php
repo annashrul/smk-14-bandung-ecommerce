@@ -6,66 +6,7 @@
  * Time: 6:15
  */
 ?>
-<style>
-    .swiper-container {
-        width: 100%;
-        height: 100%;
-    }
-    .swiper-slide {
-        text-align: center;
-        font-size: 18px;
-        background: #fff;
-        /* Center slide text vertically */
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: -webkit-flex;
-        display: flex;
-        -webkit-box-pack: center;
-        -ms-flex-pack: center;
-        -webkit-justify-content: center;
-        justify-content: center;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        -webkit-align-items: center;
-        align-items: center;
-    }
-    .swiper-container .next {
-        height: 47px;
-        width: 47px;
-        background-image: url('https://indokids.co.id/assets/store/img/band-right.png');
-        position: absolute;
-        right: 0 !important;
-        top: 50%;
-        margin-top: -23.5px;
-        z-index: 10;
-        overflow: hidden;
-        text-indent: -9000px;
-        display: block;
-        opacity: 1;
-        transition: opacity 0.3s ease-in;
-        -ms-transition: opacity 0.3s ease-in;
-        -moz-transition: opacity 0.3s ease-in;
-        -webkit-transition: opacity 0.3s ease-in;
-    }
-    .swiper-container .previous {
-        height: 47px;
-        width: 47px;
-        background-image: url('https://indokids.co.id/assets/store/img/band-left.png');
-        position: absolute;
-        left: 0 !important;
-        top: 50%;
-        margin-top: -23.5px;
-        z-index: 10;
-        overflow: hidden;
-        text-indent: -9000px;
-        display: block;
-        opacity: 1;
-        transition: opacity 0.3s ease-in;
-        -ms-transition: opacity 0.3s ease-in;
-        -moz-transition: opacity 0.3s ease-in;
-        -webkit-transition: opacity 0.3s ease-in;
-    }
-</style>
+
 
 <input type="hidden" id="member_jual" name="member_jual" value="<?=$this->session->id_member?>">
 <input type="hidden" id="det_produk_jual" name="det_produk_jual" value="<?=$product['id_det_produk']?>">
@@ -97,12 +38,12 @@ if ($get_promo!=null) {
     $hrg_jual = $product['hrg_jual'];
 }
 ?>
-<section class="bg-half bg-light d-table w-100">
+<section class="bg-profile d-table w-100 bg-primary" style="background: url('<?=base_url()?>assets/frontend/images/account/bg.png') center center;">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-12 text-center">
                 <div class="page-next-level">
-                    <h4 class="title"> <?=$product['nama']?> </h4>
+                    <h4 class="title" style="color:white"> <?=$product['nama']?> </h4>
                     <div class="page-next">
                         <nav aria-label="breadcrumb" class="d-inline-block">
                             <ul class="breadcrumb bg-white rounded shadow mb-0">
@@ -124,7 +65,6 @@ if ($get_promo!=null) {
         </svg>
     </div>
 </div>
-<!-- Hero End -->
 
 <section class="section pb-0">
     <div class="container">
@@ -132,7 +72,7 @@ if ($get_promo!=null) {
             <div class="col-md-5">
                 <div class="slider slider-for">
                     <?php $readGambar = $this->m_crud->read_data("gambar_produk","*","produk='".$product['id_produk']."'"); foreach($readGambar as $key=>$row):?>
-                        <div style="border: 1px solid white!important;"><img src="<?=base_url().$row['gambar']?>" class="img-fluid rounded" alt=""></div>
+                        <div style="border: 1px solid white!important;"><img src="<?=base_url().$row['gambar']?>" style="width: 100%;height: 100%;" class="img-fluid rounded" alt=""></div>
                     <?php endforeach; ?>
                 </div>
                 <div class="slider slider-nav">
@@ -144,8 +84,8 @@ if ($get_promo!=null) {
 
             <div class="col-md-7 mt-4 mt-sm-0 pt-2 pt-sm-0">
                 <div class="section-title ml-md-4">
-                    <h4 class="title">Branded T-Shirts</h4>
-                    <h5 class="text-muted"><?=number_format($hrg_jual)?> <del class="text-danger ml-2"><?=number_format($hrgcoret)?></del> </h5>
+                    <h4 class="title"> <?=$product['nama']?></h4>
+                    <h5 class="text-muted"><?=number_format($hrg_jual)?> <del class="text-danger ml-2"><?=$hrgcoret!=''?number_format($hrgcoret):''?></del> </h5>
                     <h5 class="mt-4 py-2">Description :</h5>
                     <p class="text-muted"><?=$product['deskripsi']?></p>
 
@@ -213,45 +153,19 @@ if ($get_promo!=null) {
                     <div class="swiper-wrapper">
                         <?php foreach($releatedProduct as $row):
                             $i++;
-                            $get_promo = $this->m_crud->get_join_data("promo pr", "pr.diskon", "det_promo dp", "dp.slug_promo=pr.slug_promo", "dp.produk='".$row['id_produk']."' AND '".date('Y-m-d H:i:s')."' BETWEEN pr.tgl_awal AND pr.tgl_akhir");
-                            if ($get_promo!=null) {
-                                $promo = 1;
-                                $hrgcoret = $row['hrg_jual'];
-                                $diskon = json_decode($get_promo['diskon'], true);
-                                $harga_promo = $this->m_website->double_diskon($row['hrg_jual'], $diskon);
-                                $data_diskon = '';
-                                for ($i=0;$i<count($diskon);$i++) {
-                                    $data_diskon .= ($i>0)?' + ':'Diskon ';
-                                    $data_diskon .= $diskon[$i].'%';
-                                }
-                                $diskon_persen = $diskon;
-                                $diskon = $data_diskon;
-                                $hrg_jual = $harga_promo;
-                            } else {
-                                $diskon_persen = array();
-                                $promo = 0;
-                                $hrg_jual = $row['hrg_jual'];
-                            }
                             ?>
                             <div class="swiper-slide">
                                 <div class="card shop-list border-0 position-relative" style="background:#f5f6fa!important;box-shadow: 3px 3px 0px 0 #2f55d4!important;">
-                                    <ul class="label list-unstyled mb-0">
-                                        <li><a href="javascript:void(0)" class="badge badge-pill badge-primary"><?=$diskon?></a></li>
-                                    </ul>
                                     <div class="shop-image position-relative overflow-hidden rounded shadow">
-                                        <a href="<?=base_url().'store/product?product_id='.$row['id_produk']?>"><img src="<?=base_url().$row['gambar']?>" class="img-fluid" alt=""></a>
+                                        <a href="<?=base_url().'store/product?product_id='.$row['id_produk']?>"><img src="<?=$row['gambar_produk'][0]?>" class="img-fluid" alt=""></a>
                                         <a href="<?=base_url().'store/product?product_id='.$row['id_produk']?>" class="overlay-work">
-                                            <img src="<?=base_url().$row['gambar']?>" class="img-fluid" alt="">
+                                            <img src="<?=$row['gambar_produk'][0]?>" class="img-fluid" alt="">
                                         </a>
-                                        <ul class="list-unstyled shop-icons">
-                                            <li class="mt-2"><a href="javascript:void(0)" data-toggle="modal" data-target="#productview" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="eye" class="icons"></i></a></li>
-                                            <li class="mt-2"><a href="shop-cart.html" class="btn btn-icon btn-pills btn-soft-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
-                                        </ul>
                                     </div>
                                     <div class="card-body content pt-4 p-2">
-                                        <a href="<?=base_url().'store/product?product_id='.$row['id_produk']?>" class="text-dark product-name h6"><?=$row['nama']?></a>
+                                        <a href="<?=base_url().'store/product?product_id='.$row['id_produk']?>" class="text-dark product-name h6"><?=$row['nama_produk']?></a>
 
-                                        <h6 class="text-muted small font-italic mb-0 mt-1"><?=number_format($hrg_jual)?> <del class="text-danger ml-2"><?=number_format($hrgcoret)?></del> </h6>
+                                        <h6 class="text-muted small font-italic mb-0 mt-1"><?=number_format($row['hrg_jual'])?></h6>
 
                                     </div>
                                 </div>
@@ -337,7 +251,7 @@ if ($get_promo!=null) {
                 success: function (res) {
                     if (res.status) {
                         countCart();
-                        swal({
+                        Swal.fire({
                             title: 'Add to bag success!',
                             icon: 'success',
                             showCancelButton: true,
@@ -360,7 +274,7 @@ if ($get_promo!=null) {
             });
         }
         else {
-            swal({
+            Swal.fire({
                 title: "Opppss ...",
                 text: "You have not logged in",
                 icon: "warning",

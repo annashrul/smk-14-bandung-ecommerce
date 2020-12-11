@@ -1,6 +1,6 @@
 <section class="content">
     <div class="row">
-        <div class="col-lg-10">
+        <div class="col-lg-12">
             <div class="box">
                 <div class="box-header">
                     <div class="row">
@@ -20,7 +20,7 @@
                     </div>
                 </div>
                 <!-- /.box-header -->
-                <div class="box-body table-responsive no-padding" id="result_table"></div>
+                <div class="box-body table-responsive" id="result_table"></div>
                 <div align="center" id="pagination_link"></div>
                 <!-- /.box-body -->
             </div>

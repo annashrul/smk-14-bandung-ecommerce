@@ -16,4 +16,9 @@ require "core/autoload.php";
 $browser = new browser();
 $browser->action();
 
+ob_start();
+require_once('../../index.php'); //path to main index file edited above
+ob_end_clean();
+$CI =& get_instance();
+$CI->load->library('session');
 ?>

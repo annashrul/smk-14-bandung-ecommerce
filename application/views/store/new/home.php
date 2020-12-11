@@ -3,16 +3,16 @@
 <section class="main-slider">
     <ul class="slides">
         <?php if($slider!=null){ foreach($slider as $row):?>
-        <li class="bg-slider slider-rtl-2 d-flex align-items-center" style="width:100!important;%;background:url('<?=base_url().$row['gambar']?>') no-repeat fixed;">
+        <li class="bg-slider slider-rtl-2 d-flex align-items-center" style="width:100%!important;background:url('<?=base_url().$row['gambar']?>') center center;">
             <div class="bg-overlay" style="opacity: 0.65;"></div>
             <div class="container">
                 <div class="row align-items-center mt-5">
                     <div class="col-lg-7 col-md-7">
                         <div class="title-heading mt-4">
-                            <h1 class="display-4 title-white font-weight-bold mb-3" style="color:white!important;"><?=$row['judul']?></h1>
+                            <h5 class="display-5 title-white font-weight-bold mb-3" style="color:white!important;"><?=$row['judul']?></h5>
 <!--                            <p class="para-desc text-muted para-dark" style="color:white!important;">Launch your campaign and benefit from our expertise on designing and managing conversion centered bootstrap4 html page.</p>-->
                             <div class="mt-4">
-                                <a href="<?=$row['link']?>" class="btn btn-primary m-1">Shop Now</a>
+                                <a href="<?=$row['link']?>" class="btn btn-primary m-1">Detail</a>
                             </div>
                         </div>
                     </div><!--end col-->
@@ -23,10 +23,9 @@
 
     </ul>
 </section><!--end section-->
-<!-- Hero End -->
+
 
 <section class="section">
-
     <!--Shape End-->
     <!-- Start Most Viewed Products -->
     <div class="container">
@@ -37,52 +36,34 @@
         </div><!--end row-->
 
         <div class="row">
-            <?php $i=0; foreach($bestSeller as $row):$i++;
-                /*Get promo*/
-                $get_promo = $this->m_crud->get_join_data("promo pr", "pr.diskon", "det_promo dp", "dp.slug_promo=pr.slug_promo", "dp.produk='".$row['id_produk']."' AND '".date('Y-m-d H:i:s')."' BETWEEN pr.tgl_awal AND pr.tgl_akhir");
-                if ($get_promo!=null) {
-                    $promo = 1;
-                    $hrgcoret = $row['hrg_jual'];
-                    $diskon = json_decode($get_promo['diskon'], true);
-                    $harga_promo = $this->m_website->double_diskon($row['hrg_jual'], $diskon);
-                    $data_diskon = '';
-                    for ($i=0;$i<count($diskon);$i++) {
-                        $data_diskon .= ($i>0)?' + ':'Diskon ';
-                        $data_diskon .= $diskon[$i].'%';
-                    }
-                    $diskon_persen = $diskon;
-                    $diskon = $data_diskon;
-                    $hrg_jual = $harga_promo;
-                } else {
-                    $diskon_persen = array();
-                    $promo = 0;
-                    $hrg_jual = $row['hrg_jual'];
-                }
-                ?>
-
-                <div class="col-lg-3 col-md-6 col-6 mt-4 pt-2">
-                    <div onclick="return window.location='<?=base_url().'store/product?product_id='.$row['id_produk']?>'" data-aos="<?=$i%2==0?'zoom-in':'zoom-out'?>" data-aos-duration="1000" class="card shop-list border-0 position-relative" style="cursor:pointer;background:#f5f6fa!important;box-shadow: 3px 3px 0px 0 #2f55d4!important;">
-                        <ul class="label list-unstyled mb-0">
-                            <li><a href="javascript:void(0)" class="badge badge-pill badge-primary"><?=$diskon?></a></li>
-                            <li><a href="javascript:void(0)" class="badge badge-pill badge-success">Best Seller</a></li>
-                        </ul>
-                        <div class="shop-image position-relative overflow-hidden rounded shadow">
-                            <a href="<?=base_url().'store/product?product_id='.$row['id_produk']?>"><img src="<?=base_url().$row['gambar']?>" class="img-fluid" alt=""></a>
-                            <a href="<?=base_url().'store/product?product_id='.$row['id_produk']?>" class="overlay-work">
-                                <img src="<?=base_url().'assets/frontend/'?>images/shop/product/s-1.jpg" class="img-fluid" alt="">
-                            </a>
-
-                        </div>
-                        <div class="card-body content pt-4 p-2">
-                            <a href="<?=base_url().'store/product?product_id='.$row['id_produk']?>" class="text-dark product-name h6"><?=$row['nama']?></a>
-                            <div class="d-flex justify-content-between mt-1">
-                                <h6 class="text-muted small font-italic mb-0 mt-1"><?=number_format($hrg_jual)?> <del class="text-danger ml-2"><?=number_format($hrgcoret)?></del> </h6>
+            <?php
+            $i=0;  $res_produk = json_decode($bestSeller, true);
+                foreach ($res_produk['res_produk'] as $row) { $no++; ?>
+                    <div class="col-lg-3 col-md-6 col-6 mt-4 pt-2">
+                        <div onclick="return window.location='<?=base_url().'store/product?product_id='.$row['id_produk']?>'" data-aos="<?=$i%2==0?'zoom-in':'zoom-out'?>" data-aos-duration="1000" class="card shop-list border-0 position-relative" style="cursor:pointer;background:#f5f6fa!important;box-shadow: 3px 3px 0px 0 #2f55d4!important;">
+                            <ul class="label list-unstyled mb-0">
+                                <li><a href="javascript:void(0)" class="badge badge-pill badge-success">Best Seller</a></li>
+                            </ul>
+                            <div class="shop-image position-relative overflow-hidden rounded shadow">
+                                <a href="<?=base_url().'store/product?product_id='.$row['id_produk']?>"><img src="<?=$row['gambar_produk'][0].'?height=400&amp;width=476&amp;trim.threshold=80'?>" class="img-fluid" alt=""></a>
+                                <a href="<?=base_url().'store/product?product_id='.$row['id_produk']?>" class="overlay-work">
+                                    <img src="<?=$row['gambar_produk'][0].'?height=400&amp;width=476&amp;trim.threshold=80'?>" class="img-fluid" alt="">
+                                </a>
 
                             </div>
+                            <div class="card-body content pt-4 p-2">
+                                <a href="<?=base_url().'store/product?product_id='.$row['id_produk']?>" class="text-dark product-name h6"><?=$row['nama_produk']?></a>
+                                <div class="d-flex justify-content-between mt-1">
+                                    <h6 class="text-muted small font-italic mb-0 mt-1"><?=number_format($row['hrg_jual'])?></h6>
+
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div><!--end col-->
-            <?php endforeach;?>
+                    </div><!--end col-->
+                <?php }
+            ?>
+
+
         </div><!--end row-->
     </div><!--end container-->
     <!-- End Most Viewed Product -->
@@ -129,14 +110,12 @@
             <?php $no=1; foreach ($model as $row):?>
                 <div class="item<?=$no++?>"  style="cursor: pointer!important;" onclick="return window.location.href='<?=base_url()."store/list_produk/model/".$row["id_model"]?>'">
                     <div class="popular-tour rounded-md position-relative overflow-hidden">
-                        <img src="<?=$row['gambar']?>" style="background-size:cover;width: 100%;height: 100%;" class="img-fluid" alt="">
-                        <!--                        <div class="bg-overlay"></div>-->
+                        <img src="<?=base_url().$row['gambar']?>" style="width: 100%;height: 100%!important;">
                         <div class="overlay-work bg-dark"></div>
                         <div class="content">
-                            <a href="javascript:void(0)" class="title text-white h4 title-dark"><?=$row['nama'].' acxuyad'?></a>
+                            <a href="javascript:void(0)" class="title text-white h4 title-dark"><?=$row['nama']?></a>
                         </div>
                     </div><!--end tour post-->
-                    <!--                    <img src="--><?//=$row['gambar']?><!--" style="background-size:cover;width: 100%;height: 100%;" alt="">-->
                 </div>
             <?php endforeach;?>
         </div>
@@ -176,6 +155,14 @@
                     $promo = 0;
                     $hrg_jual = $row['hrg_jual'];
                 }
+                $core='';
+
+                if($hrgcoret!=''){
+                    $core=number_format($hrgcoret);
+                }
+                else{
+                    $core='';
+                }
             ?>
                 <div class="col-lg-3 col-md-6 col-6 mt-4 pt-2">
                     <div data-aos="<?=$i%2==0?'zoom-in':'zoom-out'?>" data-aos-duration="1000" class="card shop-list border-0 position-relative" style="background:#f5f6fa!important;box-shadow: 3px 3px 0px 0 #2f55d4!important;">
@@ -192,7 +179,7 @@
                         <div class="card-body content pt-4 p-2">
                             <a href="<?=base_url().'store/product?product_id='.$row['id_produk']?>" class="text-dark product-name h6"><?=$row['nama']?></a>
                             <div class="d-flex justify-content-between mt-1">
-                                <h6 class="text-muted small font-italic mb-0 mt-1"><?=number_format($hrg_jual)?> <del class="text-danger ml-2"><?=number_format($hrgcoret)?></del> </h6>
+                                <h6 class="text-muted small font-italic mb-0 mt-1"><?=number_format($hrg_jual)?> <del class="text-danger ml-2"><?=$core?></del> </h6>
 
                             </div>
                         </div>
@@ -233,7 +220,7 @@
 
             <?php $i=0; foreach($news as $row):$i++;?>
                 <div class="col-lg-4 col-md-6 mb-4 pb-2 mt-4 pt-2">
-                    <div class="card blog rounded border-0 shadow overflow-hidden"  data-aos="flip-left"
+                    <div style="cursor: pointer;" onclick="return window.location.href='<?=base_url()."store/article?detail=".$row['slug_berita']?>'" class="card blog rounded border-0 shadow overflow-hidden"  data-aos="flip-left"
                          data-aos-easing="ease-out-cubic"
                          data-aos-duration="2000">
                         <div class="position-relative">
@@ -241,7 +228,7 @@
                             <div class="overlay rounded-top bg-dark"></div>
                         </div>
                         <div class="card-body content">
-                            <h5><a href="javascript:void(0)" class="card-title title text-dark"><?=$row["judul"]?></a></h5>
+                            <h5><a href="<?=base_url().'store/article?detail='.$row['slug_berita']?>" class="card-title title text-dark"><?=$row["judul"]?></a></h5>
                             <small class="text-dark user d-block"><?=strlen($row['ringkasan'])>100?substr(strip_tags($row['ringkasan']),0,100).'...':$row['ringkasan']?></small>
                             <div class="post-meta d-flex justify-content-between mt-3">
                                 <ul class="list-unstyled mb-0">

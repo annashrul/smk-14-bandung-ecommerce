@@ -20,7 +20,7 @@
 
                     </div>
                 </section>
-                <div class="box-body table-responsive no-padding" id="result_table"></div>
+                <div class="box-body table-responsive" id="result_table"></div>
                 <!-- /.box-body -->
             </div>
             <!-- /.box -->

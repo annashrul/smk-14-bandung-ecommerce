@@ -49,57 +49,58 @@
     }
 
 </style>
+
+
 <!-- Hero Start -->
-<section class="bg-half bg-light d-table w-100">
+<section class="bg-profile d-table w-100 bg-primary" style="background: url('<?=base_url()?>assets/frontend/images/account/bg.png') center center;">
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-12 text-center">
-                <div class="page-next-level">
-                    <h4 class="title"> My Profile / Account </h4>
-                    <div class="page-next">
-                        <nav aria-label="breadcrumb" class="d-inline-block">
-                            <ul class="breadcrumb bg-white rounded shadow mb-0">
-                                <li class="breadcrumb-item"><a href="index.html">Landrick</a></li>
-                                <li class="breadcrumb-item"><a href="index-shop.html">Shop</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">My Account</li>
-                            </ul>
-                        </nav>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card public-profile border-0 rounded shadow" style="z-index: 1;">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-lg-2 col-md-3 text-md-left text-center">
+                                <img src="<?=base_url()?>assets/frontend/images/client/05.jpg" id="imgUser" class="avatar avatar-large rounded-circle shadow d-block mx-auto" alt="">
+                            </div><!--end col-->
+
+                            <div class="col-lg-10 col-md-9">
+                                <div class="row align-items-end">
+                                    <div class="col-md-7 text-md-left text-center mt-4 mt-sm-0">
+                                        <h3 class="title mb-0" id="name_member">Krista Joseph</h3>
+                                        <small class="text-muted h6 mr-2"><?= $this->data['account']['ol_code'] ?> <span class="badge badge-pill badge-success"><?= $this->data['account']['poin'] ?></span></small>
+                                        <ul class="list-inline mb-0 mt-3">
+                                            <li class="list-inline-item mr-2"><a href="javascript:void(0)" class="text-muted" title="Instagram" id="email_member">krista_joseph</a></li>
+                                            <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted" title="Linkedin" id="telepon_member">Krista Joseph</a></li>
+                                        </ul>
+                                    </div><!--end col-->
+
+                                </div><!--end row-->
+                            </div><!--end col-->
+                        </div><!--end row-->
                     </div>
                 </div>
             </div><!--end col-->
         </div><!--end row-->
-    </div> <!--end container-->
+    </div><!--ed container-->
 </section><!--end section-->
-<div class="position-relative">
-    <div class="shape overflow-hidden text-white">
-        <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
-        </svg>
-    </div>
-</div>
 <!-- Hero End -->
+
 <!-- Start -->
-<section class="section">
+<section class="section mt-60">
     <div class="container">
         <div class="row">
-            <div class="col-md-3 mt-4 pt-2">
-                <div class="media align-items-center">
-                    <img src="<?=base_url()?>assets/frontend/images/client/05.jpg" class="avatar avatar-md-md rounded-circle" alt="">
-                    <div class="ml-3">
-                        <h6 class="text-muted mb-0">Hello,</h6>
-                        <h6 class="mb-0"><?=$this->session->userdata('nama')?><br><?= $this->data['account']['ol_code'] ?> <span class="badge badge-pill badge-success"><?= $this->data['account']['poin'] ?></span></h6>
-                    </div>
-                </div>
-                <ul class="nav nav-pills nav-justified flex-column bg-white rounded mt-4 shadow p-3 mb-0" id="pills-tab" role="tablist">
+            <div class="col-lg-3 col-md-6 col-12">
+                <div class="sidebar sticky-bar">
+                    <ul class="nav nav-pills nav-justified flex-column bg-white rounded shadow p-3 mb-0" id="pills-tab" role="tablist">
                     <li class="nav-item mt-2">
-                        <a class="nav-link rounded active" id="order-history" data-toggle="pill" href="#orders" role="tab" aria-controls="orders" aria-selected="false">
+                        <a class="nav-link rounded <?=$this->session->isActiveAddress==false?'active':''?>" id="order-history" data-toggle="pill" href="#orders" role="tab" aria-controls="orders" aria-selected="false">
                             <div class="text-left py-1 px-3">
                                 <h6 class="mb-0"><i class="uil uil-list-ul h5 align-middle mr-2 mb-0"></i> Orders</h6>
                             </div>
                         </a><!--end nav link-->
                     </li><!--end nav item-->
                     <li class="nav-item mt-2">
-                        <a class="nav-link rounded" id="addresses" data-toggle="pill" href="#address" role="tab" aria-controls="address" aria-selected="false">
+                        <a class="nav-link <?=$this->session->isActiveAddress==true?'active':''?> rounded" id="addresses" data-toggle="pill" href="#address" role="tab" aria-controls="address" aria-selected="false">
                             <div class="text-left py-1 px-3">
                                 <h6 class="mb-0"><i class="uil uil-map-marker h5 align-middle mr-2 mb-0"></i> Addresses</h6>
                             </div>
@@ -122,11 +123,12 @@
                         </a><!--end nav link-->
                     </li><!--end nav item-->
                 </ul><!--end nav pills-->
+                </div>
             </div><!--end col-->
 
-            <div class="col-md-9 col-12 mt-4 pt-2">
+            <div class="col-lg-9 col-12">
                 <div class="tab-content" id="pills-tabContent">
-                    <div class="tab-pane fade bg-white show active shadow rounded p-4" id="orders" role="tabpanel" aria-labelledby="order-history">
+                    <div class="tab-pane fade bg-white <?=$this->session->isActiveAddress==false?'show active':''?> shadow rounded p-4" id="orders" role="tabpanel" aria-labelledby="order-history">
                         <div class="table-responsive bg-white shadow rounded">
                             <table class="table mb-0 table-center table-nowrap">
                                 <thead>
@@ -192,7 +194,7 @@
                             </table>
                         </div>
                     </div><!--end teb pane-->
-                    <div class="tab-pane fade bg-white shadow rounded p-4" id="address" role="tabpanel" aria-labelledby="addresses">
+                    <div class="tab-pane fade bg-white <?=$this->session->isActiveAddress==true?'show active':''?> shadow rounded p-4" id="address" role="tabpanel" aria-labelledby="addresses">
                         <h6 class="text-muted mb-0">The following addresses will be used on the checkout page by default.</h6>
 
                         <div class="row">
@@ -200,7 +202,7 @@
                             <div class="col-lg-6 mt-4 pt-2">
                                 <div class="media align-items-center mb-4 justify-content-between">
                                     <h5 class="mb-0">Address Type : <?=$row['nama_alamat']?></h5>
-                                    <a href="javascript:void(0)" class="text-primary h5 mb-0" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="uil uil-edit align-middle"></i></a>
+                                    <a onclick="deleteAddress('<?=$row["id_alamat_member"]?>')" href="javascript:void(0)" class="text-primary h5 mb-0" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="uil uil-trash align-middle"></i></a>
                                 </div>
                                 <div class="pt-4 border-top">
                                     <p class="h6"><?=$row['penerima']?></p>
@@ -212,85 +214,97 @@
 
                         </div>
                     </div><!--end teb pane-->
-
                     <div class="tab-pane fade bg-white shadow rounded p-4" id="account" role="tabpanel" aria-labelledby="account-details">
-                        <form>
+                        <form id="form_member">
+                            <input type="hidden" name="id_member" id="id_member" value="<?=$this->session->id_member?>">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
+                                        <?php $field='nama';?>
                                         <label>First Name</label>
                                         <div class="position-relative">
                                             <i data-feather="user" class="fea icon-sm icons"></i>
-                                            <input name="name" id="first-name" type="text" class="form-control pl-5" value="Cally">
+                                            <input name="<?=$field?>" id="<?=$field?>" type="text" class="form-control pl-5">
                                         </div>
                                     </div>
                                 </div><!--end col-->
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Last Name</label>
+                                        <?php $field='telepon';?>
+                                        <label>Phone</label>
                                         <div class="position-relative">
-                                            <i data-feather="user-check" class="fea icon-sm icons"></i>
-                                            <input name="name" id="last-name" type="text" class="form-control pl-5" value="Joseph">
+                                            <i data-feather="phone" class="fea icon-sm icons"></i>
+                                            <input name="<?=$field?>" id="<?=$field?>" type="number" class="form-control pl-5">
                                         </div>
                                     </div>
                                 </div><!--end col-->
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Your Email</label>
-                                        <div class="position-relative">
-                                            <i data-feather="mail" class="fea icon-sm icons"></i>
-                                            <input name="email" id="email" type="email" class="form-control pl-5" value="callyjoseph@gmail.com">
-                                        </div>
+                                        <?php $field = 'jenis_kelamin'; ?>
+                                        <select name="<?=$field?>" id="<?=$field?>" class="form-control">
+                                            <option value="">Gender</option>
+                                            <option value="L">Male</option>
+                                            <option value="P">Female</option>
+                                        </select>
                                     </div>
                                 </div><!--end col-->
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Display Name</label>
-                                        <div class="position-relative">
-                                            <i data-feather="user-check" class="fea icon-sm icons"></i>
-                                            <input name="name" id="display-name" type="text" class="form-control pl-5" value="cally_joseph">
-                                        </div>
+                                        <?php $field = 'tgl_lahir'; ?>
+                                        <label>Birth Date</label>
+                                        <input type="date" class="form-control" name="<?=$field?>" id="<?=$field?>" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask>
                                     </div>
                                 </div><!--end col-->
-
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <?php $field='foto';?>
+                                        <label>Photo</label>
+                                        <input name="<?=$field?>" id="<?=$field?>" type="file" class="form-control">
+                                    </div>
+                                </div><!--end col-->
                                 <div class="col-lg-12 mt-2 mb-0">
-                                    <button class="btn btn-primary">Save Changes</button>
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
                                 </div><!--end col-->
                             </div><!--end row-->
                         </form>
 
                         <h5 class="mt-4">Change password :</h5>
-                        <form>
+                        <form id="form_password">
+
                             <div class="row mt-3">
                                 <div class="col-lg-12">
+                                    <?php $field='password_lama';?>
                                     <div class="form-group">
                                         <label>Old password :</label>
                                         <div class="position-relative">
                                             <i data-feather="key" class="fea icon-sm icons"></i>
-                                            <input type="password" class="form-control pl-5" placeholder="Old password" required="">
+                                            <input type="password" class="form-control pl-5" placeholder="Old password" id="<?=$field?>" name="<?=$field?>">
                                         </div>
                                     </div>
-                                </div><!--end col-->
+                                </div>
 
                                 <div class="col-lg-12">
                                     <div class="form-group">
+                                        <?php $field='password';?>
                                         <label>New password :</label>
                                         <div class="position-relative">
                                             <i data-feather="key" class="fea icon-sm icons"></i>
-                                            <input type="password" class="form-control pl-5" placeholder="New password" required="">
+                                            <input type="password" class="form-control pl-5" placeholder="New password"  id="<?=$field?>" name="<?=$field?>">
                                         </div>
                                     </div>
-                                </div><!--end col-->
+                                </div>
 
                                 <div class="col-lg-12">
+                                    <?php $field='password_conf';?>
                                     <div class="form-group">
                                         <label>Re-type New password :</label>
                                         <div class="position-relative">
                                             <i data-feather="key" class="fea icon-sm icons"></i>
-                                            <input type="password" class="form-control pl-5" placeholder="Re-type New password" required="">
+                                            <input type="password" class="form-control pl-5" placeholder="Re-type New password"  id="<?=$field?>" name="<?=$field?>">
                                         </div>
                                     </div>
-                                </div><!--end col-->
+                                </div>
 
                                 <div class="col-lg-12 mt-2 mb-0">
                                     <button class="btn btn-primary">Save Password</button>
@@ -420,6 +434,72 @@
 
 
 <script>
+
+    $(document).ready(function(){
+        <?php $this->session->unset_userdata('isActiveAddress');?>
+        get_member();
+    });
+
+    function get_member(){
+        $.ajax({
+            url: "<?=base_url().'api/get_profile'?>",
+            type: "POST",
+            data: {id_member: "<?=$this->session->id_member?>"},
+            dataType: "JSON",
+            beforeSend: function() {$('body').append('<div class="first-loader"><img src="<?=base_url()?>assets/images/spin.svg"></div>');},
+            complete: function() {$('.first-loader').remove();},
+            success: function (res) {
+                console.log(res.res_profile);
+                $('#imgUser').attr('src',(res.res_profile.foto!=''?res.res_profile.foto:'<?=base_url()?>assets/images/no_image.png'));
+                $("#nama").val(res.res_profile.nama);
+                $("#jenis_kelamin").val(res.res_profile.jenis_kelamin);
+                $("#tgl_lahir").val(res.res_profile.tgl_lahir);
+                $("#telepon").val(res.res_profile.telepon);
+                $("#name_member").text(res.res_profile.nama);
+                $("#email_member").text(res.res_profile.email);
+                $("#telepon_member").text(res.res_profile.telepon);
+            }
+        });
+    }
+
+    function deleteAddress(id) {
+        Swal.fire({
+            title: "Information !",
+            text: "Are you sure ???",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Cancel',
+            confirmButtonText: 'Oke'
+        }).then((result) => {
+            if (result) {
+                $.ajax({
+                    url: "<?=base_url().'api/delete_alamat'?>",
+                    type: "POST",
+                    data: {id: id},
+                    dataType: "JSON",
+                    beforeSend: function() {$('body').append('<div class="first-loader"><img src="<?=base_url()?>assets/images/spin.svg"></div>');},
+                    complete: function() {$('.first-loader').remove();},
+                    success: function (res) {
+                        if (res.status) {
+
+                            Swal.fire({
+                                title: "Success",
+                                text: "Data Has Ben Saved",
+                                icon: "success",
+                            });
+                            setTimeout(function () {
+                                location.reload();
+                            }, 600);
+                        }
+                    }
+                });
+            }
+        })
+    }
+
+
     function finish(id) {
         Swal.fire({
             title: 'Konfirmasi penerimaan',
@@ -497,7 +577,6 @@
             type: "GET",
             dataType: "JSON",
             success: function (res) {
-                console.log(res);
                 if (res.status) {
                     $("#content_modal").html(res.res_detail);
                     $("#modal_detail").modal("show");
@@ -515,7 +594,6 @@
             beforeSend: function() {$('body').append('<div class="first-loader"><img src="<?=base_url()?>assets/images/spin.svg"></div>');},
             complete: function() {$('.first-loader').remove();},
             success: function (res) {
-                console.log(res);
                 $("#id_orders").val(order);
                 if (res.status) {
                     $("#kode_pembayaran").text(id);
@@ -566,7 +644,6 @@
                 beforeSend: function() {$('body').append('<div class="first-loader"><img src="<?=base_url()?>assets/images/spin.svg"></div>');},
                 complete: function() {$('.first-loader').remove();},
                 success: function (res) {
-                    console.log(res);
                     if (res.status) {
                         Swal.fire({
                             title: 'Success!',
@@ -592,5 +669,144 @@
             });
         }
     }
+
+
+    $('#form_member').validate({
+        rules: {
+            nama: {
+                required: true
+            },
+            telepon: {
+                required: true
+            },
+            jenis_kelamin: {
+                required: true
+            },
+        },
+        //For custom messages
+        messages: {
+            nama: {
+                required: "name cannot be empty"
+            },
+            telepon: {
+                required: "phone cannot be empty"
+            },
+            jenis_kelamin: {
+                required: "gender cannot be empty"
+            },
+        },
+        errorElement : 'div',
+        errorPlacement: function(error, element) {
+            var placement = $(element).data('error');
+            if (placement) {
+                $(placement).append(error)
+            } else {
+                error.insertAfter(element);
+            }
+        },
+        submitHandler: function (form) {
+            var myForm = document.getElementById('form_member');
+//            console.log(form);
+
+            $.ajax({
+                url: "<?=base_url().'api/update_profile'?>",
+                type: "POST",
+                data: new FormData(myForm),
+                mimeType: "multipart/form-data",
+                contentType: false,
+                processData: false,
+                dataType: "JSON",
+                beforeSend: function() {$('body').append('<div class="first-loader"><img src="<?=base_url()?>assets/images/spin.svg"></div>');},
+                complete: function() {$('.first-loader').remove();},
+                success: function (res) {
+                    if (res.status) {
+                        Swal.fire({
+                            title: 'Success!',
+                            type: 'success',
+                            text: "Data Has Been Saved",
+
+                        }).then((result) => {
+                            if (result.value) {
+                                location.reload();
+                            }
+                        });
+                    }
+                    else{
+                        alert(res.pesan)
+                    }
+                }
+            });
+        }
+    });
+
+    $('#form_password').validate({
+        rules: {
+            password_lama: {
+                required: true
+            },
+            password: {
+                required: true,
+                minlength: 6,
+                maxlength: 15
+            },
+            password_conf: {
+                required: true,
+                equalTo: "#password"
+            },
+        },
+        //For custom messages
+        messages: {
+            password_lama: {
+                required: "old password cannot be empty"
+            },
+            password:{
+                required: "Password  cannot be empty",
+                minlength: "Password must be more than 6 characters!",
+                maxlength: "Password cannot be longer than 15 characters"
+            },
+            password_conf:{
+                required: "Confirmation Password  cannot be empty",
+                equalTo: "Password does not match!"
+            },
+        },
+        errorElement : 'div',
+        errorPlacement: function(error, element) {
+            var placement = $(element).data('error');
+            if (placement) {
+                $(placement).append(error)
+            } else {
+                error.insertAfter(element);
+            }
+        },
+        submitHandler: function (form) {
+            $.ajax({
+                url: "<?=base_url().'api/ganti_password'?>",
+                type: "POST",
+                data: {id_member:$("#id_member").val(),password:$("#password").val(),password_lama:$("#password_lama").val()},
+                dataType: "JSON",
+                beforeSend: function() {$('body').append('<div class="first-loader"><img src="<?=base_url()?>assets/images/spin.svg"></div>');},
+                complete: function() {$('.first-loader').remove();},
+                success: function (res) {
+                    console.log(res);
+                    if (res.status) {
+                        Swal.fire({
+                            title: 'Success!',
+                            type: 'success',
+                            text: "Data Has Been Saved",
+                        }).then((result) => {
+                            if (result.value) {
+                                location.reload();
+                                window.location.href="<?=base_url().'store/logout'?>";
+                            }
+                        });
+                    }
+                    else{
+                        alert(res.message)
+                    }
+                }
+            });
+        }
+    });
+
 </script>
 

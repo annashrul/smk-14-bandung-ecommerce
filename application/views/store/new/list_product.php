@@ -20,12 +20,12 @@ if($table=='top_item'){
 $menu_group = $this->m_crud->get_data($table, "*", "$id='" . $param . "' $status");
 ?>
 <!-- Hero Start -->
-<section class="bg-half bg-light d-table w-100"style="background: url('<?=base_url()?>assets/frontend/images/1.jpg') center center;">
+<section class="bg-profile d-table w-100 bg-primary" style="background: url('<?=base_url()?>assets/frontend/images/account/bg.png') center center;">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-12 text-center">
                 <div class="page-next-level" style="background-image: url('<?=base_url().$menu_group["gambar"]?>')">
-                    <h4 class="title"> <?=$menu_group['nama']?> </h4>
+                    <h4 class="title" style="color:white;"> <?=$menu_group['nama']?> </h4>
                     <div class="page-next">
                         <nav aria-label="breadcrumb" class="d-inline-block">
                             <ul class="breadcrumb bg-white rounded shadow mb-0">
@@ -50,9 +50,9 @@ $menu_group = $this->m_crud->get_data($table, "*", "$id='" . $param . "' $status
 
 <!-- Start Products -->
 <section class="section">
-    <div class="container">
+    <div class="container" style="margin-top: -50px">
         <div class="row">
-            <div class="col-lg-9 col-md-8 col-12 mt-5 pt-2 mt-sm-0 pt-sm-0">
+            <div class="col-lg-9 col-md-8 col-12 mt-sm-0 pt-sm-0">
                 <div class="row align-items-center">
                     <div class="col-lg-8 col-md-7">
                         <div class="section-title">
@@ -195,7 +195,6 @@ $menu_group = $this->m_crud->get_data($table, "*", "$id='" . $param . "' $status
 //    });
 
     function load_data_produk(page, data={}) {
-        console.log($("#param").val());
         $.ajax({
             url:"<?=base_url().'store/list_produk/'.$this->uri->segment(3).'/';?>"+$("#param").val()+'/'+page,
             type:"POST",
@@ -228,7 +227,6 @@ $menu_group = $this->m_crud->get_data($table, "*", "$id='" . $param . "' $status
             beforeSend: function() {$('body').append('<div class="first-loader"><img src="<?=base_url()?>assets/images/spin.svg"></div>');},
             complete: function() {$('.first-loader').remove();},
             success:function(res) {
-                console.log(res);
                 var list='';var merk='';
 
 //                list+='<option value="Select Category">Select Category</option>';

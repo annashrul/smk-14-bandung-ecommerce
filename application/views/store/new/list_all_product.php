@@ -57,15 +57,7 @@
             complete: function() {$('.first-loader').remove();},
             success:function(res)
             {
-
                 $('#resultProductAll').html(res.res_produk);
-//                $('#pagination_link').html(res.pagination_link);
-                // var list='';
-                // for(var i=0;i<res.kelompok.length;i++){
-                // 	list+='<option value="'+res.kelompok[i].id_kelompok+'">'+res.kelompok[i].nama+'</option>';
-                // 	// list+=res.kelompok[i];
-                // }
-                // $("#filter_kategori").html(list);
             }
         });
     }

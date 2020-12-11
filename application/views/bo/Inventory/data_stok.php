@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 <!-- /.box-header -->
-                <div class="box-body table-responsive no-padding" id="result_table"></div>
+                <div class="box-body table-responsive" id="result_table"></div>
                 <div align="center" id="pagination_link"></div>
                 <!-- /.box-body -->
             </div>

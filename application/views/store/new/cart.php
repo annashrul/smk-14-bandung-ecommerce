@@ -86,7 +86,6 @@
             type : "POST",
             dataType : "JSON",
             success:function(res){
-                console.log(res.count);
                 $("#resCart").html(res.result);
 //                $("#res_mobile").html(res.res_mobile);
                 $("#tot_qty").val(res.qty);
@@ -137,8 +136,6 @@
         var b = parseInt(qu.val());
         if(b>1){
             b--;
-            console.log(b);
-
             $.ajax({
                 url: "<?=base_url().'api/edit_cart'?>",
                 type:"POST",
@@ -152,20 +149,15 @@
                 }
             })
         }
-//        qty1--;
-//        console.log(qty1);
-//        console.log(parseInt(qtys)-qty);
-
     }
     function hapus_item(trans, id) {
-        swal({
+        Swal.fire({
             title: "Information !",
             text: "Are you sure ???",
             icon: "warning",
             buttons: true,
             dangerMode: true,
         }).then((result) => {
-
             if (result) {
                 $.ajax({
                     url: "<?=base_url().'api/delete_item_cart'?>",
@@ -173,10 +165,12 @@
                     data: {orders: trans, produk: id},
                     dataType: "JSON",
                     success: function (res) {
+                        console.log(res);
                         if (res.status) {
                             countCart();
                             load_cart();
-                            location.reload();
+//                            $(".totCart").text('0');
+//                            location.reload();
                         }
                     }
                 });
@@ -190,7 +184,6 @@
             data: {jumlah:$(".qty_m-"+produk).val(), kd_trans:order, det_produk:produk},
             dataType: "JSON",
             success: function (res) {
-                console.log(res);
                 if (res.status) {
                     load_cart();
                 }

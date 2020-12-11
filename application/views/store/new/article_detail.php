@@ -14,23 +14,21 @@
     /*}*/
 </style>
 <!-- Hero Start -->
-<section class="bg-half bg-light d-table w-100">
+
+<section class="bg-profile d-table w-100 bg-primary" style="background: url('<?=base_url()?>assets/frontend/images/account/bg.png') center center;">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-12 text-center">
                 <div class="page-next-level">
-                    <h2><?=$detail['judul']?></h2>
+                    <h2 style="color: white"><?=$detail['judul']?></h2>
                     <ul class="list-unstyled mt-4">
-                        <li class="list-inline-item h6 user text-muted mr-2"><i class="mdi mdi-account"></i> <?=$detail['nama']?></li>
                         <li class="list-inline-item h6 date text-muted"><i class="mdi mdi-calendar-check"></i> <?=date('Y-m-d',strtotime($detail['tgl_berita']))?></li>
                     </ul>
                     <div class="page-next">
                         <nav aria-label="breadcrumb" class="d-inline-block">
                             <ul class="breadcrumb bg-white rounded shadow mb-0">
-                                <li class="breadcrumb-item"><a href="index.html">Landrick</a></li>
-                                <li class="breadcrumb-item"><a href="#">Page</a></li>
-                                <li class="breadcrumb-item"><a href="#">Blog</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Blog Detail</li>
+                                <li class="breadcrumb-item"><a href="<?=base_url()?>"><?= $this->data['site']->nama ?></a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Article Detail</li>
                             </ul>
                         </nav>
                     </div>
@@ -58,9 +56,9 @@
             <!-- BLog Start -->
             <div class="col-lg-8 col-md-6">
                 <div class="card blog blog-detail border-0 shadow rounded">
-                    <img src="<?=base_url()?>assets/frontend/images/blog/01.jpg" class="img-fluid rounded-top" alt="">
+                    <img src="<?=base_url().$detail['gambar']?>" class="img-fluid rounded-top" alt="">
                     <div class="card-body content">
-                        <h6><i class="mdi mdi-tag text-primary mr-1"></i><a href="javscript:void(0)" class="text-primary"><?=$detail['nama_kategori']?></a>, <a href="javscript:void(0)" class="text-primary">Application</a></h6>
+                        <h6><i class="mdi mdi-tag text-primary mr-1"></i><a href="javscript:void(0)" class="text-primary"><?=$detail['nama_kategori']?></a></h6>
                         <blockquote class="blockquote mt-3 p-3">
                             <p class="text-muted mb-0 font-italic"><?=$detail['ringkasan']?></p>
                         </blockquote>

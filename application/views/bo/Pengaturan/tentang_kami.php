@@ -15,7 +15,7 @@
                     </div>
                 </div>
                 <!-- /.box-header -->
-                <div class="box-body table-responsive no-padding" id="result_table"></div>
+                <div class="box-body table-responsive" id="result_table"></div>
                 <!-- /.box-body -->
             </div>
             <!-- /.box -->
@@ -35,7 +35,8 @@
                 <div class="modal-body">
                     <div class="box-body">
 						<div class="form-group">
-                            <?php $label = 'tentang'; ?>
+<!--                            http://localhost/ckeditor-kcfinfer-codeigniter/assets/kcfinder/browse.php?CKEditor=ckeditor&CKEditorFuncNum=1&langCode=en-->
+                            <?php $label = 'ckeditor'; ?>
                             <div class="col-sm-12">
                                 <textarea type="text" name="<?=$label?>" class="form-control" id="<?=$label?>" autocomplete="off" placeholder="Tentang Kami"></textarea>
                             </div>
@@ -57,7 +58,7 @@
 <script>
     $(document).ready(function(){
         load_data(1);
-		set_ckeditor('tentang');
+		set_ckeditor('ckeditor');
     }).on("click", ".pagination li a", function(event){
         event.preventDefault();
         var page = $(this).data("ci-pagination-page");
@@ -89,7 +90,7 @@
                     $("#modal_title").text("Edit <?=$title?>");
                     $("#param").val("edit");
                     $("#id").val(id);
-                    CKEDITOR.instances.tentang.setData(res.res_data['tentang']);
+                    CKEDITOR.instances.ckeditor.setData(res.res_data['tentang']);
 					$("#modal_form").modal("show");
                 } else {
                     alert("Error getting data!")
@@ -127,6 +128,6 @@
     $("#modal_form").on("hide.bs.modal", function () {
         document.getElementById("form_input").reset();
         $( "#form_input" ).validate().resetForm();
-		CKEDITOR.instances.tentang.setData();
+		CKEDITOR.instances.ckeditor.setData();
     });
 </script>

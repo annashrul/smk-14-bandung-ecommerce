@@ -63,7 +63,7 @@
 	<!-- Mobile Menu -->
 	<div class="slider-active">
 		<?php if($slider!=null){ foreach($slider as $row):?>
-            <div class="single-slider" style="padding:10px;background-size: cover;background-repeat: no-repeat;" data-background="<?=base_url().$row['gambar']?>">
+            <div class="single-slider" style="padding:10px;background-size: contain;background-repeat: no-repeat;" data-background="<?=base_url().$row['gambar']?>">
                 <div class="container">
                     <div class="row d-flex align-items-center justify-content-between">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 align-items-center" style="height:370px!important;">
