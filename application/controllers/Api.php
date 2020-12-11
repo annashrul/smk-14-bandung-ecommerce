@@ -1794,7 +1794,7 @@ class Api extends CI_Controller {
 			);
 
 			$get_email = $this->m_crud->get_data("member", "email", "id_member='".$member."'");
-//			$this->m_website->email_invoice($get_email['email'], json_encode($data));
+			$this->m_website->email_invoice($get_email['email'], json_encode($data));
 //			$this->m_website->email_invoice($this->config->item('email'), json_encode($data));
 
 			$result['status'] = true;
@@ -2322,7 +2322,7 @@ class Api extends CI_Controller {
 
 		if ($param == null) {
 			$id_pembayaran = $_POST['id_pembayaran'];
-			$get_pembayaran = $this->m_crud->get_data("pembayaran", "bank, no_rek, atas_nama, jumlah, kode_unik, jumlah_voucher", "id_pembayaran='" . $id_pembayaran . "' AND status='1'");
+			$get_pembayaran = $this->m_crud->get_data("pembayaran", "bank_tujuan bank, no_rek_tujuan no_rek, atas_nama_tujuan atas_nama, jumlah, kode_unik, jumlah_voucher", "id_pembayaran='" . $id_pembayaran . "' AND status='1'");
 		} else {
 			$get_pembayaran = $param;
 		}
@@ -2334,6 +2334,9 @@ class Api extends CI_Controller {
 			$data_produk = array();
 
 			if ($param == null) {
+			    $bank=$get_pembayaran['bank'];
+			    $no_rek=$get_pembayaran['no_rek'];
+			    $atas_nama=$get_pembayaran['atas_nama'];
 				$kode_unik = $get_pembayaran['kode_unik'];
 				$jumlah_voucher = $get_pembayaran['jumlah_voucher'];
 				$get_penjualan = $this->m_crud->read_data("det_pembayaran", "orders", "pembayaran='" . $id_pembayaran . "'");
@@ -2342,7 +2345,10 @@ class Api extends CI_Controller {
 					array_push($kode_orders, str_replace("/", "_", $row['orders']));
 				}
 			} else {
-				$data_pembayaran = $this->m_crud->get_join_data("pembayaran pb", "kode_unik, jumlah_voucher", "det_pembayaran dp", "dp.pembayaran=pb.id_pembayaran", "dp.orders='" . base64_decode($param) . "'");
+				$data_pembayaran = $this->m_crud->get_join_data("pembayaran pb", "bank_tujuan bank, no_rek_tujuan no_rek, atas_nama_tujuan atas_nama,kode_unik, jumlah_voucher", "det_pembayaran dp", "dp.pembayaran=pb.id_pembayaran", "dp.orders='" . base64_decode($param) . "'");
+                $bank=$data_pembayaran['bank'];
+                $no_rek=$data_pembayaran['no_rek'];
+                $atas_nama=$data_pembayaran['atas_nama'];
 				$kode_unik = $data_pembayaran['kode_unik'];
 				$jumlah_voucher = $data_pembayaran['jumlah_voucher'];
 				$kode_orders = array(base64_decode($param));
@@ -2399,6 +2405,8 @@ class Api extends CI_Controller {
             </div>
             <br>
             <div class="row dl-tagihan">
+            <div class="col-6 text-secondary mb-3 text-left">Akun </div>
+                <div class="col-6 mb-3 text-right">( '.$bank.','.$atas_nama.','.$no_rek.' )</div>
                 <div class="col-6 text-secondary mb-3 text-left">Tagihan produk</div>
                 <div class="col-6 mb-3 text-right">Rp '.number_format($tagihan).'</div>
                 <div class="col-6 text-secondary mb-3 text-left">Diskon</div>
@@ -2417,6 +2425,7 @@ class Api extends CI_Controller {
             ';
 
 			$result['res_detail'] = $res_detail;
+			$result['pembayaran'] = $get_pembayaran;
 		}
 
 		echo json_encode($result);
@@ -3330,7 +3339,7 @@ class Api extends CI_Controller {
 		);
 
 		//$get_email = $this->m_crud->get_data("member", "email", "id_member='".$member."'");
-		$this->m_website->email_invoice('lovianamayoreta@gmail.com', json_encode($data));
+		$this->m_website->email_invoice('anashrulyusuf@gmail.com', json_encode($data));
 	}
 
 	public function get_voucher() {
@@ -3422,38 +3431,7 @@ class Api extends CI_Controller {
 	}
 
 	public function forgot_password() {
-		$result = array();
-		if (isset($_POST['email'])) {
-			$email = $_POST['email'];
-		} else if (isset($_POST['id_member'])) {
-			$email = $_POST['id_member'];
-		}
-
-		$get_data = $this->m_crud->get_data("member", "id_member", "email='".$email."'");
-
-		$token = $this->random_char(20);
-
-		if ($get_data != null) {
-			$data_email = array(
-				'email' => $email,
-				'id_member' => $get_data['id_member'],
-				'token' => $token
-			);
-			$this->m_crud->update_data("member", array('token_resset_password'=>$token), "id_member='".$get_data['id_member']."'");
-			$send = $this->m_website->email_forgot_password($data_email);
-
-			if ($send) {
-				$result['message'] = 'Silahkan cek inbox atau spam email anda untuk konfirmasi reset password';
-			} else {
-				$result['message'] = 'Email gagal terkirim silahkan masukan ulang email anda';
-			}
-			$result['status'] = $send;
-		} else {
-			$result['status'] = false;
-			$result['message'] = 'Email tidak terdaftar';
-		}
-
-		echo json_encode($result);
+       $this->m_website->email_to("anashrulyusuf@gmail.com",'1','2');
 	}
 
 	public function resset_password($response=null) {

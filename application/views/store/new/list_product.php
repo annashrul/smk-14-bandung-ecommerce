@@ -29,8 +29,7 @@ $menu_group = $this->m_crud->get_data($table, "*", "$id='" . $param . "' $status
                     <div class="page-next">
                         <nav aria-label="breadcrumb" class="d-inline-block">
                             <ul class="breadcrumb bg-white rounded shadow mb-0">
-                                <li class="breadcrumb-item"><a href="index.html">Landrick</a></li>
-                                <li class="breadcrumb-item"><a href="index-shop.html">Shop</a></li>
+                                <li class="breadcrumb-item"><a href="index.html"><?= $this->data['site']->nama ?></a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Products</li>
                             </ul>
                         </nav>
@@ -144,7 +143,7 @@ $menu_group = $this->m_crud->get_data($table, "*", "$id='" . $param . "' $status
 <!-- product list part end-->
 <script>
 
-    var page=4;
+    var page=12;
 
     function filter(param,id) {
         $("#patokan").val(param);
@@ -163,7 +162,7 @@ $menu_group = $this->m_crud->get_data($table, "*", "$id='" . $param . "' $status
         $('html, body').animate({ scrollTop: pixelFromTop  }, 1);
     });
     function loadmoreProduct(){
-        page = page+4;
+        page = page+12;
         var patokan=$("#patokan").val();
         if(patokan==='kategori'){
             load_data_produk(page, {search: patokan,param:$("#filter_kategori").val()});

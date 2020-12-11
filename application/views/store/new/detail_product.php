@@ -106,8 +106,8 @@ if ($get_promo!=null) {
                     <div class="page-next">
                         <nav aria-label="breadcrumb" class="d-inline-block">
                             <ul class="breadcrumb bg-white rounded shadow mb-0">
-                                <li class="breadcrumb-item"><a href="index.html">Landrick</a></li>
-                                <li class="breadcrumb-item"><a href="index-shop.html">Shop</a></li>
+                                <li class="breadcrumb-item"><a href="<?=base_url()?>"><?= $this->data['site']->nama ?></a></li>
+                                <li class="breadcrumb-item"><a href="<?=base_url().'store/get_all_product'?>">Shop</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Product Details</li>
                             </ul>
                         </nav>

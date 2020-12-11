@@ -497,6 +497,7 @@
             type: "GET",
             dataType: "JSON",
             success: function (res) {
+                console.log(res);
                 if (res.status) {
                     $("#content_modal").html(res.res_detail);
                     $("#modal_detail").modal("show");
@@ -511,6 +512,8 @@
             data: {id_pembayaran: id},
             type: "POST",
             dataType: "JSON",
+            beforeSend: function() {$('body').append('<div class="first-loader"><img src="<?=base_url()?>assets/images/spin.svg"></div>');},
+            complete: function() {$('.first-loader').remove();},
             success: function (res) {
                 console.log(res);
                 $("#id_orders").val(order);
@@ -560,6 +563,8 @@
                 contentType: false,
                 processData: false,
                 dataType: "JSON",
+                beforeSend: function() {$('body').append('<div class="first-loader"><img src="<?=base_url()?>assets/images/spin.svg"></div>');},
+                complete: function() {$('.first-loader').remove();},
                 success: function (res) {
                     console.log(res);
                     if (res.status) {

@@ -13,7 +13,9 @@
     <meta name="google-site-verification" content="MGaJ-eY9-qmOrrUlu3DHE_-qVFzq6NSYLYvY2hbmyis" />
 
     <meta charset="utf-8" />
-    <title>Landrick - Saas & Software Landing Page Template</title>
+    <title><?= $this->data['site']->nama ?></title>
+    <link rel="shortcut icon" type="image/x-icon" href="<?=base_url().$this->data['site']->icon?>">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Premium Bootstrap 4 Landing Page Template" />
     <meta name="keywords" content="Saas, Software, multi-uses, HTML, Clean, Modern" />
@@ -25,7 +27,6 @@
     <link href="https://fonts.googleapis.com/css?family=Stylish" rel="stylesheet">
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
     <!-- favicon -->
-    <link rel="shortcut icon" href="<?=base_url().'assets/frontend/'?>images/favicon.ico">
     <!-- Bootstrap -->
     <link href="<?=base_url().'assets/frontend/'?>css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <!-- Icons -->
@@ -130,19 +131,7 @@
 
 <body>
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MJC5FWG"
-                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-<!-- Loader -->
-<!-- <div id="preloader">
-    <div id="status">
-        <div class="spinner">
-            <div class="double-bounce1"></div>
-            <div class="double-bounce2"></div>
-        </div>
-    </div>
-</div> -->
-<!-- Loader -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MJC5FWG" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- Navbar STart -->
 <?php $mobile=$this->agent->is_mobile(); ?>
@@ -256,21 +245,9 @@
                     </ul>
                 </li>
                 <li class="<?=$this->uri->segment(2)=="promo"?'active':null?>"><a style="<?=$this->uri->segment(2)=="promo"?'color: #2f55d4!important;':'color:#000!important;'?>" href="<?=base_url().'store/promo'?>">Promo</a></li>
-                <li class="<?=$_GET['page']=='gallery'?'active':null?>"><a style="<?=$_GET['page']=='gallery'?'color: #2f55d4!important;':'color:#000!important;'?>" href="<?=base_url()?>">Location</a></li>
-                <li class="has-submenu <?=$_GET['page']=='about'||$_GET['page']=='tutorial'||$this->uri->segment(2)=='article'?'active':null?>">
-                    <a style="<?=$_GET['page']=='about'||$_GET['page']=='tutorial'||$this->uri->segment(2)=='article'?'color:2f55d4!important':'color:#000!important;'?>" href="javascript:void(0)">Information</a>
-                    <span class="menu-arrow" style="color: black!important;"></span>
-                    <ul class="submenu megamenu">
-                        <li>
-                            <ul>
-                                <li><a href="<?=base_url().'store?page=about'?>">About</a></li>
-                                <li><a href="<?=base_url().'store?page=tutorial'?>">Tutorial</a></li>
-                                <li><a href="<?=base_url().'store/article/all'?>">Article</a></li>
-                            </ul>
-                        </li>
+                <li class="<?=$_GET['page']=='contact'?'active':null?>"><a style="<?=$_GET['page']=='contact'?'color: #2f55d4!important;':'color:#000!important;'?>" href="<?=base_url().'store?page=contact'?>">Contact Us</a></li>
+                <li class="<?=$this->uri->segment(2)=='article'?'active':null?>"><a style="<?=$this->uri->segment(2)=='article'?'color: #2f55d4!important;':'color:#000!important;'?>" href="<?=base_url().'store/article/all'?>">Article</a></li>
 
-                    </ul>
-                </li>
             </ul><!--end navigation menu-->
         </div><!--end navigation-->
     </div><!--end container-->
@@ -357,59 +334,67 @@
                 <a href="#" class="logo-footer">
                     <img src="https://technopark.smkn14bdg.sch.id/assets/images/site/logo__2.png" height="30" alt="">
                 </a>
-                <p class="mt-4">Start working with Landrick that can provide everything you need to generate awareness, drive traffic, connect.</p>
+                <p class="mt-4">
+                <ul class="navbar-nav nav-justified w-100">
+                    <li><a class="text-foot" href="#"><?=$cs['open']?></a></li>
+                    <li><a class="text-foot" href="#"><?=$cs['time_open']?> to <?=$cs['time_close']?></a></li>
+                    <li><a class="text-foot" href="tel:<?=$cs['tlp']?>"><?=$cs['tlp']?></a></li>
+                    <li><a class="text-foot" href="mailto:<?=$cs['email']?>"><?=$cs['email']?></a></li>
+                </ul>
+                </p>
                 <ul class="list-unstyled social-icon social mb-0 mt-4">
-                    <li class="list-inline-item"><a href="javascript:void(0)" class="rounded"><i data-feather="facebook" class="fea icon-sm fea-social"></i></a></li>
-                    <li class="list-inline-item"><a href="javascript:void(0)" class="rounded"><i data-feather="instagram" class="fea icon-sm fea-social"></i></a></li>
-                    <li class="list-inline-item"><a href="javascript:void(0)" class="rounded"><i data-feather="twitter" class="fea icon-sm fea-social"></i></a></li>
-                    <li class="list-inline-item"><a href="javascript:void(0)" class="rounded"><i data-feather="linkedin" class="fea icon-sm fea-social"></i></a></li>
+                    <li class="list-inline-item"><a href="https://www.twitter.com/<?=$sosmed['twitter']?>" class="rounded"><i data-feather="facebook" class="fea icon-sm fea-social"></i></a></li>
+                    <li class="list-inline-item"><a href="https://www.twitter.com/<?=$sosmed['twitter']?>" class="rounded"><i data-feather="instagram" class="fea icon-sm fea-social"></i></a></li>
+                    <li class="list-inline-item"><a href="https://www.twitter.com/<?=$sosmed['twitter']?>" class="rounded"><i data-feather="twitter" class="fea icon-sm fea-social"></i></a></li>
                 </ul><!--end icon-->
             </div><!--end col-->
 
             <div class="col-lg-2 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
                 <h5 class="text-light footer-head">Company</h5>
                 <ul class="list-unstyled footer-list mt-4">
-                    <li><a href="page-aboutus.html" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> About us</a></li>
-                    <li><a href="page-services.html" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Services</a></li>
-                    <li><a href="page-team.html" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Team</a></li>
-                    <li><a href="page-pricing.html" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Pricing</a></li>
-                    <li><a href="page-portfolio-modern.html" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Project</a></li>
-                    <li><a href="page-jobs.html" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Careers</a></li>
-                    <li><a href="page-blog-grid.html" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Blog</a></li>
-                    <li><a href="auth-cover-login.html" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Login</a></li>
+
+                    <li><a href="<?=base_url().'store?page=about'?>" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> About us</a></li>
+                    <li><a href="<?=base_url().'store?page=privacy_policy'?>" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Privacy & Policy</a></li>
+                    <li><a href="<?=base_url().'store?page=resolution'?>" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Resolution Center</a></li>
+                    <li><a href="<?=base_url().'store?page=career'?>" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Career</a></li>
+                    <li><a href="<?=base_url().'store?page=tutorial'?>" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Tutorial</a></li>
+                    <li><a href="<?=base_url().'store/article/all'?>" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Article</a></li>
                 </ul>
             </div><!--end col-->
 
             <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
-                <h5 class="text-light footer-head">Usefull Links</h5>
+                <h5 class="text-light footer-head">Category</h5>
                 <ul class="list-unstyled footer-list mt-4">
-                    <li><a href="page-terms.html" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Terms of Services</a></li>
-                    <li><a href="page-privacy.html" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Privacy Policy</a></li>
-                    <li><a href="documentation.html" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Documentation</a></li>
-                    <li><a href="changelog.html" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Changelog</a></li>
-                    <li><a href="components.html" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Components</a></li>
+                    <?php foreach ($nav_menu as $row) {
+                        echo '
+<li><a href="'.base_url().'store/list_produk/groups/'.$row['id_groups'].'" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i>'.$row['nama'].'</a></li>
+									
+                                ';}?>
+
                 </ul>
             </div><!--end col-->
 
             <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
-                <h5 class="text-light footer-head">Newsletter</h5>
-                <p class="mt-4">Sign up and receive the latest tips via email.</p>
-                <form>
+                <h5 class="text-light footer-head">Contact form</h5>
+<!--                <form>-->
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="foot-subscribe form-group">
-                                <label>Write your email <span class="text-danger">*</span></label>
                                 <div class="position-relative">
                                     <i data-feather="mail" class="fea icon-sm icons"></i>
-                                    <input type="email" name="email" id="emailsubscribe" class="form-control pl-5 rounded" placeholder="Your email : " required>
+                                    <textarea placeholder="type something here .." name="pesan" id="pesan" class="form-control pl-5 rounded" cols="30" rows="4"></textarea>
+                                    <input type="hidden" id="member" value="<?=$this->session->id_member?>">
+
+<!--                                    <input type="email" name="email" id="emailsubscribe" class="form-control pl-5 rounded" placeholder="Your email : " required>-->
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-12">
-                            <input type="submit" id="submitsubscribe" name="send" class="btn btn-soft-primary btn-block" value="Subscribe">
+
+                            <input onclick="submitForm()" type="submit" id="submitsubscribe" name="send" class="btn btn-soft-primary btn-block" value="Send">
                         </div>
                     </div>
-                </form>
+<!--                </form>-->
             </div><!--end col-->
         </div><!--end row-->
     </div><!--end container-->
@@ -419,19 +404,11 @@
         <div class="row align-items-center">
             <div class="col-sm-6">
                 <div class="text-sm-left">
-                    <p class="mb-0">© <script>document.write(new Date().getFullYear())</script> Landrick. Design with <i class="mdi mdi-heart text-danger"></i> by <a href="http://shreethemes.in/" target="_blank" class="text-reset">Shreethemes</a>.</p>
+                    <p class="mb-0">© <script>document.write(new Date().getFullYear())</script> <?=$this->data['site']->nama?>. Design with <i class="mdi mdi-heart text-danger"></i> by <a href="http://ptnetindo.com/" target="_blank" class="text-reset">NETINDO MEDIATAMA PERKASA</a>.</p>
                 </div>
             </div><!--end col-->
 
-            <div class="col-sm-6 mt-4 mt-sm-0 pt-2 pt-sm-0">
-                <ul class="list-unstyled text-sm-right mb-0">
-                    <li class="list-inline-item"><a href="javascript:void(0)"><img src="<?=base_url().'assets/frontend/'?>images/payments/american-ex.png" class="avatar avatar-ex-sm" title="American Express" alt=""></a></li>
-                    <li class="list-inline-item"><a href="javascript:void(0)"><img src="<?=base_url().'assets/frontend/'?>images/payments/discover.png" class="avatar avatar-ex-sm" title="Discover" alt=""></a></li>
-                    <li class="list-inline-item"><a href="javascript:void(0)"><img src="<?=base_url().'assets/frontend/'?>images/payments/master-card.png" class="avatar avatar-ex-sm" title="Master Card" alt=""></a></li>
-                    <li class="list-inline-item"><a href="javascript:void(0)"><img src="<?=base_url().'assets/frontend/'?>images/payments/paypal.png" class="avatar avatar-ex-sm" title="Paypal" alt=""></a></li>
-                    <li class="list-inline-item"><a href="javascript:void(0)"><img src="<?=base_url().'assets/frontend/'?>images/payments/visa.png" class="avatar avatar-ex-sm" title="Visa" alt=""></a></li>
-                </ul>
-            </div><!--end col-->
+
         </div><!--end row-->
     </div><!--end container-->
 </footer><!--end footer-->
@@ -470,6 +447,65 @@
         countCart();
         AOS.init();
     });
+    function submitForm(){
+        if ("<?=$this->session->id_member?>" !== '') {
+            var data_ = {
+                member: $("#member").val(),
+                pesan:$("#pesan").val(),
+            };
+            if($("#pesan").val()==""){
+                $("#pesan").focus();
+            }
+            else{
+                $.ajax({
+                    url: "<?=base_url().'api/feedback'?>",
+                    type: "POST",
+                    data: data_,
+                    dataType: "JSON",
+                    beforeSend: function() {
+                        $('body').append('<div class="first-loader"><img src="<?=base_url().'/assets/images/spin.svg'?>"></div>');
+                    },
+                    complete: function() {
+                        $('.first-loader').remove();
+                    },
+                    success: function (res) {
+                        if (res.status) {
+                            $("#pesan").val("");
+                            Swal.fire({
+                                title: 'Berhasil',
+                                text: "Terimakasih telah meluangkan waktu anda",
+                                icon: 'success',
+//                            showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+//                            cancelButtonColor: '#d33',
+                                confirmButtonText: 'Oke'
+                            })
+                        } else {
+                            alert("Data gagal disimpan!");
+                        }
+                    }
+                });
+            }
+
+        }
+        else{
+            Swal.fire({
+                title: 'Opppss ...',
+                text: "You have not logged in",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sign In'
+            }).then((result) => {
+                if (result.value) {
+                    window.location.href="<?=base_url().'store/auth?page=login'?>"
+                }
+            })
+        }
+
+    }
+
     $(".cari").autocomplete({
         minChars: 3,
         serviceUrl: '<?=base_url().'ajax/get_produk'?>',

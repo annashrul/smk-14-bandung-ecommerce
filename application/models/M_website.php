@@ -32,7 +32,28 @@ class M_website extends CI_Model {
 
 	}
 
-	public function create_notif($data_notif){
+    public function struktur_email($to, $subject, $message){
+        $config = array(
+            'protocol' 	=> 'smtp', 											/********* default *********/
+            'smtp_host' => 'ssl://smtp.googlemail.com', /***** incoming server *****/
+            'smtp_port' => 465, 												/***** outgoing server *****/
+            'smtp_user' => 'ansrlysf@gmail.com', 				/********* username ********/
+            'smtp_pass' => 'acuy1234', 									/********* password ********/
+            'mailtype' 	=> 'html',
+            'charset' 	=> 'iso-8859-1'
+        );
+        $this->load->library('email', $config);
+        $this->email->set_newline("\r\n");
+        $this->email->from('ansrlysf@gmail.com', 'KYLAFOOD');
+        $this->email->to($to);
+        $this->email->subject($subject);
+        $this->email->message($message);
+        return true;
+
+    }
+
+
+    public function create_notif($data_notif){
         $fields = array(
             'app_id' => "9a74b710-c5f3-441c-b3d5-de924945e5f9",
             'data' => array("type"=>"order"),
@@ -1559,7 +1580,17 @@ class M_website extends CI_Model {
 		//$headers .= "CC: agrowisata_n8@yahoo.com \r\n";
 		$headers .= "MIME-Version: 1.0\r\n";
 		$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+//        $penerima = ‘mahrizal_nu@yahoo.co.id’;
 
+//$subject = ‘Test’;
+
+//$body  = ‘Just Say Hello’;
+
+        $our_server = "mail.mucglobal.com";
+
+        ini_set("SMTP", $our_server );
+
+//        mail($penerima ,$subject, $body);
 		if (mail($to,$subject,$message,$headers) == true) {
 			return true;
 		} else {

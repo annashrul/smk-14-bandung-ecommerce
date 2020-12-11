@@ -4,12 +4,12 @@
         <div class="row justify-content-center">
             <div class="col-lg-12 text-center">
                 <div class="page-next-level">
-                    <h4 class="title"> About us </h4>
+                    <h4 class="title"> Tutorial </h4>
                     <div class="page-next">
                         <nav aria-label="breadcrumb" class="d-inline-block">
                             <ul class="breadcrumb bg-white rounded shadow mb-0">
                                 <li class="breadcrumb-item"><a href="<?=base_url()?>"><?= $this->data['site']->nama ?></a></li>
-                                <li class="breadcrumb-item active" aria-current="page">About Us</li>
+                                <li class="breadcrumb-item active" aria-current="page">Tutorial</li>
                             </ul>
                         </nav>
                     </div>
@@ -36,7 +36,7 @@
         <div class="row align-items-center">
             <div class="col-md-12">
                 <font>
-                    <?=$about?>
+                    <?=$tutorial?>
                 </font>
             </div>
         </div><!--end row-->

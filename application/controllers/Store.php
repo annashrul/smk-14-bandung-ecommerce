@@ -32,7 +32,36 @@ class Store extends CI_Controller
 		$this->output->set_header("Cache-Control: no-store, no-cache, max-age=0, post-check=0, pre-check=0");
 
 	}
-	public function index(){
+    public function forgot_password($action=null) {
+//        if ($this->login) {
+//            redirect(base_url());
+//        }
+        $data = $this->data;
+        $function = 'forgot_password';
+        $view = $this->control.'/';
+        $data['title'] = 'Reset Password';
+        $data['content'] = 'store/new/forgot_password';
+
+        if ($action == 'cek_email') {
+            $where = "email='".$_POST['email']."'";
+
+            $cek_email = $this->m_crud->get_data("member", "email", $where);
+
+            if ($cek_email == null) {
+                echo 'false';
+            } else {
+                echo 'true';
+            }
+        } else if ($action == 'simpan') {
+            $req_api = $this->m_website->request_api_local('forgot_password', array('email'=>$_POST['email']));
+
+            echo $req_api;
+        } else {
+            $this->load->view('store/new/index', $data);
+        }
+    }
+
+    public function index(){
 		$data = $this->data;
 		$data['title']='home';
 		$data['slider'] = $this->m_crud->read_data("home_slide", "*");
@@ -55,7 +84,7 @@ class Store extends CI_Controller
 			if($_GET['page']=='about'){$data['about']= $this->m_crud->get_data("setting", "tentang", "id_setting='1111'")['tentang'];}
 			if($_GET['page']=='tutorial'){$data['tutorial']= $this->m_crud->get_data("setting", "cara_belanja", "id_setting='1111'")['cara_belanja'];}
 			if($_GET['page']=='gallery'){$data['model'] = $this->m_crud->read_data("model", "id_model, nama, gambar");}
-			if($_GET['page']=='location'){$data['res_lokasi'] = $this->m_crud->read_data("lokasi", "*");}
+			if($_GET['page']=='contact'){$data['res_lokasi'] = $this->m_crud->read_data("lokasi", "*");}
 			if($_GET['page']=='resolution'){$data['res_resolusi'] = $this->m_crud->get_data("setting", "pusat_resolusi", "id_setting='1111'")['pusat_resolusi'];}
 			if($_GET['page']=='privacy_policy'){ $data['res_kebijakan'] = $this->m_crud->get_data("setting", "kebijakan", "id_setting='1111'")['kebijakan'];}
 			if($_GET['page']=='career'){$data['res_karir'] = $this->m_crud->get_data("setting", "karir", "id_setting='1111'")['karir'];}
@@ -272,9 +301,10 @@ class Store extends CI_Controller
 		$this->load->view("store/new/index",$data);
 	}
 	public function auth(){
+
 		$data = $this->data;
 		$data['content'] = 'store/new/'.$_GET['page'];
-		$this->load->view("store/new/index",$data);
+		$this->load->view('store/new/'.$_GET['page'],$data);
 	}
 	public function logout(){
 		$this->session->sess_destroy();

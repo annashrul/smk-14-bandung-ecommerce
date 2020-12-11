@@ -347,12 +347,11 @@
 							<div class="footer-tittle">
 								<div class="footer-pera">
 									<aside class="single_sidebar_widget newsletter_widget">
-											<div class="form-group">
-                                                <textarea placeholder="tulis kritik dan saran anda" name="pesan" id="pesan" class="form-control" cols="30" rows="4"></textarea>
-											</div>
+                                        <div class="form-group">
+                                            <textarea placeholder="tulis kritik dan saran anda" name="pesan" id="pesan" class="form-control" cols="30" rows="4"></textarea>
+                                        </div>
                                         <input type="hidden" id="member" value="<?=$this->session->id_member?>">
-
-											<button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn" type="submit" onclick="submitForm()">Subscribe</button>
+                                        <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn" type="submit" onclick="submitForm()">Subscribe</button>
 									</aside>
 								</div>
 							</div>

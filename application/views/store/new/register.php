@@ -1,4 +1,6 @@
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -95,55 +97,115 @@
     <a href="<?=base_url()?>" class="btn btn-icon btn-soft-primary"><i data-feather="home" class="icons"></i></a>
 </div>
 
-<section class="bg-home d-flex align-items-center">
-    <div class="container ">
+<!-- Hero Start -->
+<section class="bg-auth-home d-table w-100">
+    <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-7 col-md-6">
                 <div class="mr-lg-5">
-                    <img src="<?=base_url()?>assets/frontend/images/user/login.svg" class="img-fluid d-block mx-auto" alt="">
+                    <img src="<?=base_url()?>assets/frontend/images/user/signup.svg" class="img-fluid d-block mx-auto" alt="">
                 </div>
             </div>
             <div class="col-lg-5 col-md-6">
-                <div class="card login-page bg-white shadow rounded border-10 ">
+                <div class="card shadow rounded border-0">
                     <div class="card-body">
-                        <h4 class="card-title text-center">Sign In</h4>
-                        <form class="login-form mt-4" id="formLogin">
+                        <h4 class="card-title text-center">Signup</h4>
+                        <form class="login-form mt-4" id="formRegister">
                             <div class="row">
-                                <div class="col-lg-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Your Email <span class="text-danger">*</span></label>
+                                        <?php $field='nama';?>
+                                        <label>Name <span class="text-danger">*</span></label>
                                         <div class="position-relative">
                                             <i data-feather="user" class="fea icon-sm icons"></i>
-                                            <input type="email" class="form-control pl-5" placeholder="Email" name="email" id="email" required>
+                                            <input type="text" class="form-control pl-5" placeholder="First Name" name="<?=$field?>" id="<?=$field?>">
                                         </div>
                                     </div>
                                 </div><!--end col-->
 
-                                <div class="col-lg-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
+                                        <label>Gender <span class="text-danger">*</span></label>
+                                        <?php $field = 'jk'; ?>
+                                        <select name="<?=$field?>" id="<?=$field?>" class="form-control">
+                                            <option value="">Gender</option>
+                                            <option value="L">Male</option>
+                                            <option value="P">Female</option>
+                                        </select>
+
+                                    </div>
+                                </div><!--end col-->
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <?php $field='email'; ?>
+                                        <label>Email <span class="text-danger">*</span></label>
+                                        <div class="position-relative">
+                                            <i data-feather="mail" class="fea icon-sm icons"></i>
+                                            <input type="email" class="form-control pl-5" placeholder="Email" name="<?=$field?>" id="<?=$field?>">
+                                        </div>
+                                    </div>
+                                </div><!--end col-->
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <?php $field = 'telp'; ?>
+                                        <label>Phone <span class="text-danger">*</span></label>
+                                        <div class="position-relative">
+                                            <i data-feather="phone" class="fea icon-sm icons"></i>
+                                            <input type="number" class="form-control pl-5" placeholder="Phone" name="<?=$field?>" id="<?=$field?>">
+                                        </div>
+                                    </div>
+                                </div><!--end col-->
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <?php $field = 'tgl_lahir'; ?>
+                                        <label>Birth Date <span class="text-danger">*</span></label>
+                                        <input type="date" class="form-control" name="<?=$field?>" id="<?=$field?>" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask>
+                                    </div>
+                                </div><!--end col-->
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <?=$field='password';?>
                                         <label>Password <span class="text-danger">*</span></label>
                                         <div class="position-relative">
                                             <i data-feather="key" class="fea icon-sm icons"></i>
-                                            <input type="password" class="form-control pl-5" placeholder="Password" name="password" id="password" required>
+                                            <input type="password" class="form-control pl-5" placeholder="Password" name="<?=$field?>" id="<?=$field?>">
+                                        </div>
+                                    </div>
+                                </div><!--end col-->
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <?php $field='password_conf';?>
+                                        <label>Confirmation Password <span class="text-danger">*</span></label>
+                                        <div class="position-relative">
+                                            <i data-feather="key" class="fea icon-sm icons"></i>
+                                            <input type="password" class="form-control pl-5" placeholder="Password" name="<?=$field?>" id="<?=$field?>">
                                         </div>
                                     </div>
                                 </div><!--end col-->
 
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                            <label class="custom-control-label" for="customCheck1">I Accept <a href="#" class="text-primary">Terms And Condition</a></label>
+                                        </div>
+                                    </div>
+                                </div><!--end col-->
 
-
-                                <div class="col-lg-12 mb-0">
-                                    <button class="btn btn-primary btn-block">Sign in</button>
+                                <div class="col-md-12">
+                                    <button class="btn btn-primary btn-block">Register</button>
                                 </div><!--end col-->
 
 
 
-                                <div class="col-12 text-center">
-                                    <p class="mb-0 mt-3"><small class="text-dark mr-2">Don't have an account ?</small> <a href="<?=base_url().'store/auth?page=register'?>" class="text-dark font-weight-bold">Sign Up</a></p>
-                                </div><!--end col-->
+                                <div class="mx-auto">
+                                    <p class="mb-0 mt-3"><small class="text-dark mr-2">Already have an account ?</small> <a href="<?=base_url().'store/auth?page=login'?>" class="text-dark font-weight-bold">Sign in</a></p>
+                                </div>
                             </div><!--end row-->
                         </form>
                     </div>
-                </div><!---->
+                </div>
             </div> <!--end col-->
         </div><!--end row-->
     </div> <!--end container-->
@@ -168,66 +230,102 @@
 <script src="<?=base_url().'assets/frontend/'?>js/switcher.js"></script>
 <!-- Main Js -->
 <script src="<?=base_url().'assets/frontend/'?>js/app.js"></script>
-<script>
 
+<script>
     $(document).ready(function(){
-        $("#email").focus();
+        $("#nama").focus();
     })
     var notif = 'cannot be empty!';
-    $('#formLogin').validate({
+    $('#formRegister').validate({
 
         rules: {
+            nama: {
+                required: true
+            },
+            jk: {
+                required: true
+            },
+            tgl_lahir: {
+                required: true
+            },
             email: {
                 required: true,
+                email: true,
+                remote: {
+                    url: "<?=base_url().'ajax/register/cek_email'?>",
+                    type: "post"
+                }
             },
             password: {
                 required: true,
                 minlength: 6,
                 maxlength: 15
             },
-
+            password_conf: {
+                required: true,
+                equalTo: "#password"
+            },
+            telp: {
+                required: true,
+                remote: {
+                    url: "<?=base_url().'ajax/register/cek_telepon'?>",
+                    type: "post"
+                }
+            }
         },
         //For custom messages
         messages: {
+            nama: {
+                required: "Name "+notif
+            },
+            jk: {
+                required: "Gender "+notif
+            },
+            tgl_lahir: {
+                required: "Date of birth "+notif
+            },
+            telp: {
+                required: "Phone Number "+notif,
+                remote: "Phone number already exist!"
+            },
             email:{
                 required: "Email "+notif,
+                email: "Email Is Incorrect",
+                remote: "Email already exist!"
             },
             password:{
                 required: "Password "+notif,
                 minlength: "Password must be more than 6 characters!",
                 maxlength: "Password cannot be longer than 15 characters"
             },
+            password_conf:{
+                required: "Confirmation Password "+notif,
+                equalTo: "Password does not match!"
+            },
         },
 
         submitHandler: function (form) {
             $.ajax({
-                url: "<?=base_url().'ajax/login'?>",
+                url: "<?=base_url().'ajax/register/simpan'?>",
                 type: "POST",
                 dataType: "JSON",
-                data: $("#formLogin").serialize(),
+                data: $("#formRegister").serialize(),
                 beforeSend: function() {$('body').append('<div class="first-loader"><img src="<?=base_url()?>assets/images/spin.svg"></div>');},
                 complete: function() {$('.first-loader').remove();},
                 success: function (res) {
+                    console.log(res);
                     if (res.status) {
                         window.location.href="<?=base_url()?>";
                     }else{
-                        Swal.fire({
-                            title: 'Opppss ...',
-                            text: "Incorrect email or password",
-                            icon: 'warning',
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: 'Oke'
-                        })
-//						alert(res.status);
+                        alert(res.status);
                     }
                 }
             });
         }
     });
-
-
-
-
 </script>
+
 </body>
+
+<!-- Mirrored from shreethemes.in/landrick/layouts/auth-signup.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 01 Dec 2020 14:46:50 GMT -->
 </html>

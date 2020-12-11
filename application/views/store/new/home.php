@@ -9,10 +9,10 @@
                 <div class="row align-items-center mt-5">
                     <div class="col-lg-7 col-md-7">
                         <div class="title-heading mt-4">
-                            <h1 class="display-4 title-white font-weight-bold mb-3" style="color:white!important;">New Accessories <br> Collections</h1>
-                            <p class="para-desc text-muted para-dark" style="color:white!important;">Launch your campaign and benefit from our expertise on designing and managing conversion centered bootstrap4 html page.</p>
+                            <h1 class="display-4 title-white font-weight-bold mb-3" style="color:white!important;"><?=$row['judul']?></h1>
+<!--                            <p class="para-desc text-muted para-dark" style="color:white!important;">Launch your campaign and benefit from our expertise on designing and managing conversion centered bootstrap4 html page.</p>-->
                             <div class="mt-4">
-                                <a href="javascript:void(0)" class="btn btn-primary m-1">Shop Now</a>
+                                <a href="<?=$row['link']?>" class="btn btn-primary m-1">Shop Now</a>
                             </div>
                         </div>
                     </div><!--end col-->
@@ -71,10 +71,7 @@
                             <a href="<?=base_url().'store/product?product_id='.$row['id_produk']?>" class="overlay-work">
                                 <img src="<?=base_url().'assets/frontend/'?>images/shop/product/s-1.jpg" class="img-fluid" alt="">
                             </a>
-                            <ul class="list-unstyled shop-icons">
-                                <li class="mt-2"><a href="javascript:void(0)" class="btn btn-icon btn-pills btn-soft-primary" onclick="modalDetailProduct('<?=$row["id_produk"]?>','<?=$row["nama"]?>')"><i data-feather="eye" class="icons"></i></a></li>
-                                <li class="mt-2"><a href="javascript:void(0)" class="btn btn-icon btn-pills btn-soft-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
-                            </ul>
+
                         </div>
                         <div class="card-body content pt-4 p-2">
                             <a href="<?=base_url().'store/product?product_id='.$row['id_produk']?>" class="text-dark product-name h6"><?=$row['nama']?></a>
@@ -190,10 +187,7 @@
                             <a href="<?=base_url().'store/product?product_id='.$row['id_produk']?>" class="overlay-work">
                                 <img src="<?=base_url().$row['gambar']?>" class="img-fluid" alt="">
                             </a>
-                            <ul class="list-unstyled shop-icons">
-                                <li class="mt-2"><a href="javascript:void(0)" data-toggle="modal" data-target="#productview" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="eye" class="icons"></i></a></li>
-                                <li class="mt-2"><a href="shop-cart.html" class="btn btn-icon btn-pills btn-soft-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
-                            </ul>
+
                         </div>
                         <div class="card-body content pt-4 p-2">
                             <a href="<?=base_url().'store/product?product_id='.$row['id_produk']?>" class="text-dark product-name h6"><?=$row['nama']?></a>
@@ -209,25 +203,6 @@
     </div><!--end container-->
     <!-- End Popular -->
 
-    <!-- Start CTA -->
-    <div class="container-fluid mt-100 mt-60">
-        <div class="rounded py-5" style="background: url('<?=base_url().'assets/frontend/'?>images/shop/cta.jpg') fixed;">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="section-title">
-                            <h2 class="font-weight-bold mb-4">End of Season Clearance <br> Sale upto 30%</h2>
-                            <p class="para-desc para-white text-muted mb-0">Launch your campaign and benefit from our expertise on designing and managing conversion centered bootstrap4 html page.</p>
-                            <div class="mt-4">
-                                <a href="javascript:void(0)" class="btn btn-primary">Shop Now</a>
-                            </div>
-                        </div>
-                    </div><!--end col-->
-                </div><!--end row-->
-            </div><!--end container-->
-        </div>
-    </div><!--end container-->
-    <!-- End CTA -->
 
 </section><!--end section-->
 <!-- End -->
