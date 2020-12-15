@@ -41,29 +41,6 @@
 <section class="section">
     <div class="container">
         <div class="row" id="resCart">
-            <div class="col-lg-3 col-md-6 col-11 mt-4 pt-2">
-                <div class="media customer-testi m-2">
-                    <img src="<?=base_url()?>assets/frontend/images/client/01.jpg" class="avatar avatar-small mr-3 rounded shadow" alt="">
-                    <div class="ribbon ribbon-right ribbon-warning overflow-hidden">
-                        <span class="text-center d-block shadow small h6">
-                            <i class="uil uil-trash align-middle icons"></i>
-                        </span>
-                    </div>
-
-                    <div class="media-body content p-2 shadow rounded bg-white position-relative">
-                        <ul class="list-unstyled mb-0">
-                            <li class="list-inline-item">NAMA BARAN</li>
-                        </ul>
-                        <h5 class="text-muted"><?=number_format('10000')?> <del class="text-danger ml-2"><?=number_format('10000')?></del> </h5>
-                        <hr>
-                        <div class="d-flex align-items-center shop-list align-items-center">
-                            <input type="button" value="-" class="minus btn btn-icon btn-soft-primary font-weight-bold mr-2">
-                            <input type="text" step="1" min="1" name="quantity" id="quantity" value="1" title="Qty" class="mr-2 btn btn-icon btn-soft-primary font-weight-bold">
-                            <input type="button" value="+" class="plus btn btn-icon btn-soft-primary font-weight-bold">
-                        </div>
-                    </div>
-                </div>
-            </div><!--end col-->
         </div><!--end row-->
         <?php $mobile=$this->agent->is_mobile(); if(!$mobile): ?>
         <div class="row">
@@ -155,22 +132,23 @@
             title: "Information !",
             text: "Are you sure ???",
             icon: "warning",
-            buttons: true,
-            dangerMode: true,
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Cancel',
+            confirmButtonText: 'Oke'
         }).then((result) => {
-            if (result) {
+            if (result.value) {
                 $.ajax({
                     url: "<?=base_url().'api/delete_item_cart'?>",
                     type: "POST",
                     data: {orders: trans, produk: id},
                     dataType: "JSON",
                     success: function (res) {
-                        console.log(res);
                         if (res.status) {
                             countCart();
                             load_cart();
-//                            $(".totCart").text('0');
-//                            location.reload();
+                            location.reload();
                         }
                     }
                 });

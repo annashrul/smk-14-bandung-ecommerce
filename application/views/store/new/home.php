@@ -102,7 +102,7 @@
         <div class="row justify-content-center">
             <div class="col-12 text-center">
                 <div class="section-title mb-4 pb-2">
-                    <h4 class="title mb-4">Galery Product</h4>
+                   <h4 class="title mb-4">Gallery Product</h4>
                 </div>
             </div><!--end col-->
         </div><!--end row-->
@@ -113,7 +113,7 @@
                         <img src="<?=base_url().$row['gambar']?>" style="width: 100%;height: 100%!important;">
                         <div class="overlay-work bg-dark"></div>
                         <div class="content" style="<?=$this->agent->is_mobile()?'display:none':'display:block'?>">
-                            <a href="javascript:void(0)" class="title text-white h4 title-dark"><?=$row['nama']?></a>
+                            <a href="javascript:void(0)" class="title text-white h4 title-dark" style="text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black ;"><?=$row['nama']?></a>
                         </div>
                     </div><!--end tour post-->
                 </div>

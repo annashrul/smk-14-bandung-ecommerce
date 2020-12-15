@@ -354,6 +354,7 @@
                     <li><a href="<?=base_url().'store?page=resolution'?>" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Resolution Center</a></li>
                     <li><a href="<?=base_url().'store?page=career'?>" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Career</a></li>
                     <li><a href="<?=base_url().'store?page=tutorial'?>" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Tutorial</a></li>
+                    <li><a href="<?=base_url().'store?page=gallery'?>" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Gallery</a></li>
                     <li><a href="<?=base_url().'store/article/all'?>" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Article</a></li>
                 </ul>
             </div><!--end col-->
