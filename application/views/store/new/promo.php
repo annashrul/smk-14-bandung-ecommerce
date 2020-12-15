@@ -29,6 +29,16 @@ foreach ($decode as $disc) {
     </div><!--end container-->
 </section><!--end section-->
 <!-- CTA Start -->
-<?php endforeach; }else{
 
-} ?>
+<?php endforeach; }else{?>
+    <section class="section bg-cta">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 text-center">
+                    <img style="width: 100%" src="https://i.pinimg.com/originals/88/36/65/8836650a57e0c941b4ccdc8a19dee887.png" alt="">
+                </div><!--end col-->
+            </div><!--end row-->
+        </div><!--end container-->
+    </section><!--end section-->
+
+<?php } ?>

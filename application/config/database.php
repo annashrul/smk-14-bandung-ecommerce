@@ -75,7 +75,7 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost', 'username' => 'root', 'password' => 'Netin1234a!', 'database' => 'ecommerce_smk14',
+	'hostname' => 'localhost', 'username' => 'root', 'password' => 'Netin1234a!', 'database' => 'db_ecommerce',
 //	'hostname' => 'http://203.190.54.4/', 'username' => 'root', 'password' => 'Netin1234a!', 'database' => 'db_indokids',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',

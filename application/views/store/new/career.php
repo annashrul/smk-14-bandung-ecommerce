@@ -1,10 +1,10 @@
 <!-- Hero Start -->
-<section class="bg-half bg-light d-table w-100">
+<section class="bg-profile d-table w-100 bg-primary" style="background: url('<?=base_url()?>assets/frontend/images/account/bg.png') center center;">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-12 text-center">
                 <div class="page-next-level">
-                    <h4 class="title"> Career </h4>
+                    <h4 class="title" style="color: white;"> Career </h4>
                     <div class="page-next">
                         <nav aria-label="breadcrumb" class="d-inline-block">
                             <ul class="breadcrumb bg-white rounded shadow mb-0">
@@ -44,7 +44,8 @@
 
 
 </section><!--end section-->
-<!-- About End --><?php
+<!-- About End -->
+<?php
 /**
  * Created by PhpStorm.
  * User: annashrul_yusuf
