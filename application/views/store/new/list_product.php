@@ -24,7 +24,7 @@ $menu_group = $this->m_crud->get_data($table, "*", "$id='" . $param . "' $status
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-12 text-center">
-                <div class="page-next-level" style="background-image: url('<?=base_url().$menu_group["gambar"]?>')">
+                <div class="page-next-level">
                     <h4 class="title" style="color:white;"> <?=$menu_group['nama']?> </h4>
                     <div class="page-next">
                         <nav aria-label="breadcrumb" class="d-inline-block">

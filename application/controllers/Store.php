@@ -44,21 +44,15 @@ class Store extends CI_Controller
             }
         }
         $req_api = $this->m_website->request_api_local('get_produk', 'member=' . ($this->login ? $this->user : 'non_member') . '&filter=' . json_encode(array('in_produk' => json_encode($in_produk))));
-//        var_dump($req_api);
         $data['slider'] = $this->m_crud->read_data("home_slide", "*");
-//		$data['service'] = $this->m_crud->read_data("shipping_service", "*","status=1",null,null,4);
         $data['bestSeller']=$req_api;
-//        $data['topitem'] = $this->m_crud->read_data("top_item", "*");
-//        $data['middleitem'] = $this->m_crud->read_data("middle_item", "*");
-//        $data['bottomitem'] = $this->m_crud->read_data("bottom_item", "*");
-
 		$data['latestProduct'] = $this->m_crud->join_data(
 			"produk pr","pr.*,gp.*,dp.*",
 			array("gambar_produk gp","det_produk dp"),
 			array("pr.id_produk=gp.produk","pr.id_produk=dp.produk"),
 			null,"pr.id_produk DESC","pr.id_produk",16
 		);
-		$data['model'] = $this->m_crud->read_data("model", "id_model, nama, gambar",null,null,null,9);
+		$data['model'] = $this->m_crud->read_data("model", "id_model, nama, gambar",null,"rand()",null,9);
 		$data['news'] = $this->m_crud->join_data("berita b","b.*,kb.nama",array("kategori_berita kb"),array("kb.id_kategori_berita=b.kategori_berita"),null,"b.id_berita DESC",null,6);
 		$data['promo'] = $this->m_crud->read_data("promo", "deskripsi,id_promo, promo, gambar, diskon", "'".date('Y-m-d H:i:s')."' BETWEEN tgl_awal AND tgl_akhir");
 		$data['topitem'] = $this->m_crud->read_data("top_item", "*");
@@ -452,8 +446,15 @@ class Store extends CI_Controller
         if($action=='load_data'){
             $table_join = array("det_produk dp", "merk mr", "kelompok kl");
             $join_on = array("dp.produk=pr.id_produk AND dp.code=pr.code", "mr.id_merk=pr.merk AND mr.status='1'", "kl.id_kelompok=pr.kelompok AND kl.status='1'");
-            $pagin=$this->m_website->myPagination('join',5,"produk pr","pr.id_produk",$table_join,$join_on,null,$page,1);
-            $read_produk = $this->m_crud->join_data("produk pr", "pr.id_produk, pr.nama nama_produk, pr.code, pr.deskripsi, pr.free_return, pr.pre_order, pr.kelompok, dp.hrg_beli, dp.berat, dp.hrg_jual, mr.nama nama_merk, kl.nama nm_kelompok, mr.gambar gambar_merk", $table_join, $join_on, $where, "pr.id_produk DESC", "pr.id_produk",  $page, 1);
+            $read_produk = $this->m_crud->join_data("produk pr", "pr.id_produk, pr.nama nama_produk, pr.code, pr.deskripsi, pr.free_return, pr.pre_order, pr.kelompok, dp.hrg_beli, dp.berat, dp.hrg_jual, mr.nama nama_merk, kl.nama nm_kelompok, mr.gambar gambar_merk", $table_join, $join_on, null, "pr.id_produk DESC", "pr.id_produk",  $page);
+
+//            $read_produk = $this->m_crud->join_data(
+//                "produk pr","pr.*,gp.*,dp.*",
+//                array("gambar_produk gp","det_produk dp"),
+//                array("pr.id_produk=gp.produk","pr.id_produk=dp.produk"),
+//                null,"pr.id_produk DESC","pr.id_produk",$page, 1
+//            );
+
             $result='';
             if($read_produk!=null){
                 foreach($read_produk as $row){
@@ -477,6 +478,14 @@ class Store extends CI_Controller
                         $diskon_persen = array();
                         $promo = 0;
                         $hrg_jual = $row['hrg_jual'];
+                    }
+                    $core='';
+
+                    if($hrgcoret!=''){
+                        $core=number_format($hrgcoret);
+                    }
+                    else{
+                        $core='';
                     }
                     /*Get gambar produk*/
                     $read_gambar = $this->m_crud->read_data("gambar_produk", "gambar", "produk='".$row['id_produk']."'");
@@ -506,7 +515,7 @@ class Store extends CI_Controller
                             <div class="card-body content pt-4 p-2">
                                 <a href="'.base_url().'store/product?product_id='.$row['id_produk'].'" class="text-dark product-name h6">'.$row["nama_produk"].'</a>
                                 <div class="d-flex justify-content-between mt-1">
-                                    <h6 class="text-muted small font-italic mb-0 mt-1">'.number_format($hrg_jual).' <del class="text-danger ml-2">'.number_format($hrgcoret).'</del> </h6>
+                                    <h6 class="text-muted small font-italic mb-0 mt-1">'.number_format($hrg_jual).' <del class="text-danger ml-2">'.$core.'</del> </h6>
                                     
                                 </div>
                             </div>

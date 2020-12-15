@@ -34,7 +34,7 @@
 
 <!-- product list part end-->
 <script>
-    var page=16;
+    var page=8;
     $(document).ready(function() {
         load_data_produk(page);
 

@@ -14,7 +14,7 @@ foreach ($decode as $disc) {
 }
 ?>
 <!-- CTA Start -->
-<section class="section bg-cta" style="cursor: pointer;border-bottom:1px solid white;background: url('https://indokids.co.id/assets/images/promo/banana_boat1.jpg?width=2880&amp;quality=80)') center center;" onclick="return window.location.href='<?=base_url().'store/list_produk/promo/'.$row['slug_promo']?>'">
+<section class="section bg-cta" style="cursor: pointer;border-bottom:1px solid white;background: url('<?=base_url().$row["gambar"]?>') center center;" onclick="return window.location.href='<?=base_url().'store/list_produk/promo/'.$row['slug_promo']?>'">
     <div class="bg-overlay"></div>
     <div class="container">
         <div class="row justify-content-center">

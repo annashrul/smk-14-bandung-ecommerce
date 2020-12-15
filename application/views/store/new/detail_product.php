@@ -72,12 +72,12 @@ if ($get_promo!=null) {
             <div class="col-md-5">
                 <div class="slider slider-for">
                     <?php $readGambar = $this->m_crud->read_data("gambar_produk","*","produk='".$product['id_produk']."'"); foreach($readGambar as $key=>$row):?>
-                        <div style="border: 1px solid white!important;"><img src="<?=base_url().$row['gambar']?>" style="width: 100%;height: 100%;" class="img-fluid rounded" alt=""></div>
+                        <div><img src="<?=base_url().$row['gambar']?>" style="width: 100%;height: 100%;" class="img-fluid rounded" alt=""></div>
                     <?php endforeach; ?>
                 </div>
                 <div class="slider slider-nav">
                     <?php $readGambar = $this->m_crud->read_data("gambar_produk","*","produk='".$product['id_produk']."'"); foreach($readGambar as $key=>$row):?>
-                        <div style="border: 1px solid white!important;"><img src="<?=base_url().$row['gambar']?>" class="img-fluid" alt=""></div>
+                        <div><img src="<?=base_url().$row['gambar']?>" class="img-fluid" alt=""></div>
                     <?php endforeach; ?>
                 </div>
             </div><!--end col-->
@@ -95,7 +95,7 @@ if ($get_promo!=null) {
                                 <div class="form custom-form">
                                     <div class="form-group mb-0" >
                                         <label for="">Size</label>
-                                        <select name="ukuran" id="ukuran" class="form-control custom-select rounded" style="border:1px solid black;min-width: 100%!important;">
+                                        <select name="ukuran" id="ukuran" class="form-control custom-select rounded" style="min-width: 100%!important;">
                                             <?php
                                             $get_ukuran = $this->m_crud->read_data("det_produk", "ukuran", "produk='".$product['id_produk']."'", "id_det_produk ASC", "ukuran");
                                             foreach($get_ukuran as $row):
