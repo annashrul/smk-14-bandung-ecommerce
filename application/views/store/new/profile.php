@@ -202,7 +202,7 @@
                             <div class="col-lg-6 mt-4 pt-2">
                                 <div class="media align-items-center mb-4 justify-content-between">
                                     <h5 class="mb-0">Address Type : <?=$row['nama_alamat']?></h5>
-                                    <a onclick="deleteAddress('<?=$row["id_alamat_member"]?>')" href="javascript:void(0)" class="text-primary h5 mb-0" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="uil uil-trash align-middle"></i></a>
+                                    <a onclick="deleteAddress('<?=$row["id_alamat_member"]?>')" href="javascript:void(0)" class="text-primary h5 mb-0" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="uil uil-trash align-middle"></i></a>
                                 </div>
                                 <div class="pt-4 border-top">
                                     <p class="h6"><?=$row['penerima']?></p>
@@ -260,7 +260,7 @@
                                     <div class="form-group">
                                         <?php $field='foto';?>
                                         <label>Photo</label>
-                                        <input name="<?=$field?>" id="<?=$field?>" type="file" class="form-control">
+                                        <input name="<?=$field?>" id="<?=$field?>" type="file" class="form-control" accept="image/*">
                                     </div>
                                 </div><!--end col-->
                                 <div class="col-lg-12 mt-2 mb-0">
@@ -473,7 +473,7 @@
             cancelButtonText: 'Cancel',
             confirmButtonText: 'Oke'
         }).then((result) => {
-            if (result) {
+            if (result.value) {
                 $.ajax({
                     url: "<?=base_url().'api/delete_alamat'?>",
                     type: "POST",
@@ -706,8 +706,6 @@
         },
         submitHandler: function (form) {
             var myForm = document.getElementById('form_member');
-//            console.log(form);
-
             $.ajax({
                 url: "<?=base_url().'api/update_profile'?>",
                 type: "POST",

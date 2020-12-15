@@ -261,7 +261,7 @@ class Store extends CI_Controller
         $data = $this->data;
         $data['content'] = 'store/history';
         $data['alamat'] = $this->dataAddress();
-
+//        var_dump()
         $data['orders'] =$this->m_crud->join_data(
             "orders o",
             "o.id_orders, o.tgl_orders, o.status, SUM(do.qty * (do.hrg_jual+do.hrg_varian-do.diskon)) total, dp.pembayaran, pb.status status_bayar, pb.kode_unik, pb.jumlah_voucher, pb.voucher, pn.id_pengiriman",
@@ -279,8 +279,11 @@ class Store extends CI_Controller
         }
 		$data = $this->data;
 		$data['cart'] = $this->m_crud->join_data("orders o", "o.id_orders, p.nama nama_produk, p.id_produk, p.merk, dp.id_det_produk, dp.code, dp.ukuran, dp.warna, do.berat, do.qty, (do.hrg_jual+do.hrg_varian-do.diskon) harga", array("det_orders do", "det_produk dp", "produk p"), array("do.orders=o.id_orders", "dp.id_det_produk=do.det_produk", "p.id_produk=dp.produk"), "o.status='0' AND o.member='" . $this->user . "'");
-		$data['alamat'] = $this->dataAddress();
-		$data['kurir'] = $this->m_crud->read_data("kurir", "id_kurir, kurir", "status='1'");
+//		$data['alamat'] = $this->dataAddress();
+        $data['alamat'] = $this->m_crud->read_data("alamat_member", "id_alamat_member, nama", "status='1' AND member='".$this->user."'");
+
+
+        $data['kurir'] = $this->m_crud->read_data("kurir", "id_kurir, kurir", "status='1'");
 		$data['bank_tujuan'] = $this->m_crud->join_data("bank b", "b.id_bank, b.nama, b.gambar, r.atas_nama, r.no_rek", "rekening r", "r.bank=b.id_bank", "r.utama='1'", null, "b.id_bank");
 		$data['bank'] = $this->m_crud->read_data("bank", "id_bank, nama", null, "id_bank");
 		$data['content'] = 'store/new/checkout';
