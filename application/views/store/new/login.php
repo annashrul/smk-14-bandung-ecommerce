@@ -218,7 +218,6 @@
                             confirmButtonColor: '#3085d6',
                             confirmButtonText: 'Oke'
                         })
-//						alert(res.status);
                     }
                 }
             });

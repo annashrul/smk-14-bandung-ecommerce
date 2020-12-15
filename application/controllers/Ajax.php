@@ -119,7 +119,7 @@ class Ajax extends CI_Controller
 		$email = $this->input->post("email",true);
 		$tlp = $this->input->post("telp",true);
 		$id = md5($email);
-		$new_password = $this->random_char();
+		$new_password = $this->input->post("password",true);
 		$options = array('cost' => 12);
 		$password = password_hash($new_password, PASSWORD_BCRYPT, $options);
 		$ol_code = $this->m_website->generate_kode("member", date('ym'));
