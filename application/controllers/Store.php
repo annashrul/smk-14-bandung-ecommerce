@@ -56,7 +56,7 @@ class Store extends CI_Controller
 		$data['news'] = $this->m_crud->join_data("berita b","b.*,kb.nama",array("kategori_berita kb"),array("kb.id_kategori_berita=b.kategori_berita"),null,"b.id_berita DESC",null,6);
 		$data['promo'] = $this->m_crud->read_data("promo", "deskripsi,id_promo, promo, gambar, diskon", "'".date('Y-m-d H:i:s')."' BETWEEN tgl_awal AND tgl_akhir");
 		$data['topitem'] = $this->m_crud->read_data("top_item", "*");
-		if($_GET['page']){
+		if(isset($_GET['page'])){
 			if($_GET['page']=='about'){$data['about']= $this->m_crud->get_data("setting", "tentang", "id_setting='1111'")['tentang'];}
 			if($_GET['page']=='tutorial'){$data['tutorial']= $this->m_crud->get_data("setting", "cara_belanja", "id_setting='1111'")['cara_belanja'];}
 			if($_GET['page']=='gallery'){$data['model'] = $this->m_crud->read_data("model", "id_model, nama, gambar");}
