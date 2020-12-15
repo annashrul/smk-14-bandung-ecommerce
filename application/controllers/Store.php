@@ -46,7 +46,7 @@ class Store extends CI_Controller
         $req_api = $this->m_website->request_api_local('get_produk', 'member=' . ($this->login ? $this->user : 'non_member') . '&filter=' . json_encode(array('in_produk' => json_encode($in_produk))));
 //        var_dump($req_api);
         $data['slider'] = $this->m_crud->read_data("home_slide", "*");
-		$data['service'] = $this->m_crud->read_data("shipping_service", "*","status=1",null,null,4);
+//		$data['service'] = $this->m_crud->read_data("shipping_service", "*","status=1",null,null,4);
         $data['bestSeller']=$req_api;
 //        $data['topitem'] = $this->m_crud->read_data("top_item", "*");
 //        $data['middleitem'] = $this->m_crud->read_data("middle_item", "*");

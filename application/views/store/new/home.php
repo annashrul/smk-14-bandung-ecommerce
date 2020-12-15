@@ -112,7 +112,7 @@
                     <div class="popular-tour rounded-md position-relative overflow-hidden">
                         <img src="<?=base_url().$row['gambar']?>" style="width: 100%;height: 100%!important;">
                         <div class="overlay-work bg-dark"></div>
-                        <div class="content">
+                        <div class="content" style="<?=$this->agent->is_mobile()?'display:none':'display:block'?>">
                             <a href="javascript:void(0)" class="title text-white h4 title-dark"><?=$row['nama']?></a>
                         </div>
                     </div><!--end tour post-->
@@ -211,7 +211,6 @@
             <div class="col-12 text-center">
                 <div class="section-title mb-4 pb-2">
                     <h4 class="title mb-4">Event Blog & Latest News</h4>
-                    <p class="text-muted para-desc mx-auto mb-0">Start working with <span class="text-primary font-weight-bold">Landrick</span> that can provide everything you need to generate awareness, drive traffic, connect.</p>
                 </div>
             </div><!--end col-->
         </div><!--end row-->

@@ -145,7 +145,7 @@
         <!-- Logo container-->
         <div>
             <a class="logo" href="<?=base_url()?>">
-                <img src="https://technopark.smkn14bdg.sch.id/assets/images/site/logo__2.png" height="30" alt="">
+                <img src="<?=base_url().$this->data['site']->logo?>" height="30" alt="">
             </a>
         </div>
         <ul class="buy-button list-inline mb-0">
@@ -323,9 +323,9 @@
 <footer class="footer">
     <div class="container">
         <div class="row">
-            <div class="col-lg-4 col-12 mb-0 mb-md-4 pb-0 pb-md-2">
+            <div class="col-lg-3 col-12 mb-0 mb-md-4 pb-0 pb-md-2">
                 <a href="#" class="logo-footer">
-                    <img src="https://technopark.smkn14bdg.sch.id/assets/images/site/logo__2.png" height="30" alt="">
+                    <img src="<?=base_url().$this->data['site']->logo?>" height="30" alt="">
                 </a>
                 <p class="mt-4">
                 <ul class="navbar-nav nav-justified w-100">
@@ -342,7 +342,7 @@
                 </ul><!--end icon-->
             </div><!--end col-->
 
-            <div class="col-lg-2 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
+            <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
                 <h5 class="text-light footer-head">Company</h5>
                 <ul class="list-unstyled footer-list mt-4">
 
@@ -395,7 +395,7 @@
 <footer class="footer footer-bar">
     <div class="container text-center">
         <div class="row align-items-center">
-            <div class="col-sm-6">
+            <div class="col-sm-12">
                 <div class="text-sm-left">
                     <p class="mb-0">© <script>document.write(new Date().getFullYear())</script> <?=$this->data['site']->nama?>. Design with <i class="mdi mdi-heart text-danger"></i> by <a href="http://ptnetindo.com/" target="_blank" class="text-reset">NETINDO MEDIATAMA PERKASA</a>.</p>
                 </div>
