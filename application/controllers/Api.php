@@ -1665,6 +1665,7 @@ class Api extends CI_Controller {
             $nama_penerima = $this->input->post('nama_penerima',true);
             $alamat = $this->input->post('alamat',true);
             $kd_prov = $this->input->post('kd_prov',true);
+            $kd_kec = $this->input->post('kd_kec',true);
             $prov = $this->input->post('provinsi',true);
             $kd_kota = $this->input->post('kd_kota',true);
             $tlp_penerima = $this->input->post('telepon',true);
@@ -1709,6 +1710,7 @@ class Api extends CI_Controller {
                     'penerima' => $nama_penerima,
                     'telepon' => $tlp_penerima,
                     'kota' => $kd_kota,
+                    'kecamatan' => $kd_kec,
                     'provinsi' => $kd_prov,
                     'status' => '1'
                 );
@@ -1807,9 +1809,6 @@ class Api extends CI_Controller {
                     'kode_unik' => $kode_unik,
                     'list' => $list
                 );
-                $get_email = $this->m_crud->get_data("member", "email", "id_member='".$member."'");
-                $this->m_website->email_invoice($get_email['email'], json_encode($data));
-//			$this->m_website->email_invoice($this->config->item('email'), json_encode($data));
 
                 $result['status'] = true;
                 $result['code'] = $code_pembayaran;

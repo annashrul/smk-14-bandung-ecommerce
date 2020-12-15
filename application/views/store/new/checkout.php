@@ -47,7 +47,7 @@
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-lg-3">
-                                    <h3>Recipient's Address</h3>
+                                    <h4 style="color: grey">Recipient's Address</h4>
                                     <div class="row">
                                         <div class="col-md-12 form-group">
                                             <label for="">Choose Address</label>
@@ -55,7 +55,7 @@
                                                 <option value="baru">New Address</option>
                                                 <?php
                                                 if(count($alamat) > 0) {
-                                                    foreach ($alamat as $row) {echo '<option value="'.$row['id_alamat_member'].'">'.$row['nama_alamat'].'</option>';}
+                                                    foreach ($alamat as $row) {echo '<option value="'.$row['id_alamat_member'].'">'.$row['nama'].'</option>';}
                                                 }
                                                 ?>
                                             </select>
@@ -93,7 +93,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
-                                    <h3>delivery</h3>
+                                    <h4 style="color: grey">delivery</h4>
                                     <div class="row">
                                         <div class="col-md-12 form-group p_star">
                                             <label for="">courier</label>
@@ -122,7 +122,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
-                                    <h3>Destination Account</h3>
+                                    <h4 style="color: grey">Destination Account</h4>
                                     <div class="row">
                                         <div class="col-md-12 form-group p_star">
                                             <label for="">Bank</label>
@@ -153,7 +153,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
-                                    <h3>Sender's Account</h3>
+                                    <h4 style="color: grey">Sender's Account</h4>
                                     <div class="row">
                                         <div class="col-md-12 form-group p_star">
                                             <label for="">Bank</label>
@@ -299,163 +299,9 @@
         </div><!--end row-->
     </div><!--end container-->
 </section><!--end section-->
-<!-- End -->
-<!---->
-<?php //else: ?>
-<!--    <div class="position-relative">-->
-<!--        <div class="shape overflow-hidden text-white">-->
-<!--            <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">-->
-<!--                <path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>-->
-<!--            </svg>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <section class="section" style="margin-top: 20px">-->
-<!--        <div class="container">-->
-<!--            <div class="row">-->
-<!--                <div class="col-12 mt-sm-0 pt-2 pt-sm-0">-->
-<!--                    <div class="d-flex mb-0 justify-content-between">-->
-<!--                        <h5>Shipping Address</h5>-->
-<!--                        <a href="javascript:void(0)" onclick="showModal('address')" class="btn btn-success btn-sm text-muted h6">Other Address</a>-->
-<!--                    </div>-->
-<!--                    <div class="rounded shadow-lg p-4">-->
-<!--                        <div class="d-flex justify-content-between">-->
-<!--                            <h6 class="text-muted" id="viewAddress">-->
-<!--                                <span class="badge badge-info">--><?//=$alamat[0]['nama_alamat']?><!--</span><br>-->
-<!--                                --><?//=$alamat[0]['penerima']?><!-- ( --><?//=$alamat[0]['telepon']?><!-- )<br>-->
-<!--                                --><?//=$alamat[0]['alamat']?><!--,--><?//=$alamat[0]['kecamatan']?><!--,--><?//=$alamat[0]['kota']?><!--,--><?//=$alamat[0]['provinsi']?>
-<!--                            </h6>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <hr>-->
-<!--                    <div class="d-flex mb-0 justify-content-between">-->
-<!--                        <h5>Delivery</h5>-->
-<!--                    </div>-->
-<!--                    <a style="border:1px solid grey;" href="javascript:void(0)" onclick="showModal('courier')" class="btn btn-default btn-block text-left" id="viewCourier">-->
-<!--                        Choose Courier-->
-<!--                        <small style="float: right;font-weight: bold;">-->
-<!--                            <i class="uil uil-arrow-circle-right"></i>-->
-<!--                        </small>-->
-<!--                    </a>-->
-<!--                    <a style="border:1px solid grey;" href="javascript:void(0)" onclick="showModal('layanan')" class="btn btn-default btn-block text-left" id="viewLayanan">-->
-<!--                        Choose Courier-->
-<!--                        <small style="float: right;font-weight: bold;">-->
-<!--                            <i class="uil uil-arrow-circle-right"></i>-->
-<!--                        </small>-->
-<!--                    </a>-->
-<!---->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </section>-->
-<?php //endif; ?>
-<!--<style>-->
-<!--    .modal-body {-->
-<!--        max-height: calc(100vh - 210px);-->
-<!--        overflow-y: auto;-->
-<!--    }-->
-<!--</style>-->
-<div class="modal bottom fade" id="modalAddress" tabindex="-1" role="dialog" aria-labelledby="bottom_modal">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content rounded shadow border-0">
-            <div class="modal-header">
-                <h5 class="modal-title">Choose Address</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <?php foreach($alamat as $row): ?>
-                <div class="rounded shadow-lg p-4" onclick="getAddressByOne(
-                    '<?= $row["nama_alamat"]?>',
-                    '<?= $row["penerima"]?>',
-                    '<?= $row["telepon"]?>',
-                    '<?= $row["alamat"]?>',
-                    '<?= $row["kecamatan"]?>',
-                    '<?= $row["kota"]?>',
-                    '<?= $row["provinsi"]?>',
-                    '<?= $row["provinsi_id"]?>',
-                    '<?= $row["kota_id"]?>',
-                    '<?= $row["kecamatan_id"]?>',
-                )">
-                    <div class="d-flex justify-content-between">
-                        <h6 class="text-muted">
-                            <span class="badge badge-info"><?=$row['nama_alamat']?></span><br>
-                            <?=$row['penerima']?> ( <?=$row['telepon']?> )<br>
-                            <?=$row['alamat']?>,<?=$row['kecamatan']?>,<?=$row['kota']?>,<?=$row['provinsi']?>
-                        </h6>
-                    </div>
-                </div>
-                <?php endforeach;?>
-            </div>
-            <div class="modal-footer modal-footer-fixed d-none">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal bottom fade" id="modalCourier" tabindex="-1" role="dialog" aria-labelledby="bottom_modal">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content rounded shadow border-0">
-            <div class="modal-header">
-                <h5 class="modal-title">Choose Courier</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <?php foreach ($kurir as $row):?>
-                    <a style="border:1px solid grey;" href="javascript:void(0)" onclick="getCourier(
-                        '<?=$row["kurir"]?>','<?=$row["id_kurir"]?>'
-                    )" class="btn btn-default btn-block text-left"><?=$row['kurir']?>
-                        <small style="float: right;font-weight: bold;">
-                            <i class="uil uil-arrow-circle-right"></i>
-                        </small>
-                    </a>
-                <?php endforeach;?>
-            </div>
-            <div class="modal-footer modal-footer-fixed d-none">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <script>
-    function showModal(param){
-        if(param==='address'){
-            $("#modalAddress").modal("show")
-        }
-        if(param==='courier'){
-            $("#modalCourier").modal("show")
-        }
-    }
-    function getAddressByOne(nama,penerima,telp,alamat,kec,kota,prov,kd_kec,kd_kota,kd_prov){
-        $(".kd_kec").val(kd_kec);
-        $(".kd_kota").val(kd_kota);
-        $(".kd_prov").val(kd_prov);
-        var resAdd = '';
-        resAdd+='<span class="badge badge-info">'+nama+'</span><br>';
-        resAdd+=`${penerima} ( ${telp} ) <br>`;
-        resAdd+=`${alamat}, ${kec}, ${kota}, ${prov}`;
-        $("#viewAddress").html(resAdd);
-        $("#modalAddress").modal("hide");
-        ubah_alamat();
-    }
-
-    function getCourier(kurir,id_kurir){
-        $(".kurir").val(id_kurir);
-        var resCourier='';
-        resCourier+=kurir +
-            '                        <small style="float: right;font-weight: bold;">\n' +
-            '                            <i class="uil uil-arrow-circle-right"></i>\n' +
-            '                        </small>'
-        $("#viewCourier").html(resCourier);
-        $("#modalCourier").modal("hide");
-//        get_ongkir();
-    }
-
     var array_ongkir = [];
     function cek_voucher() {
         var voucher = $("#voucher").val();
@@ -700,40 +546,63 @@
 		},
 
         submitHandler: function (form) {
-            Swal.fire({
-                title: 'Confirm!',
-                html: 'Pastikan data sudah benar.<br><b style="font-weight: bold">Bank '+$("#nama_bank_pengirim").val()+'</b><br> <b style="font-weight: bold">Nomor Rekening : '+$("#nomor_rekening_pengirim").val()+'</b><br> <b style="font-weight: bold">Atas Nama : '+$("#atas_nama_pengirim").val()+'</b>',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                cancelButtonText: 'Tidak',
-                confirmButtonText: 'Ya'
-            }).then(function (result) {
-                if (result.value) {
-					$.ajax({
-                        url: "<?=base_url().'api/checkout_bayar'?>",
-                        type:"POST",
-                        data: $("#form_checkout").serialize(),
-                        dataType: "JSON",
-                        beforeSend: function() {$('body').append('<div class="first-loader"><img src="<?=base_url()?>assets/images/spin.svg"></div>');},
-                        complete: function() {$('.first-loader').remove();},
-                        success: function (res) {
-                            if (res.status) {
-                                Swal.fire({
-                                    title: 'Checkout berhasil!',
-                                    html: 'Segera transfer ke rekening :<br><b style="font-weight: bold">Bank '+res.bank+'</b><br> <b style="font-weight: bold">Nomor Rekening : '+res.norek+'</b><br> <b style="font-weight: bold">Atas Nama : '+res.atasnama+'</b><br> <b style="font-weight: bold">Sejumlah : '+to_rp(res.total)+'</b>',
-                                    type: 'success'
-                                }).then(function (result) {
-                                    window.location = '<?=base_url().'store/history'?>';
-                                })
-                            } else {
-                                alert("Data gagal disimpan!");
+		    if($("#countCart").text()==='0'){
+                Swal.fire({
+                    title: 'Information !!!',
+                    text: 'Item not available ',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'Home',
+                    confirmButtonText: 'Shop Now'
+                }).then(function (result) {
+                    if (result.value) {
+                        window.location.href="<?=base_url().'store/get_all_product'?>";
+                    }
+                    else{
+                        window.location.href="<?=base_url()?>";
+
+                    }
+                });
+            }
+            else{
+                Swal.fire({
+                    title: 'Confirm!',
+                    html: 'Pastikan data sudah benar.<br><b style="font-weight: bold">Bank '+$("#nama_bank_pengirim").val()+'</b><br> <b style="font-weight: bold">Nomor Rekening : '+$("#nomor_rekening_pengirim").val()+'</b><br> <b style="font-weight: bold">Atas Nama : '+$("#atas_nama_pengirim").val()+'</b>',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'Tidak',
+                    confirmButtonText: 'Ya'
+                }).then(function (result) {
+                    if (result.value) {
+                        $.ajax({
+                            url: "<?=base_url().'api/checkout_bayar'?>",
+                            type:"POST",
+                            data: $("#form_checkout").serialize(),
+                            dataType: "JSON",
+                            beforeSend: function() {$('body').append('<div class="first-loader"><img src="<?=base_url()?>assets/images/spin.svg"></div>');},
+                            complete: function() {$('.first-loader').remove();},
+                            success: function (res) {
+                                if (res.status) {
+                                    Swal.fire({
+                                        title: 'Checkout berhasil!',
+                                        html: 'Segera transfer ke rekening :<br><b style="font-weight: bold">Bank '+res.bank+'</b><br> <b style="font-weight: bold">Nomor Rekening : '+res.norek+'</b><br> <b style="font-weight: bold">Atas Nama : '+res.atasnama+'</b><br> <b style="font-weight: bold">Sejumlah : '+to_rp(res.total)+'</b>',
+                                        type: 'success'
+                                    }).then(function (result) {
+                                        window.location = '<?=base_url().'store/profile'?>';
+                                    })
+                                } else {
+                                    alert("Data gagal disimpan!");
+                                }
                             }
-                        }
-                    });
-                }
-            })
+                        });
+                    }
+                })
+            }
+
         }
 
 

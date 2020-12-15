@@ -267,11 +267,14 @@
             <li class="nav-item" style="<?=$this->uri->segment(2)=='auth'?'border:2px solid white':null;?>">
                 <?php if($this->session->userdata('id_member')!=''){ ?>
                     <a href="<?=base_url().'store/profile'?>" class="nav-link" style="<?=$this->uri->segment(2)=='auth'?'color:white':null;?>">
-                        <i class="uil uil-user align-middle icons" style="padding:0px!important;"></i><br/> Profile
+                        <img src="<?=base_url().'assets/images/member/2.jpg'?>" class="rounded-circle" style="height:25px;" alt="">
+                        <br/> Profile
+<!--                        <i class="uil uil-user align-middle icons" style="padding:0px!important;"></i><br/> Profile-->
                     </a>
                 <?php } else{ ?>
                     <a href="<?=base_url().'store/auth?page=login'?>" class="nav-link" style="<?=$this->uri->segment(2)=='auth'?'color:white':null;?>">
-                        <i class="uil uil-sign-in-alt align-middle icons" style="padding:0px!important;"></i><br/> Login
+                        <img src="<?=base_url().'assets/images/member/2.jpg'?>" style="height: 20%;" alt="">
+<!--                        <i class="uil uil-sign-in-alt align-middle icons" style="padding:0px!important;"></i><br/> Login-->
                     </a>
                 <?php } ?>
             </li>
@@ -377,8 +380,6 @@
                                     <i data-feather="mail" class="fea icon-sm icons"></i>
                                     <textarea placeholder="type something here .." name="pesan" id="pesan" class="form-control pl-5 rounded" cols="30" rows="4"></textarea>
                                     <input type="hidden" id="member" value="<?=$this->session->id_member?>">
-
-<!--                                    <input type="email" name="email" id="emailsubscribe" class="form-control pl-5 rounded" placeholder="Your email : " required>-->
                                 </div>
                             </div>
                         </div>
@@ -595,7 +596,11 @@
     }
     function goCart(){
         if($("#countCart").text()==="0"){
-            alert("maaf keranjang anda kosong");
+            Swal.fire({
+                title: 'Information !!!',
+                text: 'Item not available ',
+                icon: 'warning',
+            })
         }
         else{
             window.location.href="<?=base_url().'store/cart'?>"
@@ -603,10 +608,10 @@
     }
     function bayar(){
         if($("#countCart").text()==="0"){
-            swal({
-                title: "Opppss ...",
-                text: "basket is empty",
-                icon: "warning",
+            Swal.fire({
+                title: 'Information !!!',
+                text: 'Item not available ',
+                icon: 'warning',
             })
         }
         else{
