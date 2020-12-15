@@ -267,14 +267,14 @@
             <li class="nav-item" style="<?=$this->uri->segment(2)=='auth'?'border:2px solid white':null;?>">
                 <?php if($this->session->userdata('id_member')!=''){ ?>
                     <a href="<?=base_url().'store/profile'?>" class="nav-link" style="<?=$this->uri->segment(2)=='auth'?'color:white':null;?>">
-                        <img src="<?=base_url().'assets/images/member/2.jpg'?>" class="rounded-circle" style="height:25px;" alt="">
-                        <br/> Profile
-<!--                        <i class="uil uil-user align-middle icons" style="padding:0px!important;"></i><br/> Profile-->
+<!--                        <img src="--><?//=base_url().'assets/images/member/2.jpg'?><!--" class="rounded-circle" style="height:25px;" alt="">-->
+<!--                        <br/> Profile-->
+                        <i class="uil uil-user align-middle icons" style="padding:0px!important;"></i><br/> Profile
                     </a>
                 <?php } else{ ?>
                     <a href="<?=base_url().'store/auth?page=login'?>" class="nav-link" style="<?=$this->uri->segment(2)=='auth'?'color:white':null;?>">
-                        <img src="<?=base_url().'assets/images/member/2.jpg'?>" style="height: 20%;" alt="">
-<!--                        <i class="uil uil-sign-in-alt align-middle icons" style="padding:0px!important;"></i><br/> Login-->
+<!--                        <img src="--><?//=base_url().'assets/images/member/2.jpg'?><!--" style="height: 20%;" alt="">-->
+                        <i class="uil uil-sign-in-alt align-middle icons" style="padding:0px!important;"></i><br/> Login
                     </a>
                 <?php } ?>
             </li>
