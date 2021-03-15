@@ -1118,10 +1118,10 @@ class Masterdata extends CI_Controller
             $this->db->trans_begin();
 
             if ($_POST['param'] == 'add') {
-                $this->m_crud->create_data($table, array('atas_nama' => $_POST['atas_nama'], 'no_rek' => $_POST['no_rek'], 'bank' => $_POST['bank']));
+                $this->m_crud->create_data($table, array('utama'=>'1','atas_nama' => $_POST['atas_nama'], 'no_rek' => $_POST['no_rek'], 'bank' => $_POST['bank']));
             } else {
                 $id = $_POST['id'];
-                $this->m_crud->update_data($table, array('atas_nama' => $_POST['atas_nama'], 'no_rek' => $_POST['no_rek'], 'bank' => $_POST['bank']), "id_rekening='".$id."'");
+                $this->m_crud->update_data($table, array('utama'=>'1','atas_nama' => $_POST['atas_nama'], 'no_rek' => $_POST['no_rek'], 'bank' => $_POST['bank']), "id_rekening='".$id."'");
             }
 
             if ($this->db->trans_status() === FALSE) {

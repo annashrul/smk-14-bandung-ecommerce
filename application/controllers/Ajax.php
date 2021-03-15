@@ -103,7 +103,7 @@ class Ajax extends CI_Controller
 				$this->session->set_userdata($result['res_login']);
 			} else {
 				$result['status'] = false;
-				$result['res_login'] = array('message'=>'Invalid email or password!');
+				$result['res_login'] = array('message'=>'Invalid username or password!');
 			}
 		} else {
 			$result['status'] = false;

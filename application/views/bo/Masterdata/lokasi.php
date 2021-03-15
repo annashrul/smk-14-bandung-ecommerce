@@ -136,11 +136,9 @@
                         <div class="form-group">
                             <?php $label = 'gambar'; ?>
                             <label for="<?=$label?>" class="col-sm-2 control-label">Gambar</label>
-
                             <div class="col-sm-10">
                                 <input type="text" readonly="" class="form-control" placeholder="Browse...">
                                 <input type="file" id="<?=$label?>" name="<?=$label?>" accept="image/*">
-
                                 <p class="help-block">Gambar akan ditampilkan sebagai menu pada website utama.</p>
                             </div>
                         </div>

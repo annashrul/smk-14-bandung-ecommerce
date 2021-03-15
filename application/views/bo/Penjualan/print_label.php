@@ -224,80 +224,80 @@
                 </td>
             </tr>
         </table>
-        <table width="100%" border="0" cellspacing="0" class="print-data printInvoice" font-size="12px;" style="display: none;" id="'.$id.'">
-            <tr style="margin: 0;padding: 20px;">
-                <td style="margin: 0;" width="10%">
-                    <img class="img-logo" src="'.$situs['logo'].'" style="width: 64px;">
-                </td>
-                <td colspan="3" style="margin: 0;vertical-align: top;">
-                    <h3 style="padding:0; margin: 0.5em 0 0;">'.$situs['nama'].'</h3>
-                    <p>'.$situs['web'].'</p>    
-                </td>
-                <td colspan="2" style="margin: 0;vertical-align: top;">
-                    <h5 style="padding:0; margin:0.5em 0;">
-                        <strong>Tanggal:</strong>
-                        <span style="clear:both;display:block;font-weight: normal;">'.date('d M Y', strtotime($row['tgl_orders'])).'</span>
-                    </h5>
-                    <h5 style="padding:0; margin:0.5em 0;">
-                        <strong>Nomor Invoice:</strong>
-                        <span style="clear:both;display:block;font-weight: normal;">'.$row['id_orders'].'</span>
-                    </h5>    
-                </td>
-            </tr>    
-            <tr style="margin: 0; padding: 20px;">
-                <td colspan="4">
-                    <p style="line-height: 1em;margin: 0;padding: 20px 0 0;"><strong>Kepada <span style="text-transform: capitalize;">'.$row['penerima'].'</span></strong></p>
-                    <p style="font-size: 12px;line-height: 2em;">Terima kasih telah berbelanja di '.$situs['nama'].'. Berikut adalah rincian orderan Anda:</p>
-                </td>
-                <td colspan="2" style="font-size: 0.85rem;">
-                    <!--<strong><span style="color: #E45864;">UNPAID</span></strong>-->
-                </td>
-            </tr>    
-            <tr style="margin: 0; background: #555;line-height: 1em;font-size: 12px;color:#fff;">
-                <td colspan="2" style="padding: 10px 20px; width: 45%;">Nama Produk</td>
-                <td style="padding: 10px 20px; width: 10%;">Jumlah</td>
-                <td style="padding: 10px 20px; width: 15%;">Berat</td>
-                <td style="padding: 10px 20px; width: 15%;">Harga</td>
-                <td style="padding: 10px 20px; width: 15%;">Subtotal</td>
-            </tr>
-            '.$list_inv.'
-            <tr style="line-height: 1.25em;font-size: 12px;">
-                <td colspan="2">
-                    <strong>'.$row['kurir'].'-'.$row['service'].'</strong>
-                </td>
-                <td></td>
-                <td>'.($berat/1000).' Kg</td>
-                <td>Rp '.number_format($row['biaya']).'</td>
-                <td>Rp '.number_format($row['biaya']).'</td>
-            </tr>
-            <tr style="line-height: 1.25em;font-size: 12px;">
-                <td colspan="5">Kode unik</td>
-                <td>Rp '.number_format($row['kode_unik']).'</td>
-            </tr>    
-            <tr style="line-height: 2em;font-size: 12px;">
-                <td colspan="5"><span style="font-weight: 700; font-size: 1rem;">TOTAL</span></td>
-                <td><span style="font-weight: 700; font-size: 1rem;">Rp '.number_format($total+$row['kode_unik']+$row['biaya']).'</span></td>
-            </tr>
-            <tr>
-                <td colspan="6">
-                    <hr style="border-color: #ddd; border-style: dotted;">
-                </td>
-            </tr>
-            <tr>
-                <td style="vertical-align: top;margin: 0;padding: 10px 0;">
-                    <p style="line-height: 1em;margin: 0;padding: 0 0 0 20px;font-size:12px;">Alamat Pengiriman:</p>
-                </td>
-                <td colspan="5">
-                    <p style="font-size: 12px;line-height: 1.25em;margin:0;padding: 10px 0;">
-                        <span style="font-weight: bold; font-size:16px; text-transform: capitalize;">'.$row['penerima'].'</span><br>
-                        '.$row['alamat'].'
-                        Kec. '.$row['kecamatan'].',  Kota '.$row['kota'].', '.$row['kode_pos'].'
-                        Prov. '.$row['provinsi'].'<br>
-                        Telp: '.$row['telepon'].'
-                    </p>    
-                </td>
-            </tr>
-        </table>
+            <table width="100%" border="0" cellspacing="0" class="print-data printInvoice" font-size="12px;" style="display: none;" id="'.$id.'">
+                <tr style="margin: 0;padding: 20px;">
+                    <td style="margin: 0;" width="10%">
+                        <img class="img-logo" src="'.$situs['logo'].'" style="width: 64px;">
+                    </td>
+                    <td colspan="3" style="margin: 0;vertical-align: top;">
+                        <h3 style="padding:0; margin: 0.5em 0 0;">'.$situs['nama'].'</h3>
+                        <p>'.$situs['web'].'</p>    
+                    </td>
+                    <td colspan="2" style="margin: 0;vertical-align: top;">
+                        <h5 style="padding:0; margin:0.5em 0;">
+                            <strong>Tanggal:</strong>
+                            <span style="clear:both;display:block;font-weight: normal;">'.date('d M Y', strtotime($row['tgl_orders'])).'</span>
+                        </h5>
+                        <h5 style="padding:0; margin:0.5em 0;">
+                            <strong>Nomor Invoice:</strong>
+                            <span style="clear:both;display:block;font-weight: normal;">'.$row['id_orders'].'</span>
+                        </h5>    
+                    </td>
+                </tr>    
+                <tr style="margin: 0; padding: 20px;">
+                    <td colspan="4">
+                        <p style="line-height: 1em;margin: 0;padding: 20px 0 0;"><strong>Kepada <span style="text-transform: capitalize;">'.$row['penerima'].'</span></strong></p>
+                        <p style="font-size: 12px;line-height: 2em;">Terima kasih telah berbelanja di '.$situs['nama'].'. Berikut adalah rincian orderan Anda:</p>
+                    </td>
+                    <td colspan="2" style="font-size: 0.85rem;">
+                        <!--<strong><span style="color: #E45864;">UNPAID</span></strong>-->
+                    </td>
+                </tr>    
+                <tr style="margin: 0; background: #555;line-height: 1em;font-size: 12px;color:#fff;">
+                    <td colspan="2" style="padding: 10px 20px; width: 45%;">Nama Produk</td>
+                    <td style="padding: 10px 20px; width: 10%;">Jumlah</td>
+                    <td style="padding: 10px 20px; width: 15%;">Berat</td>
+                    <td style="padding: 10px 20px; width: 15%;">Harga</td>
+                    <td style="padding: 10px 20px; width: 15%;">Subtotal</td>
+                </tr>
+                '.$list_inv.'
+                <tr style="line-height: 1.25em;font-size: 12px;">
+                    <td colspan="2">
+                        <strong>'.$row['kurir'].'-'.$row['service'].'</strong>
+                    </td>
+                    <td></td>
+                    <td>'.($berat/1000).' Kg</td>
+                    <td>Rp '.number_format($row['biaya']).'</td>
+                    <td>Rp '.number_format($row['biaya']).'</td>
+                </tr>
+                <tr style="line-height: 1.25em;font-size: 12px;">
+                    <td colspan="5">Kode unik</td>
+                    <td>Rp '.number_format($row['kode_unik']).'</td>
+                </tr>    
+                <tr style="line-height: 2em;font-size: 12px;">
+                    <td colspan="5"><span style="font-weight: 700; font-size: 1rem;">TOTAL</span></td>
+                    <td><span style="font-weight: 700; font-size: 1rem;">Rp '.number_format($total+$row['kode_unik']+$row['biaya']).'</span></td>
+                </tr>
+                <tr>
+                    <td colspan="6">
+                        <hr style="border-color: #ddd; border-style: dotted;">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;margin: 0;padding: 10px 0;">
+                        <p style="line-height: 1em;margin: 0;padding: 0 0 0 20px;font-size:12px;">Alamat Pengiriman:</p>
+                    </td>
+                    <td colspan="5">
+                        <p style="font-size: 12px;line-height: 1.25em;margin:0;padding: 10px 0;">
+                            <span style="font-weight: bold; font-size:16px; text-transform: capitalize;">'.$row['penerima'].'</span><br>
+                            '.$row['alamat'].'
+                            Kec. '.$row['kecamatan'].',  Kota '.$row['kota'].', '.$row['kode_pos'].'
+                            Prov. '.$row['provinsi'].'<br>
+                            Telp: '.$row['telepon'].'
+                        </p>    
+                    </td>
+                </tr>
+            </table>
         <table width="100%" border="0" cellspacing="0" class="print-data printLabelV2" style="display: none; font-size: .775rem;" id="'.$id.'">
             <tr>
                 <td class="py bb-1 to">
