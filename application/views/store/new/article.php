@@ -15,7 +15,7 @@
         <hr>
         <div class="row  d-none d-lg-block">
             <div class="col-md-12">
-                <button class="btn btn-primary btn-block" onclick="loadmoreNews()">Loadmore</button>
+                <button class="btn btn-primary btn-block" onclick="loadmoreNews()">Lebih Banyak</button>
             </div>
         </div>
     </div><!--end container-->

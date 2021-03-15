@@ -48,8 +48,8 @@ if ($get_promo!=null) {
                         <nav aria-label="breadcrumb" class="d-inline-block">
                             <ul class="breadcrumb bg-white rounded shadow mb-0">
                                 <li class="breadcrumb-item"><a href="<?=base_url()?>"><?= $this->data['site']->nama ?></a></li>
-                                <li class="breadcrumb-item"><a href="<?=base_url().'store/get_all_product'?>">Shop</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Product Details</li>
+                                <li class="breadcrumb-item"><a href="<?=base_url().'store/get_all_product'?>">Produk</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Detail Produk</li>
                             </ul>
                         </nav>
                     </div>
@@ -86,7 +86,7 @@ if ($get_promo!=null) {
                 <div class="section-title ml-md-4">
                     <h4 class="title"> <?=$product['nama']?></h4>
                     <h5 class="text-muted"><?=number_format($hrg_jual)?> <del class="text-danger ml-2"><?=$hrgcoret!=''?number_format($hrgcoret):''?></del> </h5>
-                    <h5 class="mt-4 py-2">Description :</h5>
+                    <h5 class="mt-4 py-2">Deskripsi :</h5>
                     <p class="text-muted"><?=$product['deskripsi']?></p>
 
                     <div class="row mt-4 pt-2 d-flex align-items-center justify-content-between">
@@ -94,7 +94,7 @@ if ($get_promo!=null) {
                             <div class="d-flex align-items-center">
                                 <div class="form custom-form">
                                     <div class="form-group mb-0" >
-                                        <label for="">Size</label>
+                                        <label for="">Ukuran</label>
                                         <select name="ukuran" id="ukuran" class="form-control custom-select rounded" style="min-width: 100%!important;">
                                             <?php
                                             $get_ukuran = $this->m_crud->read_data("det_produk", "ukuran", "produk='".$product['id_produk']."'", "id_det_produk ASC", "ukuran");
@@ -110,7 +110,7 @@ if ($get_promo!=null) {
                             <div class="d-flex align-items-center">
                                 <div class="form custom-form">
                                     <div class="form-group mb-0">
-                                        <label for="">Color</label>
+                                        <label for="">Warna</label>
                                         <select name="" id="warnas" class="form-control custom-select rounded">
                                             <option value="">Color</option>
                                         </select>
@@ -119,7 +119,7 @@ if ($get_promo!=null) {
 
                             </div>
                             <div class="shop-list align-items-center">
-                                <h6 class="mb-10">Quantity:</h6>
+                                <h6 class="mb-10">Jumlah</h6>
                                 <div>
                                     <input type="button" value="-" class="minus btn btn-icon btn-soft-primary font-weight-bold">
                                     <input type="text" step="1" min="1" name="quantity" id="quantity" value="1" title="Qty" class="btn btn-icon btn-soft-primary font-weight-bold">
@@ -132,7 +132,7 @@ if ($get_promo!=null) {
 
                     <div class="mt-4 pt-2">
                         <br>
-                        <a href="javascript:void(0)" onclick="beli()" class="btn btn-soft-primary btn-block">Add to Cart</a>
+                        <a href="javascript:void(0)" onclick="beli()" class="btn btn-soft-primary btn-block">Beli</a>
                     </div>
                 </div>
             </div><!--end col-->
@@ -143,7 +143,7 @@ if ($get_promo!=null) {
     <div class="container mt-100 mt-60">
         <div class="row">
             <div class="col-12">
-                <h5 class="mb-0">Related Products</h5>
+                <h5 class="mb-0">Produk Terkait</h5>
             </div><!--end col-->
 
             <div class="col-12 mt-4">

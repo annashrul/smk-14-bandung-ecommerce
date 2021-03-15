@@ -13,13 +13,12 @@
         <div class="row justify-content-center">
             <div class="col-lg-12 text-center">
                 <div class="page-next-level">
-                    <h4 class="title"> Shopping Cart </h4>
+                    <h4 class="title"> Keranjang Belanja </h4>
                     <div class="page-next">
                         <nav aria-label="breadcrumb" class="d-inline-block">
                             <ul class="breadcrumb bg-white rounded shadow mb-0">
-                                <li class="breadcrumb-item"><a href="index.html">Landrick</a></li>
-                                <li class="breadcrumb-item"><a href="index-shop.html">Shop</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Cart</li>
+                                <li class="breadcrumb-item"><a href="<?=base_url()?>"><?= $this->data['site']->nama ?></a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Keranjang Kamu</li>
                             </ul>
                         </nav>
                     </div>
@@ -45,7 +44,7 @@
         <?php $mobile=$this->agent->is_mobile(); if(!$mobile): ?>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-12 mt-4 pt-2">
-                <a href="javascript:void(0)" onclick="bayar()" class="btn btn-soft-primary btn-block text-left">Checkout <small class="totCart" style="float: right;font-weight: bold;"></small></a>
+                <a href="javascript:void(0)" onclick="bayar()" class="btn btn-soft-primary btn-block text-left">Bayar <small class="totCart" style="float: right;font-weight: bold;"></small></a>
             </div>
 
         </div><!--end row-->

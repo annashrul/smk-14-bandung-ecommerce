@@ -49,7 +49,7 @@
     <script src="<?=base_url().'assets/frontend/'?>js/owl.carousel.min.js"></script>
     <script src="<?=base_url().'assets/frontend/'?>js/owl.init.js"></script>
     <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>-->
-    <script type="text/javascript" src="<?=base_url().'assets/fo/'?>assets/js/jquery-validation/jquery.validate.min.js"></script>
+    <script src="<?=base_url().'assets/plugins/'?>jquery-validation/jquery.validate.min.js" type="text/javascript"></script>
     <link rel="stylesheet" href="<?=base_url()?>assets/frontend/css/bootstrap-side-modals.css">
 
     <script type="text/javascript" src="<?=base_url().'assets/fo/'?>assets/js/jQuery-autocomplete/jquery.autocomplete.js"></script>

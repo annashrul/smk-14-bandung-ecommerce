@@ -14,12 +14,12 @@
         <div class="row justify-content-center">
             <div class="col-lg-12 text-center">
                 <div class="page-next-level">
-                    <h4 class="title" style="color:white"> Checkouts </h4>
+                    <h4 class="title" style="color:white"> Pembayaran </h4>
                     <div class="page-next">
                         <nav aria-label="breadcrumb" class="d-inline-block">
                             <ul class="breadcrumb bg-white rounded shadow mb-0">
                                 <li class="breadcrumb-item"><a href="<?=base_url()?>"><?= $this->data['site']->nama ?></a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Checkouts</li>
+                                <li class="breadcrumb-item active" aria-current="page">Pembayaran</li>
                             </ul>
                         </nav>
                     </div>
@@ -39,20 +39,20 @@
 
 <!-- Start -->
 <section class="section">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12 col-md-12">
                 <div class="rounded shadow-lg p-4">
                     <form class="row"  id="form_checkout">
                         <div class="container-fluid">
                             <div class="row">
-                                <div class="col-lg-3">
-                                    <h4 style="color: grey">Recipient's Address</h4>
+                                <div class="col-lg-12">
+                                    <h4 style="color: #2f55d4 !important">Data Alamat</h4>
                                     <div class="row">
-                                        <div class="col-md-12 form-group">
-                                            <label for="">Choose Address</label>
+                                        <div class="col-md-3 form-group">
+                                            <label for="">Gunakan Alamat Sebagai</label>
                                             <select class="form-control"  name="ch_alamat_jual" onchange="ubah_alamat()" id="ch_alamat_jual" required>
-                                                <option value="baru">New Address</option>
+                                                <option value="baru">Buat Alamat Baru</option>
                                                 <?php
                                                 if(count($alamat) > 0) {
                                                     foreach ($alamat as $row) {echo '<option value="'.$row['id_alamat_member'].'">'.$row['nama'].'</option>';}
@@ -60,45 +60,54 @@
                                                 ?>
                                             </select>
                                         </div>
-                                        <div class="col-md-12 form-group" id="new_address">
+                                        <div class="col-md-3 form-group" id="new_address">
                                             <?php $field = 'nama_alamat'; ?>
-                                            <label for="<?=$field?>">Address Name</label>
+                                            <label for="<?=$field?>">Jenis Alamat</label>
                                             <input type="text" class="form-control" id="<?=$field?>" name="<?=$field?>" required />
                                         </div>
-                                        <div class="col-md-6 form-group">
+                                        <div class="col-md-3 form-group">
                                             <?php $field = 'nama_penerima'; ?>
-                                            <label for="<?=$field?>">Name</label>
+                                            <label for="<?=$field?>">Nama Penerima</label>
                                             <input type="text" class="form-control" id="<?=$field?>" name="<?=$field?>" required />
                                         </div>
-                                        <div class="col-md-6 form-group">
+                                        <div class="col-md-3 form-group">
                                             <?php $field = 'telepon'; ?>
-                                            <label for="<?=$field?>">Telephone</label>
+                                            <label for="<?=$field?>">No Telepon</label>
                                             <input type="text" class="form-control" id="<?=$field?>" name="<?=$field?>" />
                                         </div>
-                                        <div class="col-md-12 form-group">
+                                        <div class="col-md-3 form-group">
                                             <?php $field = 'kota'; ?>
-                                            <label for="<?=$field?>">City</label>
+                                            <label for="<?=$field?>">Kota</label>
                                             <input type="text" class="form-control" id="<?=$field?>" name="<?=$field?>" />
                                         </div>
-                                        <div class="col-md-6 form-group">
+                                        <div class="col-md-3 form-group">
                                             <?php $field = 'kecamatan'; ?>
-                                            <label for="<?=$field?>">District</label>
+                                            <label for="<?=$field?>">Kecamatan</label>
                                             <input type="text" class="form-control" id="<?=$field?>" name="<?=$field?>" />
                                         </div>
-                                        <div class="col-md-6 form-group">
+                                        <div class="col-md-3 form-group">
                                             <?php $field = 'provinsi'; ?>
-                                            <label for="<?=$field?>">Province</label>
+                                            <label for="<?=$field?>">Provinsi</label>
                                             <input type="text" class="form-control" id="<?=$field?>" name="<?=$field?>" />
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="row">
+                                                <div class="col-md-12 form-group">
+                                                    <?php $field = 'alamat'; ?>
+                                                    <label for="<?=$field?>">Detail Alamat</label>
+                                                    <Textarea class="form-control" id="<?=$field?>" name="<?=$field?>" placeholder="Mauskan alamat selengkap mungkin untuk mempercepat proses pengiriman"></Textarea>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-3">
-                                    <h4 style="color: grey">delivery</h4>
+                                <div class="col-lg-12">
+                                    <h4 style="color:  #2f55d4 !important">Jasa Pengiriman</h4>
                                     <div class="row">
-                                        <div class="col-md-12 form-group p_star">
-                                            <label for="">courier</label>
+                                        <div class="col-md-3 form-group p_star">
+                                            <label for="">Kurir</label>
                                             <select class="form-control" name="kurir" id="kurir" onchange="get_ongkir()">
-                                                <option value="">Choose Courier</option>
+                                                <option value="">Pilih Kurir</option>
                                                 <?php
                                                 if(count($kurir) > 0) {
                                                     foreach ($kurir as $row) {
@@ -108,57 +117,27 @@
                                                 ?>
                                             </select>
                                         </div>
-                                        <div class="col-md-12 form-group">
-                                            <label for="">Shipping Service</label>
+                                        <div class="col-md-3 form-group">
+                                            <label for="">Layanan</label>
                                             <select class="form-control" name="layanan" id="layanan" onchange="hitung_total()">
-                                                <option value="">Select Shipping Service</option>
+                                                <option value="">Pilih Layanan</option>
                                             </select>
                                         </div>
-                                        <div class="col-md-12 form-group">
+                                        <div class="col-md-3 form-group">
                                             <?php $field = 'ongkir'; ?>
-                                            <label for="<?=$field?>">Cost</label>
+                                            <label for="<?=$field?>">Ongkos Kirim</label>
                                             <input type="text" class="form-control" id="<?=$field?>" name="<?=$field?>" readonly />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-3">
-                                    <h4 style="color: grey">Destination Account</h4>
+
+                                <div class="col-lg-12">
+                                    <h4 style="color:  #2f55d4 !important">Rekening Anda</h4>
                                     <div class="row">
-                                        <div class="col-md-12 form-group p_star">
-                                            <label for="">Bank</label>
-                                            <?php
-                                            $list_bank = '';
-                                            if(count($bank_tujuan) > 0) {
-                                                foreach ($bank_tujuan as $row) {
-                                                    echo '<input type="hidden" id="no_rek'.$row['id_bank'].'" value="'.$row['no_rek'].'"><input type="hidden" id="atas_nama'.$row['id_bank'].'" value="'.$row['atas_nama'].'"><input type="hidden" id="nama'.$row['id_bank'].'" value="'.$row['nama'].'">';
-                                                    $list_bank .= '<option value="'.$row['id_bank'].'">'.$row['nama'].'</option>';
-                                                }
-                                            }
-                                            ?>
-                                            <select class="form-control" onchange="change_bank()" name="bank_tujuan" id="bank_tujuan">
-                                                <option value="">Choose Bank</option>
-                                                <?=$list_bank?>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-12 form-group">
-                                            <?php $field = 'nomor_rekening_tujuan'; ?>
-                                            <label for="<?=$field?>">Account Number</label>
-                                            <input type="text" class="form-control" id="<?=$field?>" name="<?=$field?>" readonly />
-                                        </div>
-                                        <div class="col-md-12 form-group">
-                                            <?php $field = 'atas_nama_tujuan'; ?>
-                                            <label for="<?=$field?>">Name</label>
-                                            <input type="text" class="form-control" id="<?=$field?>" name="<?=$field?>" readonly />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <h4 style="color: grey">Sender's Account</h4>
-                                    <div class="row">
-                                        <div class="col-md-12 form-group p_star">
+                                        <div class="col-md-3 form-group p_star">
                                             <label for="">Bank</label>
                                             <select class="form-control" onchange="get_rekening()" name="bank_pengirim" id="bank_pengirim">
-                                                <option value="">Choose Bank</option>
+                                                <option value="">Pilih Bank</option>
                                                 <?php
                                                 if(count($bank) > 0) {
                                                     foreach ($bank as $row) {
@@ -168,35 +147,52 @@
                                                 ?>
                                             </select>
                                         </div>
-                                        <div class="col-md-12 form-group">
+                                        <div class="col-md-3 form-group">
                                             <?php $field = 'nomor_rekening_pengirim'; ?>
-                                            <label for="<?=$field?>">Account Number</label>
+                                            <label for="<?=$field?>">No.Rekening</label>
                                             <input type="text" class="form-control" id="<?=$field?>" name="<?=$field?>" />
                                         </div>
-                                        <div class="col-md-12 form-group">
+                                        <div class="col-md-3 form-group">
                                             <?php $field = 'atas_nama_pengirim'; ?>
-                                            <label for="<?=$field?>">Name</label>
+                                            <label for="<?=$field?>">Atas Nama</label>
                                             <input type="text" class="form-control" id="<?=$field?>" name="<?=$field?>" />
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-lg-12">
+                                    <h4 style="color:  #2f55d4 !important">Pilih Rekening Tujuan</h4>
                                     <div class="row">
-                                        <div class="col-md-12 form-group">
-                                            <?php $field = 'alamat'; ?>
-                                            <label for="<?=$field?>">Address</label>
-                                            <Textarea class="form-control" id="<?=$field?>" name="<?=$field?>"></Textarea>
+                                        <div class="col-md-3 form-group p_star">
+                                            <label for="">Bank</label>
+                                            <?php
+                                            $list_bank = '';
+                                            if(count($bank_tujuan) > 0) {
+                                                foreach ($bank_tujuan as $row) {
+                                                    echo '<input type="hidden" id="no_rek'.$row['id_bank'].'" value="'.$row['no_rek'].'"><input type="hidden" id="atas_nama'.$row['id_bank'].'" value="'.$row['atas_nama'].'"><input type="hidden" id="nama'.$row['id_bank'].'" value="'.$row['nama'].'">';
+                                                    $list_bank .= '<option value="'.$row['id_bank'].'">'.$row['nama'].' ( '.$row["no_rek"].' ) </option>';
+                                                }
+                                            }
+                                            ?>
+                                            <select class="form-control" onchange="change_bank()" name="bank_tujuan" id="bank_tujuan">
+                                                <option value="">Pilih Bank</option>
+                                                <?=$list_bank?>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3 form-group" style="display: none;">
+                                            <?php $field = 'nomor_rekening_tujuan'; ?>
+                                            <label for="<?=$field?>">No. Rekening</label>
+                                            <input type="text" class="form-control" id="<?=$field?>" name="<?=$field?>" readonly />
+                                        </div>
+                                        <div class="col-md-12 form-group" style="display: none;">
+                                            <?php $field = 'atas_nama_tujuan'; ?>
+                                            <label for="<?=$field?>">Atas Nama</label>
+                                            <input type="text" class="form-control" id="<?=$field?>" name="<?=$field?>" readonly />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
-                                    <div class="row">
-                                        <div class="col-md-12 form-group">
-                                            <label for="<?=$field?>">Voucher Code</label>
-                                            <input placeholder='Enter Your Voucher Code' class="form-control" name="voucher" id="voucher" onchange="cek_voucher()" type="text">
-                                        </div>
-                                    </div>
-                                </div>
+
+
 
                             </div>
                         </div>
@@ -207,16 +203,16 @@
                                         <thead>
                                         <tr>
                                             <th class="py-3" style="min-width:20px ">No</th>
-                                            <th class="py-3" style="min-width: 300px;">Product</th>
-                                            <th class="text-center py-3" style="min-width: 160px;">Weight</th>
-                                            <th class="text-center py-3" style="min-width: 160px;">Price</th>
-                                            <th class="text-center py-3" style="min-width: 160px;">Qty</th>
+                                            <th class="py-3" style="min-width: 300px;">Produk</th>
+                                            <th class="text-center py-3" style="min-width: 160px;">Berat</th>
+                                            <th class="text-center py-3" style="min-width: 160px;">Harga</th>
+                                            <th class="text-center py-3" style="min-width: 160px;">Jumlah</th>
                                             <th class="text-center py-3" style="min-width: 160px;">Total</th>
                                         </tr>
                                         </thead>
 
                                         <tbody>
-                                        <?php $total=0;$berat=0;$no=1; foreach($cart as $row):
+                                        <?php  $total=0;$berat=0;$no=1; foreach($cart as $row):
                                             $total = $total + ($row['harga'] * $row['qty']);
                                             $berat = $berat + ($row['berat']*$row['qty']);
                                             $gambar = $this->m_crud->get_data("gambar_produk", "CONCAT('" . base_url() . "', gambar) gambar", "produk='" . $row['id_produk'] . "'", "id_gambar DESC")['gambar'];
@@ -249,32 +245,44 @@
                                             </tr>
                                         <?php endforeach; ?>
                                         </tbody>
-                                        <tfoot>
-                                        <tr>
-                                            <td colspan="5">Shipping cost</td>
-                                            <td><h5 class="v_ongkir"  style="text-align:right">0</h5></td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="5">Voucher</td>
-                                            <td><h5 class="v_voucher"  style="text-align:right">0</h5></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Total amount:<br><span>Including vat</span></td>
-                                            <td></td><td></td><td></td><td></td>
-                                            <td><h5 class="v_total" style="text-align:right"><?=number_format($total)?></h5></td>
-                                            <td></td>
-                                        </tr>
-                                        </tfoot>
                                     </table>
                                 </div>
 
                                 <br>
                                 <div class="row">
                                     <div class="col-6 col-xs-6">
-                                        <a href="<?=base_url()?>" class="btn btn-primary">Shop Now</a>
+                                        <a href="#">Ongkos Kirim</a>
                                     </div>
                                     <div class="col-6 col-xs-6">
-                                        <button type="submit" style="float: right;" class="btn btn-primary">Finish</button>
+                                        <h5 class="v_ongkir"  style="text-align:right">0</h5>
+                                    </div>
+                                    <div class="col-6 col-xs-6">
+                                        <a href="#">Voucher</a>
+                                    </div>
+                                    <div class="col-6 col-xs-6">
+                                        <h5 class="v_voucher"  style="text-align:right">0</h5>
+                                    </div>
+                                    <div class="col-6 col-xs-6">
+                                        <a href="#">Total Pembayaran</a>
+                                    </div>
+                                    <div class="col-6 col-xs-6">
+                                        <h5 class="v_total" style="text-align:right"><?=number_format($total)?></h5>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12 form-group">
+                                        <label for="<?=$field?>">Kode Voucher</label>
+                                        <input placeholder='masukan kode voucher anda disini' class="form-control" name="voucher" id="voucher" onchange="cek_voucher()" type="text">
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-6 col-xs-6">
+                                        <a href="<?=base_url()?>" class="btn btn-primary">Belanja</a>
+                                    </div>
+                                    <div class="col-6 col-xs-6">
+                                        <button type="submit" style="float: right;" class="btn btn-primary">Bayar</button>
                                     </div>
                                 </div>
                             </div>
@@ -302,6 +310,11 @@
 
 
 <script>
+    $(document).ready(function(){
+        if(parseInt('<?=$total?>') < 1){
+            window.location.href="<?=base_url()?>";
+        }
+    });
     var array_ongkir = [];
     function cek_voucher() {
         var voucher = $("#voucher").val();
@@ -337,6 +350,7 @@
     function ubah_alamat() {
         var alamat = $("#ch_alamat_jual").val();
         if (alamat === 'baru') {
+            $("#new_address").show();
             $("#form_checkout").validate();
             $("#nama_penerima").rules("remove", "required");
             $("#nama_penerima").val('').attr('readonly', false);

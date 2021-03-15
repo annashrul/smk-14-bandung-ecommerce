@@ -23,7 +23,7 @@
                 <hr>
                 <div class="row  d-none d-lg-block">
                     <div class="col-md-12">
-                        <button class="btn btn-primary btn-block" onclick="loadmore()">Loadmore</button>
+                        <button class="btn btn-primary btn-block" onclick="loadmore()">Lebih Banyak</button>
                     </div>
                 </div>
             </div><!--end col-->

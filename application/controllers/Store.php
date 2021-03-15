@@ -178,7 +178,7 @@ class Store extends CI_Controller
                                                 <li class="list-inline-item"><a href="'.base_url().'store/article?detail='.$row['slug_berita'].'" class="text-muted comments"><i class="mdi mdi-clock"></i>'.time_elapsed_string($row["tgl_berita"]).'</a></li>
                                             </ul>
                                         </div>
-                                        <a style="color: #2f55d4;font-weight: bold" href="'.base_url().'store/article?detail='.$row['slug_berita'].'" class="readmore">Read More <i class="mdi mdi-chevron-right"></i></a>
+                                        <a style="color: #2f55d4;font-weight: bold" href="'.base_url().'store/article?detail='.$row['slug_berita'].'" class="readmore">Selengkapnya <i class="mdi mdi-chevron-right"></i></a>
 
                                         
                                     </div>

@@ -95,14 +95,14 @@
                     <li class="nav-item mt-2">
                         <a class="nav-link rounded <?=$this->session->isActiveAddress==false?'active':''?>" id="order-history" data-toggle="pill" href="#orders" role="tab" aria-controls="orders" aria-selected="false">
                             <div class="text-left py-1 px-3">
-                                <h6 class="mb-0"><i class="uil uil-list-ul h5 align-middle mr-2 mb-0"></i> Orders</h6>
+                                <h6 class="mb-0"><i class="uil uil-list-ul h5 align-middle mr-2 mb-0"></i> Riwayat Pembelian</h6>
                             </div>
                         </a><!--end nav link-->
                     </li><!--end nav item-->
                     <li class="nav-item mt-2">
                         <a class="nav-link <?=$this->session->isActiveAddress==true?'active':''?> rounded" id="addresses" data-toggle="pill" href="#address" role="tab" aria-controls="address" aria-selected="false">
                             <div class="text-left py-1 px-3">
-                                <h6 class="mb-0"><i class="uil uil-map-marker h5 align-middle mr-2 mb-0"></i> Addresses</h6>
+                                <h6 class="mb-0"><i class="uil uil-map-marker h5 align-middle mr-2 mb-0"></i> Alamat</h6>
                             </div>
                         </a><!--end nav link-->
                     </li><!--end nav item-->
@@ -110,7 +110,7 @@
                     <li class="nav-item mt-2">
                         <a class="nav-link rounded" id="account-details" data-toggle="pill" href="#account" role="tab" aria-controls="account" aria-selected="false">
                             <div class="text-left py-1 px-3">
-                                <h6 class="mb-0"><i class="uil uil-user h5 align-middle mr-2 mb-0"></i> Account Details</h6>
+                                <h6 class="mb-0"><i class="uil uil-user h5 align-middle mr-2 mb-0"></i> Data Diri</h6>
                             </div>
                         </a><!--end nav link-->
                     </li><!--end nav item-->
@@ -118,7 +118,7 @@
                     <li class="nav-item mt-2">
                         <a class="nav-link rounded" href="<?=base_url().'store/logout'?>" aria-selected="false">
                             <div class="text-left py-1 px-3">
-                                <h6 class="mb-0"><i class="uil uil-sign-out-alt h5 align-middle mr-2 mb-0"></i> Logout</h6>
+                                <h6 class="mb-0"><i class="uil uil-sign-out-alt h5 align-middle mr-2 mb-0"></i> Keluar</h6>
                             </div>
                         </a><!--end nav link-->
                     </li><!--end nav item-->
@@ -133,11 +133,11 @@
                             <table class="table mb-0 table-center table-nowrap">
                                 <thead>
                                 <tr>
-                                    <th scope="col">Order no.</th>
-                                    <th scope="col">Due Date</th>
+                                    <th scope="col">No.Pembelian</th>
+                                    <th scope="col">Tanggal</th>
                                     <th scope="col">Status</th>
-                                    <th scope="col">Amount</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col">#</th>
                                 </tr>
                                 </thead>
 
@@ -149,7 +149,7 @@
                                         $dropdown = '<a class="dropdown-item" href="javascript:" onclick="detail(\'' . $row['id_orders'] . '\')">Detail</a>';
                                         if ($row['status'] == '1'){
                                             if ($row['status_bayar'] == '1') {
-                                                $status = '<span class="badge badge-pill badge-warning text-white py-2 px-3">Waiting Payment</span>';
+                                                $status = '<span class="badge badge-pill badge-warning text-white py-2 px-3">Menunggu Pembayaran</span>';
                                                 $dropdown .= '<a class="dropdown-item" href="javascript:" onclick="konfirmasi(\'' . $row['pembayaran'] . '\',\'' . $row['id_orders'] . '\')">Confirm</a>';
                                             }
                                         }
@@ -158,13 +158,13 @@
                                             if ($row['status'] == '3') {
                                                 $dropdown .= '<a class="dropdown-item" href="javascript:" onclick="finish(\'' . $row['id_orders'] . '\')">Terima</a>';
                                             }
-                                            $status = '<span class="badge badge-pill badge-primary text-white py-2 px-3">On Process</span>';
+                                            $status = '<span class="badge badge-pill badge-primary text-white py-2 px-3">Sedang Diproses</span>';
                                         }
                                         else if ($row['status'] == '4'){
-                                            $status = '<span class="badge badge-pill badge-success text-white py-2 px-3">Success</span>';
+                                            $status = '<span class="badge badge-pill badge-success text-white py-2 px-3">Sudah Diterima</span>';
                                         }
                                         else{
-                                            $status = '<span class="badge badge-pill badge-danger text-white py-2 px-3">Cancel</span>';
+                                            $status = '<span class="badge badge-pill badge-danger text-white py-2 px-3">Dibatalkan</span>';
                                         }
                                         $get_ongkir = $this->m_crud->get_data("pengiriman", "biaya", "orders='" . $row['id_orders'] . "'")['biaya'];
                                         ?>
@@ -195,13 +195,11 @@
                         </div>
                     </div><!--end teb pane-->
                     <div class="tab-pane fade bg-white <?=$this->session->isActiveAddress==true?'show active':''?> shadow rounded p-4" id="address" role="tabpanel" aria-labelledby="addresses">
-                        <h6 class="text-muted mb-0">The following addresses will be used on the checkout page by default.</h6>
-
                         <div class="row">
                             <?php foreach($alamat as $row):?>
                             <div class="col-lg-6 mt-4 pt-2">
                                 <div class="media align-items-center mb-4 justify-content-between">
-                                    <h5 class="mb-0">Address Type : <?=$row['nama_alamat']?></h5>
+                                    <h5 class="mb-0">Jenis Alamat : <?=$row['nama_alamat']?></h5>
                                     <a onclick="deleteAddress('<?=$row["id_alamat_member"]?>')" href="javascript:void(0)" class="text-primary h5 mb-0" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="uil uil-trash align-middle"></i></a>
                                 </div>
                                 <div class="pt-4 border-top">
@@ -221,7 +219,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <?php $field='nama';?>
-                                        <label>First Name</label>
+                                        <label>Nama Lengkap</label>
                                         <div class="position-relative">
                                             <i data-feather="user" class="fea icon-sm icons"></i>
                                             <input name="<?=$field?>" id="<?=$field?>" type="text" class="form-control pl-5">
@@ -231,7 +229,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <?php $field='telepon';?>
-                                        <label>Phone</label>
+                                        <label>No.Telepon</label>
                                         <div class="position-relative">
                                             <i data-feather="phone" class="fea icon-sm icons"></i>
                                             <input name="<?=$field?>" id="<?=$field?>" type="number" class="form-control pl-5">
@@ -240,7 +238,7 @@
                                 </div><!--end col-->
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Your Email</label>
+                                        <label>Jenis Kelamin</label>
                                         <?php $field = 'jenis_kelamin'; ?>
                                         <select name="<?=$field?>" id="<?=$field?>" class="form-control">
                                             <option value="">Gender</option>
@@ -252,7 +250,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <?php $field = 'tgl_lahir'; ?>
-                                        <label>Birth Date</label>
+                                        <label>Tanggal Lahir</label>
                                         <input type="date" class="form-control" name="<?=$field?>" id="<?=$field?>" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask>
                                     </div>
                                 </div><!--end col-->
@@ -264,22 +262,22 @@
                                     </div>
                                 </div><!--end col-->
                                 <div class="col-lg-12 mt-2 mb-0">
-                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
                                 </div><!--end col-->
                             </div><!--end row-->
                         </form>
 
-                        <h5 class="mt-4">Change password :</h5>
+                        <h5 class="mt-4">Ubah Kata Sandi :</h5>
                         <form id="form_password">
 
                             <div class="row mt-3">
                                 <div class="col-lg-12">
                                     <?php $field='password_lama';?>
                                     <div class="form-group">
-                                        <label>Old password :</label>
+                                        <label>Kata Sandi Lama :</label>
                                         <div class="position-relative">
                                             <i data-feather="key" class="fea icon-sm icons"></i>
-                                            <input type="password" class="form-control pl-5" placeholder="Old password" id="<?=$field?>" name="<?=$field?>">
+                                            <input type="password" class="form-control pl-5" placeholder="" id="<?=$field?>" name="<?=$field?>">
                                         </div>
                                     </div>
                                 </div>
@@ -287,10 +285,10 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <?php $field='password';?>
-                                        <label>New password :</label>
+                                        <label>Kata Sandi Baru :</label>
                                         <div class="position-relative">
                                             <i data-feather="key" class="fea icon-sm icons"></i>
-                                            <input type="password" class="form-control pl-5" placeholder="New password"  id="<?=$field?>" name="<?=$field?>">
+                                            <input type="password" class="form-control pl-5" placeholder=""  id="<?=$field?>" name="<?=$field?>">
                                         </div>
                                     </div>
                                 </div>
@@ -298,16 +296,16 @@
                                 <div class="col-lg-12">
                                     <?php $field='password_conf';?>
                                     <div class="form-group">
-                                        <label>Re-type New password :</label>
+                                        <label>Ulangi Kata Sandi :</label>
                                         <div class="position-relative">
                                             <i data-feather="key" class="fea icon-sm icons"></i>
-                                            <input type="password" class="form-control pl-5" placeholder="Re-type New password"  id="<?=$field?>" name="<?=$field?>">
+                                            <input type="password" class="form-control pl-5" placeholder=""  id="<?=$field?>" name="<?=$field?>">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-12 mt-2 mb-0">
-                                    <button class="btn btn-primary">Save Password</button>
+                                    <button class="btn btn-primary">Simpan</button>
                                 </div><!--end col-->
                             </div><!--end row-->
                         </form>

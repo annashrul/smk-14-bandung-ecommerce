@@ -152,7 +152,7 @@
                     </button>
                     <div class="dropdown-menu dd-menu dropdown-menu-right bg-white shadow rounded border-0 mt-3 py-0" style="width:400px;">
                         <form style="width: 100%!important;">
-                            <input style="width:400px;" type="text" id="text" name="name" class="form-control border bg-white cari" placeholder="Search...">
+                            <input style="width:400px;" type="text" id="text" name="name" class="form-control border bg-white cari" placeholder="Tulis sesuatu disini...">
                         </form>
                     </div>
                 </div>
@@ -173,8 +173,8 @@
                         </div>
 
                         <div class="media align-items-center justify-content-between pt-2">
-                            <a href="javascript:void(0)" onclick="goCart()" class="btn btn-primary mr-2">View Cart</a>
-                            <a href="javascript:void(0)" class="btn btn-primary" onclick="bayar()">Checkout</a>
+                            <a href="javascript:void(0)" onclick="goCart()" class="btn btn-primary mr-2">Keranjang</a>
+                            <a href="javascript:void(0)" class="btn btn-primary" onclick="bayar()">Bayar</a>
                         </div>
                     </div>
                 </div>
@@ -184,9 +184,9 @@
                 <div class="dropdown dropdown-primary">
                     <button type="button" class="btn btn-icon btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="uil uil-user align-middle icons"></i></button>
                     <div class="dropdown-menu dd-menu dropdown-menu-right bg-white shadow rounded border-0 mt-3 py-3" style="width: 200px;">
-                        <a class="dropdown-item text-dark" href="<?=base_url().'store/profile'?>"><i class="uil uil-user align-middle mr-1"></i> Account</a>
+                        <a class="dropdown-item text-dark" href="<?=base_url().'store/profile'?>"><i class="uil uil-user align-middle mr-1"></i> Profil</a>
                         <div class="dropdown-divider my-3 border-top"></div>
-                        <a class="dropdown-item text-dark" href="<?=base_url().'store/logout'?>"><i class="uil uil-sign-out-alt align-middle mr-1"></i> Logout</a>
+                        <a class="dropdown-item text-dark" href="<?=base_url().'store/logout'?>"><i class="uil uil-sign-out-alt align-middle mr-1"></i> Keluar</a>
                     </div>
                 </div>
 
@@ -218,9 +218,9 @@
         <div id="navigation">
             <!-- Navigation Menu-->
             <ul class="navigation-menu">
-                <li><a style="text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white ;<?=$this->uri->segment(1)==""?'color: #2f55d4!important;':'color:#000!important;'?>" href="<?=base_url()?>">Home</a></li>
+                <li><a style="text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white ;<?=$this->uri->segment(1)==""?'color: #2f55d4!important;':'color:#000!important;'?>" href="<?=base_url()?>">Beranda</a></li>
                 <li class="has-submenu">
-                    <a href="javascript:void(0)" style="text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white ;<?=$this->uri->segment(2)=='list_produk'?'color: #2f55d4!important;':'color:#000!important;'?>">Category</a><span class="menu-arrow"></span>
+                    <a href="javascript:void(0)" style="text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white ;<?=$this->uri->segment(2)=='list_produk'?'color: #2f55d4!important;':'color:#000!important;'?>">Kategori</a><span class="menu-arrow"></span>
                     <ul class="submenu megamenu">
                         <li>
                             <ul>
@@ -234,8 +234,8 @@
                     </ul>
                 </li>
                 <li class="<?=$this->uri->segment(2)=="promo"?'active':null?>"><a style="text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white ;<?=$this->uri->segment(2)=="promo"?'color: #2f55d4!important;':'color:#000!important;'?>" href="<?=base_url().'store/promo'?>">Promo</a></li>
-                <li class="<?=$_GET['page']=='contact'?'active':null?>"><a style="text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white ;<?=$_GET['page']=='contact'?'color: #2f55d4!important;':'color:#000!important;'?>" href="<?=base_url().'store?page=contact'?>">Contact Us</a></li>
-                <li class="<?=$this->uri->segment(2)=='article'?'active':null?>"><a style="text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white ;<?=$this->uri->segment(2)=='article'?'color: #2f55d4!important;':'color:#000!important;'?>" href="<?=base_url().'store/article/all'?>">Article</a></li>
+                <li class="<?=$_GET['page']=='contact'?'active':null?>"><a style="text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white ;<?=$_GET['page']=='contact'?'color: #2f55d4!important;':'color:#000!important;'?>" href="<?=base_url().'store?page=contact'?>">Kontak Kami</a></li>
+                <li class="<?=$this->uri->segment(2)=='article'?'active':null?>"><a style="text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white ;<?=$this->uri->segment(2)=='article'?'color: #2f55d4!important;':'color:#000!important;'?>" href="<?=base_url().'store/article/all'?>">Berita</a></li>
 
             </ul><!--end navigation menu-->
         </div><!--end navigation-->
@@ -245,32 +245,44 @@
         <ul class="navbar-nav nav-justified w-100">
             <li class="nav-item" style="padding: 0px!important;<?=$this->uri->segment(1)==''?'border:2px solid white;border-radius:10px;':null;?>">
                 <a href="<?=base_url()?>" class="nav-link" style="<?=$this->uri->segment(1)==''?'color:white':null;?>">
-                    <i class="uil uil-estate align-middle icons"></i><br/> Home
+                    <i class="uil uil-estate align-middle icons"></i><br/> Beranda
                 </a>
             </li>
 
             <li class="nav-item" style="<?=$this->uri->segment(2)=='promo'?'border:2px solid white':null?>">
                 <a href="<?=base_url().'store/get_all_product'?>" class="nav-link" style="<?=$this->uri->segment(2)=='promo'?'color:white':null;?>">
-                    <i class="uil uil-apps align-middle icons" style="padding:0px!important;"></i><br/> Product
+                    <i class="uil uil-apps align-middle icons" style="padding:0px!important;"></i><br/> Produk
                 </a>
             </li>
-            <li class="nav-item" style="<?=$this->uri->segment(2)=='article'?'border:2px solid white':null?>">
-                <a href="<?=base_url().'store/article/all'?>" class="nav-link" style="<?=$this->uri->segment(2)=='article'?'color:white':null;?>">
-                    <i class="uil uil-newspaper align-middle icons" style="padding:0px!important;"></i><br/> Article
-                </a>
 
-            </li>
+            <?php if($this->session->id_member!=''):?>
+                <li class="nav-item" style="<?=$this->uri->segment(2)=='cart'?'border:2px solid white':null?>">
+                    <a  onclick="goCart()" class="nav-link" style="<?=$this->uri->segment(2)=='article'?'color:white':null;?>">
+                        <i class="uil uil-shopping-cart align-middle icons" style="padding:0px!important;"></i><br/> Keranjang
+                    </a>
+
+                </li>
+            <?php else:?>
+                <li class="nav-item" style="<?=$this->uri->segment(2)=='article'?'border:2px solid white':null?>">
+                    <a href="<?=base_url().'store/article/all'?>" class="nav-link" style="<?=$this->uri->segment(2)=='article'?'color:white':null;?>">
+                        <i class="uil uil-shopping-cart align-middle icons" style="padding:0px!important;"></i><br/> Berita
+                    </a>
+
+                </li>
+            <?php endif;?>
+
+
             <li class="nav-item" style="<?=$this->uri->segment(2)=='auth'?'border:2px solid white':null;?>">
                 <?php if($this->session->userdata('id_member')!=''){ ?>
                     <a href="<?=base_url().'store/profile'?>" class="nav-link" style="<?=$this->uri->segment(2)=='auth'?'color:white':null;?>">
 <!--                        <img src="--><?//=base_url().'assets/images/member/2.jpg'?><!--" class="rounded-circle" style="height:25px;" alt="">-->
 <!--                        <br/> Profile-->
-                        <i class="uil uil-user align-middle icons" style="padding:0px!important;"></i><br/> Profile
+                        <i class="uil uil-user align-middle icons" style="padding:0px!important;"></i><br/> Profil
                     </a>
                 <?php } else{ ?>
                     <a href="<?=base_url().'store/auth?page=login'?>" class="nav-link" style="<?=$this->uri->segment(2)=='auth'?'color:white':null;?>">
 <!--                        <img src="--><?//=base_url().'assets/images/member/2.jpg'?><!--" style="height: 20%;" alt="">-->
-                        <i class="uil uil-sign-in-alt align-middle icons" style="padding:0px!important;"></i><br/> Login
+                        <i class="uil uil-sign-in-alt align-middle icons" style="padding:0px!important;"></i><br/> Masuk
                     </a>
                 <?php } ?>
             </li>
@@ -281,7 +293,7 @@
     <nav class="navbar navbar-dark bg-info navbar-expand d-md-none d-lg-none d-xl-none fixed-bottom" style="background-color:#2f55d4!important; ">
         <ul class="navbar-nav nav-justified w-100">
             <li class="nav-item">
-                <a href="javascript:void(0)" onclick="bayar()" class="nav-link text-left">Checkout <small class="totCart" style="float: right;font-weight: bold;"></small></a>
+                <a href="javascript:void(0)" onclick="bayar()" class="nav-link text-left">Bayar <small class="totCart" style="float: right;font-weight: bold;"></small></a>
             </li>
         </ul>
     </nav>
@@ -290,7 +302,7 @@
         <nav class="navbar navbar-dark bg-info navbar-expand d-md-none d-lg-none d-xl-none fixed-bottom" style="background-color:#2f55d4!important; ">
             <ul class="navbar-nav nav-justified w-100">
                 <li class="nav-item">
-                    <a href="javascript:void(0)" onclick="loadmore()" class="nav-link">Loadmore</a>
+                    <a href="javascript:void(0)" onclick="loadmore()" class="nav-link">Lebih banyak</a>
                 </li>
             </ul>
         </nav>
@@ -299,7 +311,7 @@
         <nav class="navbar navbar-dark bg-info navbar-expand d-md-none d-lg-none d-xl-none fixed-bottom" style="background-color:#2f55d4!important; ">
             <ul class="navbar-nav nav-justified w-100">
                 <li class="nav-item">
-                    <a href="javascript:void(0)" onclick="loadmoreProduct()" class="nav-link">Loadmore</a>
+                    <a href="javascript:void(0)" onclick="loadmoreProduct()" class="nav-link">Lebih banyak</a>
                 </li>
             </ul>
         </nav>
@@ -309,7 +321,7 @@
         <nav class="navbar navbar-dark bg-info navbar-expand d-md-none d-lg-none d-xl-none fixed-bottom" style="background-color:#2f55d4!important; ">
             <ul class="navbar-nav nav-justified w-100">
                 <li class="nav-item">
-                    <a href="javascript:void(0)" onclick="loadmoreNews()" class="nav-link">Loadmore</a>
+                    <a href="javascript:void(0)" onclick="loadmoreNews()" class="nav-link">Lebih banyak</a>
                 </li>
             </ul>
         </nav>
@@ -334,15 +346,21 @@
                     <li><a class="text-foot" href="mailto:<?=$cs['email']?>"><?=$cs['email']?></a></li>
                 </ul>
                 </p>
-                <ul class="list-unstyled social-icon social mb-0 mt-4">
-                    <li class="list-inline-item"><a href="https://www.twitter.com/<?=$sosmed['twitter']?>" class="rounded"><i data-feather="facebook" class="fea icon-sm fea-social"></i></a></li>
-                    <li class="list-inline-item"><a href="https://www.twitter.com/<?=$sosmed['twitter']?>" class="rounded"><i data-feather="instagram" class="fea icon-sm fea-social"></i></a></li>
-                    <li class="list-inline-item"><a href="https://www.twitter.com/<?=$sosmed['twitter']?>" class="rounded"><i data-feather="twitter" class="fea icon-sm fea-social"></i></a></li>
+                <ul class="navbar-nav nav-justified w-100">
+                    <li><a class="text-foot" href="https://api.whatsapp.com/send?phone=<?=$sosmed['whatsapp']?>">WahtsApp : <?=$sosmed['whatsapp']?></a></li>
+                    <li><a class="text-foot" href="<?=$sosmed['twitter']?>">Twitter : <?=$sosmed['twitter']?></a></li>
+                    <li><a class="text-foot" href="<?=$sosmed['facebook']?>">Facebook : <?=$sosmed['facebook']?></a></li>
+                    <li><a class="text-foot" href="<?=$sosmed['instagram']?>">Instagram : <?=$sosmed['instagram']?></a></li>
+
+<!--                    <li class="list-inline-item"><a href="--><?//=$sosmed['facebook']?><!--" class="rounded"><i data-feather="facebook" class="fea icon-sm fea-social"></i></a></li>-->
+<!--                    <li class="list-inline-item"><a href="--><?//=$sosmed['instagram']?><!--" class="rounded"><i data-feather="instagram" class="fea icon-sm fea-social"></i></a></li>-->
+<!--                    <li class="list-inline-item"><a href="--><?//=$sosmed['twitter']?><!--" class="rounded"><i data-feather="twitter" class="fea icon-sm fea-social"></i></a></li>-->
+<!--                    <li class="list-inline-item"><a href="https://api.whatsapp.com/send?phone=--><?//=$sosmed['whatsapp']?><!--" class="rounded"><i data-feather="whatsapp" class="fea icon-sm fea-social"></i></a></li>-->
                 </ul><!--end icon-->
             </div><!--end col-->
 
             <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
-                <h5 class="text-light footer-head">Company</h5>
+                <h5 class="text-light footer-head"><?= $this->data['site']->nama ?></h5>
                 <ul class="list-unstyled footer-list mt-4">
 
                     <li><a href="<?=base_url().'store?page=about'?>" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> About us</a></li>
@@ -356,7 +374,7 @@
             </div><!--end col-->
 
             <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
-                <h5 class="text-light footer-head">Category</h5>
+                <h5 class="text-light footer-head">Kategori</h5>
                 <ul class="list-unstyled footer-list mt-4">
                     <?php foreach ($nav_menu as $row) {
                         echo '
@@ -368,21 +386,21 @@
             </div><!--end col-->
 
             <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
-                <h5 class="text-light footer-head">Contact form</h5>
+                <h5 class="text-light footer-head">Kontak Kami</h5>
 <!--                <form>-->
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="foot-subscribe form-group">
                                 <div class="position-relative">
-                                    <i data-feather="mail" class="fea icon-sm icons"></i>
-                                    <textarea placeholder="type something here .." name="pesan" id="pesan" class="form-control pl-5 rounded" cols="30" rows="4"></textarea>
+                                    <i data-feather="email" class="fea icon-sm icons"></i>
+                                    <textarea placeholder="Tulis pesan anda disini .." name="pesan" id="pesan" class="form-control pl-5 rounded" cols="30" rows="4"></textarea>
                                     <input type="hidden" id="member" value="<?=$this->session->id_member?>">
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-12">
 
-                            <input onclick="submitForm()" type="submit" id="submitsubscribe" name="send" class="btn btn-soft-primary btn-block" value="Send">
+                            <input onclick="submitForm()" type="submit" id="submitsubscribe" name="send" class="btn btn-soft-primary btn-block" value="Kirim">
                         </div>
                     </div>
 <!--                </form>-->

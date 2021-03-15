@@ -28,7 +28,7 @@
                         <nav aria-label="breadcrumb" class="d-inline-block">
                             <ul class="breadcrumb bg-white rounded shadow mb-0">
                                 <li class="breadcrumb-item"><a href="<?=base_url()?>"><?= $this->data['site']->nama ?></a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Article Detail</li>
+                                <li class="breadcrumb-item active" aria-current="page">Detail Berita</li>
                             </ul>
                         </nav>
                     </div>
@@ -75,7 +75,7 @@
                     <div class="card-body">
                         <!-- Categories -->
                         <div class="widget mb-4 pb-2">
-                            <h5 class="widget-title">Categories</h5>
+                            <h5 class="widget-title">Kategori</h5>
                             <ul class="list-unstyled mt-4 mb-0 blog-categories">
                                 <?php foreach ($category as $row):?>
                                 <li><a href="<?=base_url().'store/article/'.$row['slug_kategori_berita']?>"><?=$row['nama']?></a> <span class="float-right"><?=$row['kategori']?></span></li>

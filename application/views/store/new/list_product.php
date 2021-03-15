@@ -29,8 +29,8 @@ $menu_group = $this->m_crud->get_data($table, "*", "$id='" . $param . "' $status
                     <div class="page-next">
                         <nav aria-label="breadcrumb" class="d-inline-block">
                             <ul class="breadcrumb bg-white rounded shadow mb-0">
-                                <li class="breadcrumb-item"><a href="index.html"><?= $this->data['site']->nama ?></a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Products</li>
+                                <li class="breadcrumb-item"><a href="<?=base_url()?>"><?= $this->data['site']->nama ?></a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Produk</li>
                             </ul>
                         </nav>
                     </div>
@@ -63,7 +63,7 @@ $menu_group = $this->m_crud->get_data($table, "*", "$id='" . $param . "' $status
                         <div class="form custom-form">
                             <div class="form-group mb-0">
                                 <select class="filter form-control custom-select" name="select" id="filter_harga" onchange="filter('harga',$(this).val())">
-                                    <option value="">Select Price</option>
+                                    <option value="">Pilih Harga</option>
                                     <option value="0-100">Rp 0 - 100,000</option>
                                     <option value="100-500">Rp 100000 - 500,000</option>
                                     <option value="500-">Rp + 500,000</option>
@@ -113,7 +113,7 @@ $menu_group = $this->m_crud->get_data($table, "*", "$id='" . $param . "' $status
                 <hr>
                 <div class="row  d-none d-lg-block">
                     <div class="col-md-12">
-                        <button class="btn btn-primary btn-block" onclick="loadmoreProduct()">Loadmore</button>
+                        <button class="btn btn-primary btn-block" onclick="loadmoreProduct()">Lebih Banyak</button>
                     </div>
                 </div>
             </div><!--end col-->
@@ -122,7 +122,7 @@ $menu_group = $this->m_crud->get_data($table, "*", "$id='" . $param . "' $status
                     <div class="card-body p-0">
                         <!-- Categories -->
                         <div class="widget mt-4 pt-2">
-                            <h5 class="widget-title">Categories</h5>
+                            <h5 class="widget-title">Kategori</h5>
                             <ul class="list-unstyled mt-4 mb-0 blog-categories" id="filter_category">
                             </ul>
                         </div>

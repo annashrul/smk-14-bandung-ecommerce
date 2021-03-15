@@ -31,7 +31,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h5 class="mb-0">Best Seller</h5>
+                <h5 class="mb-0">Produk Terlaris</h5>
             </div><!--end col-->
         </div><!--end row-->
 
@@ -99,13 +99,7 @@
 <section class="section bg-light">
     <!-- Start Categories -->
     <div class="container-fluid ">
-        <div class="row justify-content-center">
-            <div class="col-12 text-center">
-                <div class="section-title mb-4 pb-2">
-                    <h4 class="title mb-4">Gallery Product</h4>
-                </div>
-            </div><!--end col-->
-        </div><!--end row-->
+
         <div class="grid-container">
             <?php $no=1; foreach ($model as $row):?>
                 <div class="item<?=$no++?>"  style="cursor: pointer!important;" onclick="return window.location.href='<?=base_url()."store/list_produk/model/".$row["id_model"]?>'">
@@ -129,7 +123,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h5 class="mb-0">Latest Products</h5>
+                <h5 class="mb-0">Produk Terbaru</h5>
             </div><!--end col-->
         </div><!--end row-->
 
@@ -210,7 +204,7 @@
         <div class="row justify-content-center">
             <div class="col-12 text-center">
                 <div class="section-title mb-4 pb-2">
-                    <h4 class="title mb-4">Event Blog & Latest News</h4>
+                    <h4 class="title mb-4">Berita</h4>
                 </div>
             </div><!--end col-->
         </div><!--end row-->
@@ -235,7 +229,7 @@
                                     <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="mdi mdi-clock"></i><?=time_elapsed_string($row["tgl_berita"])?></a></li>
                                 </ul>
                             </div>
-                            <a style="color: #2f55d4;font-weight: bold" href="<?=base_url().'store/article?detail='.$row['slug_berita']?>" class="readmore">Read More <i class="mdi mdi-chevron-right"></i></a>
+                            <a style="color: #2f55d4;font-weight: bold" href="<?=base_url().'store/article?detail='.$row['slug_berita']?>" class="readmore">Selengkapnya <i class="mdi mdi-chevron-right"></i></a>
 
                         </div>
                         <div class="author">
