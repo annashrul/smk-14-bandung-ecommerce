@@ -33,31 +33,15 @@
     <!-- Icons -->
     <link href="<?=base_url().'assets/frontend/'?>css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="<?=base_url().'assets/frontend/'?>unicons.iconscout.com/release/v3.0.3/css/line.css">
-    <!-- FLEXSLIDER -->
-    <link href="<?=base_url().'assets/frontend/'?>css/flexslider.css" rel="stylesheet" type="text/css" />
     <!-- Slider -->
-    <link rel="stylesheet" href="<?=base_url().'assets/frontend/'?>css/slick.css"/>
-    <link rel="stylesheet" href="<?=base_url().'assets/frontend/'?>css/slick-theme.css"/>
     <!-- Main Css -->
     <link href="<?=base_url().'assets/frontend/'?>css/style.min.css" rel="stylesheet" type="text/css" id="theme-opt" />
     <link href="<?=base_url().'assets/frontend/'?>css/colors/default.css" rel="stylesheet" id="color-opt">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="<?=base_url().'assets/frontend/'?>css/owl.carousel.min.css"/>
-    <link rel="stylesheet" href="<?=base_url().'assets/frontend/'?>css/owl.theme.default.min.css"/>
-
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <script src="<?=base_url().'assets/frontend/'?>js/jquery-3.5.1.min.js"></script>
-    <script src="<?=base_url().'assets/frontend/'?>js/owl.carousel.min.js"></script>
-    <script src="<?=base_url().'assets/frontend/'?>js/owl.init.js"></script>
-    <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>-->
-    <script type="text/javascript" src="<?=base_url().'assets/fo/'?>assets/js/jquery-validation/jquery.validate.min.js"></script>
-    <link rel="stylesheet" href="<?=base_url()?>assets/frontend/css/bootstrap-side-modals.css">
-
-    <script type="text/javascript" src="<?=base_url().'assets/fo/'?>assets/js/jQuery-autocomplete/jquery.autocomplete.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+<!--    <script type="text/javascript" src="--><?//=base_url().'assets/fo/'?><!--assets/js/jquery-validation/jquery.validate.min.js"></script>-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script type="text/javascript" src="<?=base_url()?>assets/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="<?=base_url()?>assets/plugins/jquery-validation/additional-methods.min.js"></script>
 
     <style>
         *{font-family: 'Stylish', sans-serif!important;}
@@ -194,16 +178,16 @@
                                 </div><!--end col-->
 
                                 <div class="col-md-12">
-                                    <button class="btn btn-primary btn-block">Register</button>
+                                    <button type="submit" class="btn btn-primary btn-block">Register</button>
                                 </div><!--end col-->
 
-
-
-                                <div class="mx-auto">
-                                    <p class="mb-0 mt-3"><small class="text-dark mr-2">Already have an account ?</small> <a href="<?=base_url().'store/auth?page=login'?>" class="text-dark font-weight-bold">Sign in</a></p>
-                                </div>
                             </div><!--end row-->
                         </form>
+                        <div class="row">
+                            <div class="mx-auto">
+                                <p class="mb-0 mt-3"><small class="text-dark mr-2">Already have an account ?</small> <a href="<?=base_url().'store/auth?page=login'?>" class="text-dark font-weight-bold">Sign in</a></p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div> <!--end col-->
@@ -237,7 +221,6 @@
     })
     var notif = 'cannot be empty!';
     $('#formRegister').validate({
-
         rules: {
             nama: {
                 required: true
