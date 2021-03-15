@@ -263,7 +263,7 @@
             <?php else:?>
                 <li class="nav-item" style="<?=$this->uri->segment(2)=='article'?'border:2px solid white':null?>">
                     <a href="<?=base_url().'store/article/all'?>" class="nav-link" style="<?=$this->uri->segment(2)=='article'?'color:white':null;?>">
-                        <i class="uil uil-shopping-cart align-middle icons" style="padding:0px!important;"></i><br/> Berita
+                        <i class="uil uil-newspaper align-middle icons" style="padding:0px!important;"></i><br/> Berita
                     </a>
 
                 </li>

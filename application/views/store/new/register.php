@@ -182,11 +182,7 @@
                                 </div><!--end col-->
 
                                 <div class="col-md-12">
-<<<<<<< HEAD
                                     <button type="submit" class="btn btn-primary btn-block">Register</button>
-=======
-                                    <button class="btn btn-primary btn-block" type="submit">Register</button>
->>>>>>> 3001cc5bf34540f1fbcdf333947c8a0b20885a31
                                 </div><!--end col-->
 
                             </div><!--end row-->

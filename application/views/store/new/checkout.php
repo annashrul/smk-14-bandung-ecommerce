@@ -50,7 +50,7 @@
                                     <h4 style="color: #2f55d4 !important">Data Alamat</h4>
                                     <div class="row">
                                         <div class="col-md-3 form-group">
-                                            <label for="">Gunakan Alamat Sebagai</label>
+                                            <label for="">Pilih Alamat Anda</label>
                                             <select class="form-control"  name="ch_alamat_jual" onchange="ubah_alamat()" id="ch_alamat_jual" required>
                                                 <option value="baru">Buat Alamat Baru</option>
                                                 <?php
@@ -95,7 +95,7 @@
                                                 <div class="col-md-12 form-group">
                                                     <?php $field = 'alamat'; ?>
                                                     <label for="<?=$field?>">Detail Alamat</label>
-                                                    <Textarea class="form-control" id="<?=$field?>" name="<?=$field?>" placeholder="Mauskan alamat selengkap mungkin untuk mempercepat proses pengiriman"></Textarea>
+                                                    <Textarea class="form-control" id="<?=$field?>" name="<?=$field?>" placeholder="Masukan alamat selengkap mungkin untuk mempercepat proses pengiriman"></Textarea>
                                                 </div>
                                             </div>
                                         </div>
