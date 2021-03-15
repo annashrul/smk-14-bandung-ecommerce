@@ -48,10 +48,6 @@
     <link href="https://unpkg.com/swiper/swiper-bundle.min.css" rel="stylesheet">
     <link href="<?=base_url()?>assets/frontend/css/bootstrap-side-modals.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
-<<<<<<< HEAD
-=======
-<!--    <link href="--><?//=base_url()?><!--assets/fo/popup-img/lightgallery.css" rel="stylesheet">-->
->>>>>>> 3001cc5bf34540f1fbcdf333947c8a0b20885a31
 
     <script src="<?=base_url().'assets/frontend/'?>js/jquery-3.5.1.min.js"></script>
     <script src="<?=base_url().'assets/frontend/'?>js/owl.carousel.min.js"></script>
@@ -61,10 +57,6 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="https://cdn.jsdelivr.net/picturefill/2.3.1/picturefill.min.js"></script>
-<<<<<<< HEAD
-
-=======
->>>>>>> 3001cc5bf34540f1fbcdf333947c8a0b20885a31
     <style>
         *{font-family: 'Stylish', sans-serif!important;}
         html{font-family: 'Stylish', sans-serif!important;}
