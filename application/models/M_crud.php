@@ -206,8 +206,6 @@ class M_crud extends CI_Model {
 		return $data;
 	}
 
-
-
 	public function count_read_data($table, $field, $where=null, $order=null, $group=null, $having=null){
 		$this->db->select($field);
 		$this->db->from($table);

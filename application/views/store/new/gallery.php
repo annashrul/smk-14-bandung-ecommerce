@@ -58,7 +58,6 @@
 <section class="section bg-light">
     <!-- Start Categories -->
     <div class="container-fluid ">
-
         <div class="grid-container">
             <?php $no=1; foreach ($model as $row):?>
                 <div class="item<?=$no++?>"  style="cursor: pointer!important;" onclick="return window.location.href='<?=base_url()."store/list_produk/model/".$row["id_model"]?>'">

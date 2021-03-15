@@ -51,10 +51,9 @@
     <script src="<?=base_url().'assets/frontend/'?>js/owl.carousel.min.js"></script>
     <script src="<?=base_url().'assets/frontend/'?>js/owl.init.js"></script>
     <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>-->
-    <script type="text/javascript" src="<?=base_url().'assets/fo/'?>assets/js/jquery-validation/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="<?=base_url().'assets/plugins/'?>jquery-validation/jquery.validate.min.js"></script>
     <link rel="stylesheet" href="<?=base_url()?>assets/frontend/css/bootstrap-side-modals.css">
 
-    <script type="text/javascript" src="<?=base_url().'assets/fo/'?>assets/js/jQuery-autocomplete/jquery.autocomplete.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
@@ -194,7 +193,7 @@
                                 </div><!--end col-->
 
                                 <div class="col-md-12">
-                                    <button class="btn btn-primary btn-block">Register</button>
+                                    <button class="btn btn-primary btn-block" type="submit">Register</button>
                                 </div><!--end col-->
 
 
@@ -313,6 +312,7 @@
                 beforeSend: function() {$('body').append('<div class="first-loader"><img src="<?=base_url()?>assets/images/spin.svg"></div>');},
                 complete: function() {$('.first-loader').remove();},
                 success: function (res) {
+                    console.log(res);
                     if (res.status) {
                         window.location.href="<?=base_url()?>";
                     }else{

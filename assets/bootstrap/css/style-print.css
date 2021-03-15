@@ -104,7 +104,7 @@ p{
 .fragile{
 	border-left: 2px solid #000;
 	padding: 0;
-	display: none;
+	/*display: none;*/
 }
 .fragile h2{
 	text-align: center;
