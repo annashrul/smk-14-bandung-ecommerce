@@ -339,7 +339,7 @@
                     Swal.fire({
                         title: 'Alert!',
                         text: res.pesan,
-                        type: 'error'
+                        icon: 'error'
                     })
                 }
 
@@ -455,7 +455,7 @@
                         Swal.fire({
                             title: 'Ooppps',
                             text: 'problem server',
-                            type: 'warning'
+                            icon: 'warning'
                         })
                     }
 
@@ -564,7 +564,7 @@
                 Swal.fire({
                     title: 'Information !!!',
                     text: 'Item not available ',
-                    type: 'warning',
+                    icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
@@ -604,7 +604,7 @@
                                     Swal.fire({
                                         title: 'Checkout berhasil!',
                                         html: 'Segera transfer ke rekening :<br><b style="font-weight: bold">Bank '+res.bank+'</b><br> <b style="font-weight: bold">Nomor Rekening : '+res.norek+'</b><br> <b style="font-weight: bold">Atas Nama : '+res.atasnama+'</b><br> <b style="font-weight: bold">Sejumlah : '+to_rp(res.total)+'</b>',
-                                        type: 'success'
+                                        icon: 'success'
                                     }).then(function (result) {
                                         window.location = '<?=base_url().'store/profile'?>';
                                     })

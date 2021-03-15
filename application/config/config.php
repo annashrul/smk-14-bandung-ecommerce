@@ -24,9 +24,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 //$config['base_url'] = 'http://localhost/ecommerce/';
-$config['url'] = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "https" : "http").'://'.$_SERVER['HTTP_HOST'].'/';
-$config['site'] = 'web-ecommerce/';
-$config['base_url'] = $config['url'].$config['site'];
+//$config['url'] = ((isset($_SERVER['HTTP']) && $_SERVER['HTTP'] == "on") ? "http" : "http").'://'.$_SERVER['HTTP_HOST'].'/';
+//$config['site'] = '/';
+//$config['base_url'] = $config['url'].$config['site'];
+$config['base_url'] = 'https://technopark.smkn14bdg.sch.id/';
+
+
 /*
 |--------------------------------------------------------------------------
 | Index File

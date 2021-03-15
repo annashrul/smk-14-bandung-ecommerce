@@ -31,20 +31,10 @@
     <!-- Icons -->
     <link href="<?=base_url().'assets/frontend/'?>css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="<?=base_url().'assets/frontend/'?>unicons.iconscout.com/release/v3.0.3/css/line.css">
-    <!-- FLEXSLIDER -->
-    <link href="<?=base_url().'assets/frontend/'?>css/flexslider.css" rel="stylesheet" type="text/css" />
     <!-- Slider -->
-    <link rel="stylesheet" href="<?=base_url().'assets/frontend/'?>css/slick.css"/>
-    <link rel="stylesheet" href="<?=base_url().'assets/frontend/'?>css/slick-theme.css"/>
     <!-- Main Css -->
     <link href="<?=base_url().'assets/frontend/'?>css/style.min.css" rel="stylesheet" type="text/css" id="theme-opt" />
     <link href="<?=base_url().'assets/frontend/'?>css/colors/default.css" rel="stylesheet" id="color-opt">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="<?=base_url().'assets/frontend/'?>css/owl.carousel.min.css"/>
-    <link rel="stylesheet" href="<?=base_url().'assets/frontend/'?>css/owl.theme.default.min.css"/>
-
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <script src="<?=base_url().'assets/frontend/'?>js/jquery-3.5.1.min.js"></script>
     <script src="<?=base_url().'assets/frontend/'?>js/owl.carousel.min.js"></script>
     <script src="<?=base_url().'assets/frontend/'?>js/owl.init.js"></script>
@@ -55,7 +45,10 @@
     <script type="text/javascript" src="<?=base_url().'assets/fo/'?>assets/js/jQuery-autocomplete/jquery.autocomplete.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <script src="<?=base_url().'assets/plugins/'?>jquery-validation/jquery.validate.min.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<!--    <script type="text/javascript" src="https://technopark.smkn14bdg.sch.id/assets/plugins/jquery-validation/jquery.validate.min.js"></script>-->
+<!--    <script type="text/javascript" src="https://technopark.smkn14bdg.sch.id/assets/plugins/jquery-validation/additional-methods.min.js"></script>-->
 
     <style>
         *{font-family: 'Stylish', sans-serif!important;}
@@ -156,12 +149,6 @@
 <script src="<?=base_url().'assets/frontend/'?>js/jquery.easing.min.js"></script>
 <script src="<?=base_url().'assets/frontend/'?>js/scrollspy.min.js"></script>
 <!--FLEX SLIDER-->
-<script src="<?=base_url().'assets/frontend/'?>js/jquery.flexslider-min.js"></script>
-<script src="<?=base_url().'assets/frontend/'?>js/flexslider.init.js"></script>
-<!-- Slider -->
-<script src="<?=base_url().'assets/frontend/'?>js/slick.min.js"></script>
-<script src="<?=base_url().'assets/frontend/'?>js/slick.init.js"></script>
-<!-- Icons -->
 <script src="<?=base_url().'assets/frontend/'?>js/feather.min.js"></script>
 <script src="<?=base_url().'assets/frontend/'?>unicons.iconscout.com/release/v3.0.3/script/monochrome/bundle.js"></script>
 <!-- Switcher -->

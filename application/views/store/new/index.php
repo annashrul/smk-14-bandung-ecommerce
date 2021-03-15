@@ -48,7 +48,6 @@
     <link href="https://unpkg.com/swiper/swiper-bundle.min.css" rel="stylesheet">
     <link href="<?=base_url()?>assets/frontend/css/bootstrap-side-modals.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
-<!--    <link href="--><?//=base_url()?><!--assets/fo/popup-img/lightgallery.css" rel="stylesheet">-->
 
     <script src="<?=base_url().'assets/frontend/'?>js/jquery-3.5.1.min.js"></script>
     <script src="<?=base_url().'assets/frontend/'?>js/owl.carousel.min.js"></script>
@@ -236,7 +235,6 @@
                 <li class="<?=$this->uri->segment(2)=="promo"?'active':null?>"><a style="text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white ;<?=$this->uri->segment(2)=="promo"?'color: #2f55d4!important;':'color:#000!important;'?>" href="<?=base_url().'store/promo'?>">Promo</a></li>
                 <li class="<?=$_GET['page']=='contact'?'active':null?>"><a style="text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white ;<?=$_GET['page']=='contact'?'color: #2f55d4!important;':'color:#000!important;'?>" href="<?=base_url().'store?page=contact'?>">Kontak Kami</a></li>
                 <li class="<?=$this->uri->segment(2)=='article'?'active':null?>"><a style="text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white ;<?=$this->uri->segment(2)=='article'?'color: #2f55d4!important;':'color:#000!important;'?>" href="<?=base_url().'store/article/all'?>">Berita</a></li>
-
             </ul><!--end navigation menu-->
         </div><!--end navigation-->
     </div><!--end container-->
@@ -363,12 +361,12 @@
                 <h5 class="text-light footer-head"><?= $this->data['site']->nama ?></h5>
                 <ul class="list-unstyled footer-list mt-4">
 
-                    <li><a href="<?=base_url().'store?page=about'?>" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> About us</a></li>
-                    <li><a href="<?=base_url().'store?page=privacy_policy'?>" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Privacy & Policy</a></li>
-                    <li><a href="<?=base_url().'store?page=resolution'?>" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Resolution Center</a></li>
-                    <li><a href="<?=base_url().'store?page=career'?>" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Career</a></li>
-                    <li><a href="<?=base_url().'store?page=tutorial'?>" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Tutorial</a></li>
-                    <li><a href="<?=base_url().'store?page=gallery'?>" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Gallery</a></li>
+                    <li><a href="<?=base_url().'store/other?page=about'?>" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> About us</a></li>
+                    <li><a href="<?=base_url().'store/other?page=privacy_policy'?>" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Privacy & Policy</a></li>
+                    <li><a href="<?=base_url().'store/other?page=resolution'?>" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Resolution Center</a></li>
+                    <li><a href="<?=base_url().'store/other?page=career'?>" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Career</a></li>
+                    <li><a href="<?=base_url().'store/other?page=tutorial'?>" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Tutorial</a></li>
+                    <li><a href="<?=base_url().'store/other?page=gallery'?>" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Gallery</a></li>
                     <li><a href="<?=base_url().'store/article/all'?>" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i> Article</a></li>
                 </ul>
             </div><!--end col-->

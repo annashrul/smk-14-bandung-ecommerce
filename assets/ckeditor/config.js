@@ -5,12 +5,12 @@
 
 CKEDITOR.editorConfig = function( config ) {
 
-	config.filebrowserBrowseUrl = 'http://localhost/web-ecommerce/assets/kcfinder/browse.php?type=files';
-	config.filebrowserImageBrowseUrl = 'http://localhost/web-ecommerce/assets/kcfinder/browse.php?type=images';
-	config.filebrowserFlashBrowseUrl = 'http://localhost/web-ecommerce/assets/kcfinder/browse.php?type=flash';
-	config.filebrowserUploadUrl = 'http://localhost/web-ecommerce/assets/kcfinder/upload.php?type=files';
-	config.filebrowserImageUploadUrl = 'http://localhost/web-ecommerce/assets/kcfinder/upload.php?type=images';
-	config.filebrowserFlashUploadUrl = 'http://localhost/web-ecommerce/assets/kcfinder/upload.php?type=flash';
+	config.filebrowserBrowseUrl 		= 'https://technopark.smkn14bdg.sch.id/assets/kcfinder/browse.php?type=files';
+	config.filebrowserImageBrowseUrl 	= 'https://technopark.smkn14bdg.sch.id/assets/kcfinder/browse.php?type=images';
+	config.filebrowserFlashBrowseUrl 	= 'https://technopark.smkn14bdg.sch.id/assets/kcfinder/browse.php?type=flash';
+	config.filebrowserUploadUrl 		= 'https://technopark.smkn14bdg.sch.id/assets/kcfinder/upload.php?type=files';
+	config.filebrowserImageUploadUrl 	= 'https://technopark.smkn14bdg.sch.id/assets/kcfinder/upload.php?type=images';
+	config.filebrowserFlashUploadUrl 	= 'https://technopark.smkn14bdg.sch.id/assets/kcfinder/upload.php?type=flash';
 
 	// Define changes to default configuration here.
 	// For complete reference see:
